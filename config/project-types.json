@@ -1,0 +1,8 @@
+{
+    "projectTypes": [
+        "portfolio",
+        "saas",
+        "api",
+        "fullstack-app"
+    ]
+}
