@@ -1,33 +1,20 @@
 # AI Engineering Workspace Kit
 
-A robust, reusable bootstrap repository designed to initialize new projects with AI engineering rules, preferred skills, necessary workflows, and essential configurations. This setup acts as a Developer Workspace Kit for AI-assisted environments like Antigravity.
+🇬🇧 [English](README.md) | 🇪🇸 [Español](README.es.md)
+
+A robust, reusable bootstrap repository designed to initialize new projects with AI engineering rules, preferred skills, necessary workflows, and essential configurations. This setup acts as a Developer Workspace Kit for AI-assisted environments like Antigravity, Windsurf, and similar systems.
 
 ## Purpose
-The primary goal is to provide a single, consistent starting point for any new project, bridging the gap between typical project files and AI instructions (`ai_rules`, `skills`, `workflows`).
+The primary goal is to provide a single, consistent starting point for any new project, bridging the gap between typical project files and AI instructions. All internal rules are structured in a concise, token-efficient Markdown format.
 
-## Initialization
-Simply clone this repository and run the bootstrap script within the target project's root folder to get started.
+## Documentation
+For ease of use, the documentation has been strictly separated into modular guides:
 
-```bash
-git clone <repo> ai-engineering-workspace-kit
-cd project
-bash ../ai-engineering-workspace-kit/scripts/bootstrap-workspace.sh
-```
-
-A new `.devkit` folder will be generated containing all the necessary AI configurations and operational rules for the repository.
-
-## Modules
-
-- **ai_rules**: Base rules for the AI agents operating in the workspace.
-- **skills**: Specialized contexts and frameworks (e.g. Frontend, Backend, AI Agent).
-- **workflows**: Standard operating procedures for completing features, refactoring, fixing bugs, and cutting releases.
-- **templates**: Scaffolding for `portfolio`, `saas`, `api`, and `fullstack-app` archetypes.
-- **scripts**: Utilities to bootstrap, install individual components, or synchronize existing projects with the base repo.
-- **config**: Manifest files governing what rules can be overwritten or excluded across updates.
-
-## Development and Extension
-All internal rules are structured in a concise, token-efficient Markdown format and written in **English**. Add new rules or skills using the standard template found across existing `.md` files.
+- [1. Getting Started](docs/en/01_getting_started.md) — Installation, bootstrapping, and automation scripts.
+- [2. Architecture Overview](docs/en/02_architecture.md) — Explanation of core modules, rules, and configurations.
+- [3. Skills Management](docs/en/03_skills_management.md) — How to author, register, and validate low-token skills.
+- [4. Release Process](docs/en/release-process.md) — CI/CD and production release guidelines.
 
 ---
 
-> **Note**: This repository is prepared for local development initialization first and is structured with modularity, clear separation of concerns, and minimal redundancy.
+> **Note**: This repository is prepared for local development initialization first and is structured with modularity, clear separation of concerns, and minimal redundancy. Keep all internal `.md` instructions in **English** as per repository guidelines.

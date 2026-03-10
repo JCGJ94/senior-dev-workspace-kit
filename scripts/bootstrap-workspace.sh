@@ -27,6 +27,9 @@ cp -R -n "$KIT_DIR/skills" "$DEVKIT_DIR/" 2>/dev/null || true
 echo "📂 Copying Workflows..."
 cp -R -n "$KIT_DIR/workflows" "$DEVKIT_DIR/" 2>/dev/null || true
 
+echo "📂 Copying Skills Registry..."
+cp -R -n "$KIT_DIR/skills_registry" "$DEVKIT_DIR/" 2>/dev/null || true
+
 # Generate default manifest
 MANIFEST="$DEVKIT_DIR/workspace.manifest.json"
 if [ ! -f "$MANIFEST" ]; then
@@ -37,11 +40,12 @@ if [ ! -f "$MANIFEST" ]; then
   "installedModules": [
     "ai_rules",
     "skills",
-    "workflows"
+    "workflows",
+    "skills_registry"
   ],
   "customizableFiles": [
-    "ai_rules/project_rules.md",
-    "ai_rules/memory_rules.md"
+    "ai_rules/05_project_rules.md",
+    "ai_rules/06_memory_rules.md"
   ]
 }
 EOF

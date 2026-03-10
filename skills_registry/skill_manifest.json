@@ -1,0 +1,88 @@
+{
+    "skills": {
+        "ai-agent": {
+            "path": "skills/ai-agent/SKILL.md",
+            "description": "Skills for orchestrating self-prompting and LLM tools."
+        },
+        "backend": {
+            "path": "skills/backend/SKILL.md",
+            "description": "Server-side logic, routing, and schema definition."
+        },
+        "code-review-pro": {
+            "path": "skills/code-review-pro/SKILL.md",
+            "description": "Perform deep architectural audits and code red-teaming to eliminate technical debt and security risks."
+        },
+        "commit-sentinel": {
+            "path": "skills/commit-sentinel/SKILL.md",
+            "description": "Act as the gateway for Git history health by auditing every commit for atomicity, type-safety, and conventional compliance."
+        },
+        "context-distiller": {
+            "path": "skills/context-distiller/SKILL.md",
+            "description": "Automate context packing and optimize agent memory to reduce token bloat and improve reasoning."
+        },
+        "context-optimization": {
+            "path": "skills/context-optimization/SKILL.md",
+            "description": "Enforce lean information exchange and maximize the signal-to-noise ratio in AI operations."
+        },
+        "debugging": {
+            "path": "skills/debugging/SKILL.md",
+            "description": "Methodical root-cause analysis and bug fixing."
+        },
+        "dispatching-parallel-agents": {
+            "path": "skills/dispatching-parallel-agents/SKILL.md",
+            "description": "Scale execution by delegating independent sub-tasks to specialized sub-agents."
+        },
+        "docs-pro": {
+            "path": "skills/docs-pro/SKILL.md",
+            "description": "Maintain Documentation as Code by tracking technical debt and synchronizing docs with logic."
+        },
+        "executing-plans": {
+            "path": "skills/executing-plans/SKILL.md",
+            "description": "Follow a previously established plan with strict adherence, avoiding distractions and scope creep."
+        },
+        "finishing-a-development-branch": {
+            "path": "skills/finishing-a-development-branch/SKILL.md",
+            "description": "Safely finalize, clean up, and merge a completed body of work into the main integration branch."
+        },
+        "frontend": {
+            "path": "skills/frontend/SKILL.md",
+            "description": "UI, components, and client-side logic."
+        },
+        "fullstack": {
+            "path": "skills/fullstack/SKILL.md",
+            "description": "Bridging frontend and backend technologies seamlessly."
+        },
+        "python-ecosystem": {
+            "path": "skills/python-ecosystem/SKILL.md",
+            "description": "Environment detection, virtual environments, and validation for Python projects."
+        },
+        "skill-creator": {
+            "path": "skills/skill-creator/SKILL.md",
+            "description": "Empower the agent to design, draft, and implement new technical and operational skills."
+        },
+        "systematic-debugging": {
+            "path": "skills/systematic-debugging/SKILL.md",
+            "description": "Enforce a methodical workflow to identify and resolve bugs systematically."
+        },
+        "test-driven-development": {
+            "path": "skills/test-driven-development/SKILL.md",
+            "description": "Ensure logic changes are driven and verified by automated tests."
+        },
+        "typescript-ecosystem": {
+            "path": "skills/typescript-ecosystem/SKILL.md",
+            "description": "Environment detection, package managers, and validation for TypeScript and JavaScript projects."
+        },
+        "using-git-worktrees": {
+            "path": "skills/using-git-worktrees/SKILL.md",
+            "description": "Manage multiple active branches safely without destructive context-switching or stashing."
+        },
+        "verification-before-completion": {
+            "path": "skills/verification-before-completion/SKILL.md",
+            "description": "Ensure that no code change is considered finished until explicitly verified through type-checks, linters, and tests."
+        },
+        "writing-plans": {
+            "path": "skills/writing-plans/SKILL.md",
+            "description": "Establish a structured, step-by-step Execution Plan before writing any complex code."
+        }
+    }
+}

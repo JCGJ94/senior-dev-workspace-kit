@@ -1,0 +1,32 @@
+{
+    "profiles": {
+        "default": [
+            "Tier 1"
+        ],
+        "quality": [
+            "Tier 1",
+            "Tier 2"
+        ],
+        "multi-agent": [
+            "Tier 1",
+            "Tier 2",
+            "Tier 3"
+        ],
+        "release": [
+            "Tier 1",
+            "Tier 2",
+            "Tier 4"
+        ],
+        "architect": [
+            "Tier 1",
+            "Tier 2",
+            "Tier Meta"
+        ]
+    },
+    "aliases": {
+        "tier1": "default",
+        "tier2": "quality",
+        "tier3": "multi-agent",
+        "tier4": "release"
+    }
+}
