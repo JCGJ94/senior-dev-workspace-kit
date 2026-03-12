@@ -1,94 +1,87 @@
-# AI Engineering Workspace Kit
-
-🇬🇧 [English](README.md) | 🇪🇸 [Español](README.es.md)
-
-A **professional AI-assisted development environment kit** designed to standardize how AI agents interact with your codebase.
-
-This project provisions a lightweight, modular runtime into any repository, enforcing high-performance engineering standards, context optimization, and cross-stack compatibility.
-
----
-
-## 🚀 Quick Start (v2)
-
-Turn any repository into an AI-ready workspace in seconds using the **Unified CLI**.
-
-### Fast Installation
-From the root of your target project, use the `init` command to provision `.agent/` and autodetect your stack:
-
-```bash
-bash path/to/kit/scripts/agent init
+```text
+       ___  ____
+      / _ \/  _/
+     / __ _/ /  
+    /_/ |_/___/ 
+                
+   A G E N T   K I T
 ```
 
-### 🩺 Health Check & Context7 (Anti-Hallucination)
-Verify that Context7 capabilities and the health of your MCP ecosystem are strictly enabled to avoid "vibe-coding":
+**English** | [Español](README.es.md)
+
+The **AI Engineering Workspace Kit** is a purpose-built runtime designed to contextualize, constrain limit, and empower AI agents (such as Claude, Cursor, Copilot, or Gemini) executing within a standard repository.
+
+It provisions a lightweight, strictly-typed `.agent/` orchestrator that establishes base operational ground truths for your codebase.
+
+---
+
+## The Problem
+
+Foundational models lack persistent context regarding a project's architectural standards and its current tech stack. This leads to "vibe-coding": generating code that superficially works but violates the underlying codebase design principles.
+
+## The Solution
+
+The Kit injects a predictable architecture into the project. It acts as the bridge between LLM reasoning and the source code.
+
+1. **Determinism:** Autodetects the working environment (e.g., Node, Bun, Python) and adapts execution tokens accordingly.
+2. **Skill System:** Provides a standardized suite of capabilities for analysis, refactoring, and quality-of-code operations.
+3. **Strict Workflows:** Forces the agent to follow empirical Standard Operating Procedures (SOPs) for features, bugfixes, and releases.
+
+---
+
+## Installation
+
+The kit is designed to be agnostic and auto-configuring. It supports both pre-existing repositories and blank, newly initialized projects.
+
+### Existing Projects
+
+Navigate to your project's root and initialize the runtime:
+
 ```bash
-bash path/to/kit/scripts/agent doctor
+# Form the directory of your existing codebase
+bash path/to/ai-engineering-workspace-kit/scripts/agent init
 ```
 
-### 🔄 Safe Update
-If the base kit is updated, synchronize your project without losing customizations:
+### New Projects
+
+Initialize your environment first, then the agent provisioner:
+
 ```bash
-bash path/to/kit/scripts/agent sync
-```
-
----
-
-## 🛠️ System Principles
-
-### 1. Environment Adaptation
-The kit **never imposes tools**. It detects your stack (Node, Python, Bun, Hybrid) and resolves operation tokens like `[OP_TEST]` or `[OP_INSTALL]` dynamically via `.agent/state/env_state.json`.
-
-### 2. Modular Context
-Information is segmented into specialized layers to minimize token consumption and maximize agent reasoning depth:
-- `core/`: Fundamental behavioral rules.
-- `registry/`: Skill manifests and activation policies.
-- `skills/`: Reusable technical capabilities.
-- `workflows/`: Standard Operating Procedures (SOPs).
-
-### 3. Skill-Based Architecture
-Skills are atomic units of knowledge. They define **WHAT** the agent can do. The **Registry** defines **WHEN** and **HOW** they are activated based on task intent.
-
----
-
-## 📂 Repository Structure (Source)
-
-- **`core/`**: Source for fundamental AI behavior rules.
-- **`registry/`**: Source for skill manifests, tiers, and activation logic.
-- **`skills/`**: The library of modular technical capabilities.
-- **`workflows/`**: Agnostic Procedures (feature, bugfix, refactor, release).
-- **`scripts/`**: Automation tools (provisioning, sync, validation).
-- **`docs/`**: Detailed technical documentation.
-
----
-
-## 🏗️ The .agent Runtime (Output)
-
-When you run `provision.sh`, the kit injects a `.agent/` directory into your project. This is the **operational brain** of the AI:
-- `.agent/core/`: Injected rules.
-- `.agent/registry/`: Local skill index.
-- `.agent/skills/`: Active skill set.
-- `.agent/workflows/`: Executable procedures.
-- `.agent/state/`: Dynamic environment state (detected tools).
-
----
-
-## 🎯 Tiers System
-
-Skills are organized by impact and cost:
-- **Tier 1 — Core**: Always active. Guards atomicity, safety, and correctness.
-- **Tier 2 — Code Quality**: Implementation skills (debugging, TDD, refactor).
-- **Tier 3 — Orchestration**: Planning and multi-agent delegation.
-- **Tier 4 — Delivery**: Git history, branch finalization, and release.
-
----
-
-## 🧪 Validation
-Maintain kit integrity by validating skill structure and registry consistency:
-```bash
-bash scripts/validate-skills.sh
+mkdir my-new-project && cd my-new-project
+git init # Or initialize your framework of choice (e.g., npm init, bun init, python -m venv)
+bash path/to/ai-engineering-workspace-kit/scripts/agent init
 ```
 
 ---
 
-## Versioning & Contribution
-This project follows [Semantic Versioning](https://semver.org/). Contributions must focus on **low token consumption**, **imperative style**, and **deterministic behavior**.
+## Runtime Architecture
+
+Once initialized, the repository root will contain a hidden `.agent/` directory. This acts as the operational brain.
+
+- `core/`: Foundational behavior rules.
+- `registry/`: Local manifests and routing rules for operative skills.
+- `skills/`: A library of atomic technical capabilities executable by the LLM.
+- `workflows/`: Step-by-step Standard Operating Procedures for complex tasks.
+- `state/`: Analyzed environment topology and dynamic configuration.
+
+---
+
+## Auditing and Orchestration
+
+The kit incorporates hallucination-detection capabilities ("Doctor") by forcing the agent to ground its code via actual context from repositories like Context7 (if available) and MCP (Model Context Protocol) ecosystems.
+
+To audit connectivity availability and runtime health:
+
+```bash
+bash path/to/ai-engineering-workspace-kit/scripts/agent doctor
+```
+
+To force a synchronization of the base state and skills when the upstream has been updated:
+
+```bash
+bash path/to/ai-engineering-workspace-kit/scripts/agent sync
+```
+
+---
+
+*Built for precision AI-driven engineering.*
