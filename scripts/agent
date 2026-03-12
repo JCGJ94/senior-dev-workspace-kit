@@ -17,16 +17,24 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 show_help() {
-    echo -e "${BLUE}🤖 Agent Engineering CLI (v2.1)${NC}"
-    echo -e "One command to manage your AI runtime ecosystem.\n"
+    echo -e "${BLUE}"
+    echo "       ___  ____"
+    echo "      / _ \/  _/"
+    echo "     / __ _/ /  "
+    echo "    /_/ |_/___/ "
+    echo "                "
+    echo "   A G E N T   K I T"
+    echo -e "${NC}"
+    echo -e "${BLUE}🤖 Unified AI Engineering CLI (v2.1)${NC}"
+    echo -e "The bridge between LLM reasoning and professional source code.\n"
     echo -e "Usage: ${GREEN}bash scripts/agent <command>${NC}\n"
     echo "Commands:"
-    echo "  init        Provision the workspace format (.agent/)"
-    echo "  sync        Synchronize the .agent/ directory with the kit source"
-    echo "  registry    Generate the lightweight skills.json index"
-    echo "  validate    Check skill manifests for structure and errors"
-    echo "  doctor      Run health checks on MCP tools (Context7) and environment"
-    echo "  help        Show this help message"
+    echo "  init        Provision the strictly-typed .agent/ runtime"
+    echo "  sync        Synchronize local .agent/ with the kit's upstream"
+    echo "  registry    Force-rebuild the lightweight skills.json index"
+    echo "  validate    Audit skill manifests for structural integrity"
+    echo "  doctor      Review health of documentation ground truths (Context7/MCP)"
+    echo "  help        Display this technical guide"
 }
 
 check_context7() {

@@ -16,7 +16,17 @@ BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-echo -e "${BLUE}🚀 Hardening AI Workspace Kit v${VERSION}...${NC}"
+echo -e "${BLUE}"
+echo "       ___  ____"
+echo "      / _ \/  _/"
+echo "     / __ _/ /  "
+echo "    /_/ |_/___/ "
+echo "                "
+echo "   A G E N T   K I T"
+echo -e "${NC}"
+
+echo -e "${BLUE}🚀 Initializing AI Engineering Runtime v${VERSION}...${NC}"
+echo -e "${BLUE}--------------------------------------------------${NC}"
 
 # 1. Detect Environment and Build Command Map
 detect_and_map() {
@@ -136,7 +146,13 @@ inject_core
 provision_registry
 
 
-echo -e "${GREEN}✅ Hardening complete. Commands resolved for: ${STACKS[*]}${NC}"
-echo -e "${YELLOW}👉 Run './scripts/agent doctor' to verify Context7 availability.${NC}"
+echo -e "\n${GREEN}✅ Runtime initialization complete.${NC}"
+echo -e "${BLUE}--------------------------------------------------${NC}"
+echo -e "📂 Structure: Created .agent/ hierarchy"
+echo -e "🧠 Content:   Injected Core Rules & Tier 1 Skills"
+echo -e "🎯 Context:   $PROJECT_TYPE project detected"
+echo -e "🛠️  Stacks:    ${STACKS[*]:-None (Greenfield)}"
+echo -e "${BLUE}--------------------------------------------------${NC}"
+echo -e "${YELLOW}👉 Next step: Run 'bash scripts/agent doctor' to verify documentation ground truths.${NC}\n"
 
 
