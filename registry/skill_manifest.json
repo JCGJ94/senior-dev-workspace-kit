@@ -60,6 +60,10 @@
             "path": "skills/skill-creator/SKILL.md",
             "description": "Empower the agent to design, draft, and implement new technical and operational skills."
         },
+        "skill-manager": {
+            "path": "skills/skill-manager/SKILL.md",
+            "description": "Act as a JIT (Just-In-Time) Package Manager for AI capabilities."
+        },
         "systematic-debugging": {
             "path": "skills/systematic-debugging/SKILL.md",
             "description": "Enforce a methodical workflow to identify and resolve bugs systematically."

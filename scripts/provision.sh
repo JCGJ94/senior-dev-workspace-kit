@@ -142,7 +142,7 @@ interactive_skills() {
                 if [[ " ${STACKS[*]} " =~ " python " ]]; then
                     SKILLS_TO_LOAD+=("python-ecosystem" "python-performance-optimization")
                 fi
-                SKILLS_TO_LOAD+=("systematic-debugging" "code-review-pro" "ai-agent" "skill-creator")
+                SKILLS_TO_LOAD+=("systematic-debugging" "code-review-pro" "ai-agent" "skill-creator" "skill-manager")
             elif [ "$CHOICE" == "3" ]; then
                 # Load everything (all dirs in KIT_ROOT/skills)
                 for d in "${KIT_ROOT}/skills/"*/; do
