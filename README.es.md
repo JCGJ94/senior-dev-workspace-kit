@@ -10,23 +10,25 @@ Este proyecto provisiona un runtime ligero y modular en cualquier repositorio, a
 
 ## 🚀 Inicio Rápido (v2)
 
-Convierte cualquier repositorio en un espacio de trabajo listo para la IA en segundos.
+Convierte cualquier repositorio en un espacio de trabajo listo para la IA en segundos usando la **CLI Unificada**.
 
-### Instalación en 1 paso
-Desde la raíz de tu proyecto destino:
+### Instalación Rápida
+Desde la raíz de tu proyecto destino, utiliza el comando `init` para crear `.agent/` y autodetectar tu stack:
 
 ```bash
-# 1. Provisión (Crea .agent/ y detecta tu stack)
-bash ruta/al/kit/scripts/provision.sh
+bash ruta/al/kit/scripts/agent init
+```
 
-# 2. Registro (Indexa las skills disponibles)
-bash ruta/al/kit/scripts/generate-registry.sh
+### 🩺 Health Check & Context7 (Anti-Alucinación)
+Verifica que las capacidades de Context7 y la salud del ecosistema MCP estén habilitadas para evitar el "vibe-coding":
+```bash
+bash ruta/al/kit/scripts/agent doctor
 ```
 
 ### 🔄 Actualización Segura
 Si el kit base se actualiza, sincroniza tu proyecto sin perder tus personalizaciones:
 ```bash
-bash ruta/al/kit/scripts/sync-workspace-v2.sh
+bash ruta/al/kit/scripts/agent sync
 ```
 
 ---

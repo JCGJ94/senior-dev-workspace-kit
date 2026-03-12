@@ -10,23 +10,25 @@ This project provisions a lightweight, modular runtime into any repository, enfo
 
 ## 🚀 Quick Start (v2)
 
-Turn any repository into an AI-ready workspace in seconds.
+Turn any repository into an AI-ready workspace in seconds using the **Unified CLI**.
 
-### 1-Step Installation
-From the root of your target project:
+### Fast Installation
+From the root of your target project, use the `init` command to provision `.agent/` and autodetect your stack:
 
 ```bash
-# 1. Provision (Creates .agent/ and detects your stack)
-bash path/to/kit/scripts/provision.sh
+bash path/to/kit/scripts/agent init
+```
 
-# 2. Registration (Indexes available skills)
-bash path/to/kit/scripts/generate-registry.sh
+### 🩺 Health Check & Context7 (Anti-Hallucination)
+Verify that Context7 capabilities and the health of your MCP ecosystem are strictly enabled to avoid "vibe-coding":
+```bash
+bash path/to/kit/scripts/agent doctor
 ```
 
 ### 🔄 Safe Update
 If the base kit is updated, synchronize your project without losing customizations:
 ```bash
-bash path/to/kit/scripts/sync-workspace-v2.sh
+bash path/to/kit/scripts/agent sync
 ```
 
 ---

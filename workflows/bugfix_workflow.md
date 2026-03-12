@@ -15,7 +15,8 @@ Resolve software defects using reproducible tests and minimal fixes.
 ## 🟡 Phase 2: Diagnosis (Discovery)
 1. **Stack Analysis**: Consult `.agent/state/env_state.json` to rule out environment or configuration issues.
 2. **Root Cause**: Identify why the reproduction test fails. Do not apply patches to symptoms.
-3. **Plan Fix**: Execute `writing-plans` for a surgical patch.
+3. **Plan Fix (SDD Pinning)**: Execute `writing-plans` for a surgical patch.
+   - **MANDATORY**: Create or update `.agent/state/current_spec.md`. The agent MUST read this file at the start of every iteration to prevent context decay.
 
 ---
 
@@ -26,6 +27,7 @@ Resolve software defects using reproducible tests and minimal fixes.
 ---
 
 ## 🔴 Phase 4: Validation (Regression)
+0. **Context Purge**: Clear non-essential files from the context window and load strictly the files needed for testing.
 1. **Green Phase**: Execute `[OP_TEST]` on the reproduction test.
 2. **Regression**: Execute `[OP_TEST]` on the entire affected suite to ensure no collateral damage.
 3. **Type Integrity**: Execute `[OP_TYPECHECK]` to validate that the fix is type-safe.

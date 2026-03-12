@@ -17,3 +17,4 @@ Medium
 - Avoid narrative text, redundancy, and long explanations.
 - Reference existing facts rather than rewriting them.
 - Strip comments in minified output if requested.
+- **NO VIBE-CODING**: When interacting with modern, fast-changing APIs (e.g., Next.js 15, React 19, Supabase v2, Bun), you are STRICTLY PROHIBITED from guessing syntax. You MUST use Context7 or web search to verify the latest API docs before writing code.

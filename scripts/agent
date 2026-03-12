@@ -1,0 +1,107 @@
+#!/bin/bash
+
+# ==============================================================================
+# Agent CLI - Unified Workspace Manager (Inspired by Gentle AI)
+# ==============================================================================
+
+set -e
+
+KIT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+COMMAND=$1
+
+# Colors
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+show_help() {
+    echo -e "${BLUE}🤖 Agent Engineering CLI (v2.1)${NC}"
+    echo -e "One command to manage your AI runtime ecosystem.\n"
+    echo -e "Usage: ${GREEN}bash scripts/agent <command>${NC}\n"
+    echo "Commands:"
+    echo "  init        Provision the workspace format (.agent/)"
+    echo "  sync        Synchronize the .agent/ directory with the kit source"
+    echo "  registry    Generate the lightweight skills.json index"
+    echo "  validate    Check skill manifests for structure and errors"
+    echo "  doctor      Run health checks on MCP tools (Context7) and environment"
+    echo "  help        Show this help message"
+}
+
+check_context7() {
+    echo -e "${BLUE}🔍 Running Health Check (Doctor)...${NC}"
+    
+    # 1. Environment State
+    if [ -d ".agent/state" ]; then
+        echo -e "✅ Runtime initialized (.agent/state exists)"
+        if grep -q "version" .agent/state/env_state.json 2>/dev/null; then
+            echo -e "✅ env_state.json is valid"
+        else
+            echo -e "❌ env_state.json is corrupted or missing"
+        fi
+    else
+        echo -e "❌ Runtime not initialized. Run 'init' first."
+    fi
+
+    # 2. Context7 Node Check
+    echo -e "\n${BLUE}📡 Checking Context7 Runtime (Node.js)...${NC}"
+    if command -v npx &> /dev/null; then
+        echo -e "✅ Node/npx is installed (Required for local Context7 execution)"
+        
+        # We perform a dry-run or version check for Context7
+        echo -n "Testing @context7/server... "
+        if npx --yes --quiet @context7/server --version &>/dev/null; then
+            echo -e "✅ Context7 packages available."
+        else
+            echo -e "⚠️ Context7 executing for the first time or not cached on this network."
+        fi
+    else
+        echo -e "❌ Node/npx is missing. Context7 local execution WILL FAIL."
+    fi
+    
+    # 3. Global Config Check (Anti-Hallucination)
+    echo -e "\n${BLUE}🌍 Checking Global MCP Settings...${NC}"
+    GLOBAL_MCP="$HOME/.gemini/antigravity/mcp_config.json"
+    
+    if [ -f "$GLOBAL_MCP" ]; then
+        echo -e "✅ Global MCP configuration detected at: $GLOBAL_MCP"
+        # Check if context7 is registered using Python instead of jq
+        if node -e "const fs=require('fs'); try{ const config=JSON.parse(fs.readFileSync('$GLOBAL_MCP', 'utf8')); if(config.mcpServers && config.mcpServers.context7) process.exit(0); else process.exit(1); }catch(e){process.exit(1)}" &>/dev/null; then
+            echo -e "✅ Context7 is properly configured in the global MCP registry."
+        else
+            echo -e "❌ Context7 is NOT registered in $GLOBAL_MCP. Vibe-coding risk is high."
+        fi
+    else
+        echo -e "⚠️ No Antigravity global MCP configuration found in $GLOBAL_MCP."
+    fi
+
+    echo -e "\n${GREEN}Doctor check complete. If Context7 is missing, the agent will vibe-code (DANGEROUS).${NC}"
+}
+
+case "$COMMAND" in
+    "init")
+        bash "$KIT_ROOT/scripts/provision.sh"
+        bash "$KIT_ROOT/scripts/generate-registry.sh"
+        ;;
+    "sync")
+        bash "$KIT_ROOT/scripts/sync-workspace-v2.sh"
+        ;;
+    "registry")
+        bash "$KIT_ROOT/scripts/generate-registry.sh"
+        ;;
+    "validate")
+        bash "$KIT_ROOT/scripts/validate-skills.sh"
+        ;;
+    "doctor")
+        check_context7
+        ;;
+    "help"|"")
+        show_help
+        ;;
+    *)
+        echo -e "${RED}Unknown command: $COMMAND${NC}"
+        show_help
+        exit 1
+        ;;
+esac

@@ -137,5 +137,6 @@ provision_registry
 
 
 echo -e "${GREEN}✅ Hardening complete. Commands resolved for: ${STACKS[*]}${NC}"
+echo -e "${YELLOW}👉 Run './scripts/agent doctor' to verify Context7 availability.${NC}"
 
 

@@ -3,9 +3,10 @@
 ## 🎯 Objective
 Ensure efficient context usage through selective loading of skills based on the lightweight registry.
 
-## ⚖️ Context Budget
+## ⚖️ Context Budget & Progressive Unloading (Descarga Progresiva)
 - **Total Limit**: Do not load more than 5,000 tokens of skills simultaneously.
 - **Domain Limit**: Maximum of 2 active stack skills (e.g., do not load both Python and Node skills if not necessary).
+- **Context Purge**: When transitioning between task phases (e.g., from UI implementation to Backend testing), the agent MUST explicitly close/forget non-relevant files from its context window, keeping the workspace lean and preventing hallucination loops.
 
 ## 🔄 Resolution Process
 1. **Consult Registry**: Read `.agent/registry/skills.json`.
