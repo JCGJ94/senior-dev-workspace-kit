@@ -1,17 +1,18 @@
 # Memory Rules
+
 ## Purpose
-Maintain and utilize historical and global context.
+Maintain long-term architectural continuity across distinct sessions without confusing global prompt directives with local technical decisions.
 
 ## Scope
-Context retrieval, cross-session continuity.
+Historical context retrieval, documentation persistence. (Tier 3 Priority).
 
-## Priority
-Medium
+## Separation of Memory
+1. **Global Prompt Memory:** Instructions on how the agent behaves (Language, habits) live in the system `.cursorrules` or platform-level `user_global` instructions. These are read-only.
+2. **Local Repository Memory:** Architectural knowledge of the *project* lives directly inside the project tree, typically in `docs/architecture/` or `docs/decisions/` (ADRs - Architecture Decision Records).
 
-## Rules
-- Always scan `user_global` memory for preferences.
-- **Local Engram Pattern**: Maintain a `.agent/state/global_memory.md` (or `decisions.md`) file. Record all architectural decisions, complex bug resolutions, and system patterns here.
-- **Boot Sequence**: The agent MUST implicitly read `global_memory.md` upon initialization/resumption to load the shared project brain.
-- Store architectural decisions in documentation or specific artifacts.
-- Reload local rules over remote defaults.
-- Do not duplicate context excessively; rely on established files.
+## Updating Local Memory (Local Engram Pattern)
+- When a complex bug is resolved, a new pattern is introduced, or a major architecture decision is made, the agent should update or create an ADR in `docs/decisions/`.
+- This ensures that future sessions do not lose the "Why" behind the "How" (supporting Chesterton’s Fence).
+
+## Bootstrapping 
+- The agent should scan `docs/decisions/` or the project `README.md` to understand the domain before making deep infrastructural changes, relying on these persisted text artifacts instead of expecting an active persistent state daemon.

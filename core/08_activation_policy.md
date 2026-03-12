@@ -1,23 +1,32 @@
-# Skills Activation Protocol (v2.1)
+# Skills Activation Policy
 
-## 🎯 Objective
-Ensure efficient context usage through selective loading of skills based on the lightweight registry.
+## Purpose
+Control the secure and progressive loading of specialized skills (`/skills/*`) to avoid runtime conflicts and token budget overflow.
 
-## ⚖️ Context Budget & Progressive Unloading (Descarga Progresiva)
-- **Total Limit**: Do not load more than 5,000 tokens of skills simultaneously.
-- **Domain Limit**: Maximum of 2 active stack skills (e.g., do not load both Python and Node skills if not necessary).
-- **Context Purge**: When transitioning between task phases (e.g., from UI implementation to Backend testing), the agent MUST explicitly close/forget non-relevant files from its context window, keeping the workspace lean and preventing hallucination loops.
+## Scope
+Workflow phase transitions and skill invocation. (Tier 3 Priority).
 
-## 🔄 Resolution Process
-1. **Consult Registry**: Read `.agent/registry/skills.json`.
-2. **Trigger Match**: If the trigger matches the current task or file extension, mark the skill as a "Candidate".
-3. **Budget Validation**: Sum the `context_cost` of the candidates. If it exceeds the limit, prioritize Tier 1 and Tier 2.
-4. **Dynamic Loading**: Read the file at `path` only for the selected skills.
+## 1. Skill Resolution Protocol
+When a specific task demands capabilities beyond the Generalist scope, the agent MUST explicitly consult the capabilities in `/skills/` and activate the appropriate module. 
+- Use local skills from the repository first by checking `/registry/`.
+- Apply skills contextually (e.g., use `supabase-mcp` specifically for Database Auth/Row Level Security, or `browser-use` strictly for external documentation and research).
 
-## ⚙️ Command Resolution [OP_*]
-Whenever a workflow or skill mentions an `[OP_TYPE]` token, the agent MUST:
-1. Read `.agent/state/commands.json`.
-2. Extract the actual command mapped to the token.
-3. Execute the mapped command.
-4. If the token does not exist, propose a resolution based on the stack detected in `env_state.json`.
+## 2. Dynamic Limitations (Budgeting)
+- **Domain Limit:** Never apply more than 2 distinct framework/stack skills concurrently if they overlap in domain (e.g., do not activate general `javascript` skills while `nextjs-app-router` skills are active).
+- **Progressive Unloading:** When a skill is no longer needed for the current workflow phase, drop its operational context immediately.
 
+## 3. Workflow Execution and `[OP_*]` Actions
+- When reading pipelines in `/workflows/`, recognize specific generic operational triggers (e.g., `[OP_LINT]`, `[OP_BUILD]`).
+- Resolve these tokens by mapping them dynamically to the current ecosystem detected by `00_environment_rules.md` (e.g., `[OP_LINT]` in a Node project maps to `npm run lint` or `bun lint`).
+
+## 4. Anti-Obsolescence & Deep Research Fallback
+As per Elite Core context, if local knowledge or standard skills are insufficient to solve modern API issues (e.g., React 19 / Next 16 errors), the agent MUST explicitly fallback to:
+1. Context7 MCP (if configured and available for code snippets).
+2. Deep Research (`browser_subagent`) to fetch the exact 2026 real-time documentation.
+
+## 5. JIT Skill Installation Protocol (Just-In-Time)
+If a task requires specialized knowledge or a workflow that is NOT currently installed in the agent's `/registry/` or `/skills/`, the agent MUST:
+1. **Search Upstream (Mother Repo):** Check the AI Engineering Workspace Kit's global repository for the required skill. If found, pull it into `.agent/skills/`.
+2. **Search External Integrations (Fallback):** If the skill does not exist in the mother repo, search open community catalogs like `https://skills.sh/` or `superpowers`.
+3. **Standardize (Skill Creator):** If a skill is fetched from an external source (like `skills.sh`), the agent MUST use the `skill-creator` to refactor and adapt the external skill to comply with the project's native standard (`SKILL.md` format, specific YAML frontmatter) before inserting it into the local ecosystem.
+4. **Re-generate Registry:** After installing or adapting any skill, execute `bash scripts/generate-registry.sh` to update `skills.json` and make the new capability globally available.

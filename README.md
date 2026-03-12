@@ -29,28 +29,31 @@ The Kit injects a predictable architecture into the project. It acts as the brid
 
 ---
 
-## Installation
+## Quick Start Installation
 
-The kit is designed to be agnostic and auto-configuring. It supports both pre-existing repositories and blank, newly initialized projects.
+For a professional deployment, the kit functions as a "Master Suite" that injects the AI brain into your target projects.
 
-### Existing Projects
-
-Navigate to your project's root and initialize the runtime:
-
-```bash
-# Form the directory of your existing codebase
-bash path/to/ai-engineering-workspace-kit/scripts/agent init
-```
-
-### New Projects
-
-Initialize your environment first, then the agent provisioner:
+### 1. Set up the Master Suite (Clone)
+Clone this repository into a stable directory on your machine (e.g., `~/tools/`):
 
 ```bash
-mkdir my-new-project && cd my-new-project
-git init # Or initialize your framework of choice (e.g., npm init, bun init, python -m venv)
-bash path/to/ai-engineering-workspace-kit/scripts/agent init
+# Clone the kit into a tools directory
+mkdir -p ~/tools && cd ~/tools
+git clone https://github.com/YOUR_USER/ai-engineering-workspace-kit.git
 ```
+
+### 2. Inject into your Project
+Navigate to your project's root (new or existing) and run the initializer:
+
+```bash
+# Enter your project directory
+cd /path/to/your/project
+
+# Run the agent (pointing to where you cloned the kit)
+bash ~/tools/ai-engineering-workspace-kit/scripts/agent init
+```
+
+That's it! The agent will autodetect your stack and configure the `.agent/` environment automatically.
 
 ---
 

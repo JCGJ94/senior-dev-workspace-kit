@@ -1,12 +1,12 @@
 {
   "kitVersion": "0.1.0",
   "installedModules": [
-    "ai_rules",
+    "core",
     "skills",
     "workflows"
   ],
   "customizableFiles": [
-    "ai_rules/project_rules.md",
-    "ai_rules/memory_rules.md"
+    "core/project_rules.md",
+    "core/memory_rules.md"
   ]
 }

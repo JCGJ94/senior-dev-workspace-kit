@@ -29,28 +29,19 @@ El Kit inyecta una arquitectura predecible en el proyecto. Actúa como el puente
 
 ---
 
-## Instalación
+## Quick Start (Instalación)
 
-El kit está diseñado para ser agnóstico y auto-configurable. Soporta tanto repositorios preexistentes como proyectos inicializados en blanco.
-
-### Proyectos Existentes
-
-Navega a la raíz de tu proyecto e inicializa el runtime:
+Provisiona el entorno de ingeniería en tu proyecto con un solo comando:
 
 ```bash
-# Desde la raíz de un repositorio ya existente
-bash ruta/al/ai-engineering-workspace-kit/scripts/agent init
+# 1. Navega a la raíz de tu proyecto
+cd "ruta/a/tu/proyecto"
+
+# 2. Inicializa el orquestador
+bash "E:/Full Stack Jose Carlos/senior-dev-workspace-kit/ai-engineering-workspace-kit/scripts/agent" init
 ```
 
-### Proyectos Nuevos
-
-Inicializa primero el entorno y luego el provisionador del agente:
-
-```bash
-mkdir mi-nuevo-proyecto && cd mi-nuevo-proyecto
-git init # O inicializa tu entorno favorito (npm init, bun init, python -m venv)
-bash ruta/al/ai-engineering-workspace-kit/scripts/agent init
-```
+*Nota: Esta operación es idempotente. Puedes ejecutarla para actualizar un entorno existente sin perder configuraciones personalizadas.*
 
 ---
 

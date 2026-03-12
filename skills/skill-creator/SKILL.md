@@ -1,3 +1,10 @@
+---
+name: "skill-creator"
+description: "Empower the agent to design, draft, and implement new technical and operational skills."
+tier: 2
+triggers: ["create skill", "new skill", "standardize workflow"]
+context_cost: 300
+---
 # Skill Creator
 
 ## Purpose

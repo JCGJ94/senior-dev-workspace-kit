@@ -1,34 +1,29 @@
 # Environment Resolution Rules
 
 ## Purpose
-Ensure the AI agent identifies the correct ecosystem, runtime, and tooling before executing any command.
+Ensure the AI agent identifies the correct ecosystem, runtime, platforms, and tooling before executing ANY command.
 
 ## Step 0: Repository Intent Detection
-Before analyzing specific files, scan the repository root to understand the overall intent:
-- **Infrastructure:** Detect `docker-compose.yml`, `Makefile`, `terraform/`, or CI/CD paths.
-- **Project Structure:** Identify if it's a Monorepo (`apps/`, `packages/`, `nx.json`), a simple Backend/Frontend split, or a monolithic app.
-- **Orchestration:** Recognize root-level tools (Turborepo, Husky, Prettier) that might differ from the sub-project's primary language.
+Before modifying files, scan the repository root to understand the macro-architecture:
+- **Infrastructure:** Detect `docker-compose.yml`, `Makefile`, `terraform/`, or CI/CD pipelines.
+- **Structure:** Identify if it is a Monorepo (`apps/`, `packages/`, `nx.json`, `pnpm-workspace.yaml`), or a monolithic Frontend/Backend.
+- **Orchestration:** Check root level tools (Turborepo, Bun, Husky) that govern sub-projects.
 
 ## Environment Resolution Contract
-The agent MUST follow this priority to determine the active ecosystem in the current working directory:
+The agent MUST follow this strict priority to determine the active stack in the Current Working Directory (CWD):
 
-### 1. Ecosystem Identification (Lockfiles First)
-- **TypeScript/JS:** `bun.lockb` | `bun.lock` (Bun), `pnpm-lock.yaml` (pnpm), `package-lock.json` (npm), `yarn.lock` (yarn).
-- **Python:** `uv.lock` (uv), `poetry.lock` (poetry), `pdm.lock` (pdm), `hatch.lock` (hatch), `requirements.txt` (pip).
+### 1. Ecosystem Identification (Lockfile Priority)
+- **Node/TS:** `bun.lockb` | `bun.lock` (Bun), `pnpm-lock.yaml` (pnpm), `package-lock.json` (npm), `yarn.lock` (yarn). (Bun is the default preference if ambiguous).
+- **Python:** `uv.lock` (uv), `poetry.lock` (poetry), `requirements.txt` (pip).
 
-### 2. Configuration Analysis (Secondary)
-- **Python:** Inspect `pyproject.toml` sections: `[tool.uv]`, `[tool.poetry]`, `[tool.pdm]`, `[tool.hatch]`.
-- **TypeScript/JS:** Inspect `package.json` for `packageManager` or `engines`.
+### 2. Validation & Tooling Fallback
+- NEVER assume a CLI tool exists globally. Always verify existence using `command -v <tool>`, `npx --no-install <tool>`, or `bun x <tool>`.
+- **Hybrid OS Sync:** Recognize that the workspace may be accessed via PC Windows and Mac. Path delimiters and native binaries (like `rm` vs `del`) must be handled carefully. Prefer cross-platform node scripts or POSIX compatibility layers (e.g., git bash) if running terminal commands on Windows.
 
 ### 3. Type-Safety Detection
-- **Python:** Prefer `pyright` if `pyrightconfig.json` is present; otherwise, use `mypy` if configured. Fallback to basic linting if no type-checker is defined.
-- **TypeScript:** Always use `tsc --noEmit` unless a faster alternative (like `biome`) is explicitly configured in the repo.
+- **TypeScript:** Always use `tsc --noEmit` as the validation baseline unless `biome`/`swc` is explicitly enforced in `package.json` scripts.
+- **Python:** Prefer `pyright` or `mypy` if configured in `pyproject.toml`.
 
-## Monorepo Cross-Directory Rules
-- **Contextual Scope:** Resolution is ALWAYS scoped to the directory where the change is happening.
-- **Switching Ecosystems:** If a task moves from `/frontend` to `/backend`, the agent MUST re-run this resolution contract.
-- **Root Protection:** Do not run ecosystem-specific commands from the repository root unless explicitly targeting root-level orchestration tools.
-
-## Mandatory Execution
-- Never assume a tool is present. Always verify with `command -v` or by detecting the lockfile.
-- If multiple ecosystems are detected and the primary one is ambiguous, ask the developer for confirmation.
+## Monorepo Context Switching
+- **Dynamic Scope:** Resolution is ALWAYS scoped to the directory being modified. If moving from `/frontend` to `/backend`, re-run environment detection.
+- **Root Protection:** Do not run project-specific install commands at the root of a monorepo unless intending to orchestrate all workspaces.

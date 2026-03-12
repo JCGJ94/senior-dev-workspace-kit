@@ -1,20 +1,17 @@
 # Context Optimization Rules
+
 ## Purpose
-Minimize token usage and control how context is provided to the agent to speed up AI execution.
+Minimize token usage, prevent hallucination loops, and speed up AI inference by strictly controlling what enters the context window.
 
 ## Scope
-Prompting, code generation, responses, workspace files, and external docs.
+File reading, token management, search operations. (Tier 3 Priority).
 
-## Priority
-Medium
+## Strict Context Hygiene
+- **Surgical Reading:** Load ONLY the files critically relevant to the immediate step of the task. Do not load entire directories of code arbitrarily.
+- **Context Purge:** When transitioning between distinct phases (e.g., moving from building the Database Schema to building the UI View), explicitly forget/close previous files that are no longer strictly needed. This prevents token bloat.
+- **Search Filtering:** ALWAYS aggressively filter out build folders (`.next`, `dist`, `build`), lockfiles, and dependencies (`node_modules`, `site-packages`) when using GREP or file search tools.
 
-## Rules
-- Send only actively relevant code context.
-- Summarize previous decisions instead of full logs.
-- Utilize .devkit/ manifest for context pinning.
-- Avoid large monolithic files in the context window.
-- Keep rules compact and token-efficient.
-- Avoid narrative text, redundancy, and long explanations.
-- Reference existing facts rather than rewriting them.
-- Strip comments in minified output if requested.
-- **NO VIBE-CODING**: When interacting with modern, fast-changing APIs (e.g., Next.js 15, React 19, Supabase v2, Bun), you are STRICTLY PROHIBITED from guessing syntax. You MUST use Context7 or web search to verify the latest API docs before writing code.
+## Information Condensation
+- If reading large documentation or terminal outputs, summarize the key findings conceptually rather than dumping raw 500-line logs.
+- If a file is too large to read entirely, read in chunks or rely on semantic grep searching.
+- Reference existing facts from KIs (Knowledge Items), `/core` rules, or `/docs` instead of rewriting them fully in chat prompts.

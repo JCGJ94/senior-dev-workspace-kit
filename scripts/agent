@@ -30,11 +30,32 @@ show_help() {
     echo -e "Usage: ${GREEN}bash scripts/agent <command>${NC}\n"
     echo "Commands:"
     echo "  init        Provision the strictly-typed .agent/ runtime"
+    echo "  add-skill   Add a specific skill from the global library to this project"
     echo "  sync        Synchronize local .agent/ with the kit's upstream"
     echo "  registry    Force-rebuild the lightweight skills.json index"
     echo "  validate    Audit skill manifests for structural integrity"
     echo "  doctor      Review health of documentation ground truths (Context7/MCP)"
     echo "  help        Display this technical guide"
+}
+
+add_skill() {
+    local SKILL_NAME=$1
+    if [ -z "$SKILL_NAME" ]; then
+        echo -e "${YELLOW}Usage: bash scripts/agent add-skill <skill-name>${NC}"
+        echo -e "Available skills in global library:"
+        ls -F "$KIT_ROOT/skills" | sed 's/\///' | column
+        return
+    fi
+
+    if [ -d "$KIT_ROOT/skills/$SKILL_NAME" ]; then
+        echo -e "${BLUE}📦 Adding skill: $SKILL_NAME...${NC}"
+        mkdir -p ".agent/skills/$SKILL_NAME"
+        cp "$KIT_ROOT/skills/$SKILL_NAME/SKILL.md" ".agent/skills/$SKILL_NAME/"
+        bash "$KIT_ROOT/scripts/generate-registry.sh"
+        echo -e "${GREEN}✅ Skill $SKILL_NAME successfully added and registry updated.${NC}"
+    else
+        echo -e "${RED}❌ Skill '$SKILL_NAME' not found in global library.${NC}"
+    fi
 }
 
 check_context7() {
@@ -91,6 +112,9 @@ case "$COMMAND" in
     "init")
         bash "$KIT_ROOT/scripts/provision.sh"
         bash "$KIT_ROOT/scripts/generate-registry.sh"
+        ;;
+    "add-skill")
+        add_skill "$2"
         ;;
     "sync")
         bash "$KIT_ROOT/scripts/sync-workspace-v2.sh"
