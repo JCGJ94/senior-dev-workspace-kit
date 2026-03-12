@@ -1,3 +1,10 @@
+---
+name: "writing-plans"
+description: "Create structured implementation plans before starting complex tasks."
+tier: 1
+triggers: ["complex-task", "new-feature", "refactor"]
+context_cost: 600
+---
 # Writing Plans
 
 ## Purpose

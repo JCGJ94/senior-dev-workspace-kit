@@ -2,181 +2,91 @@
 
 🇬🇧 [English](README.md) | 🇪🇸 [Español](README.es.md)
 
-Un **kit de entorno de desarrollo reutilizable** diseñado para estandarizar proyectos que utilizan desarrollo asistido por IA.
+Un **kit de entorno de desarrollo profesional asistido por IA** diseñado para estandarizar cómo los agentes de IA interactúan con tu código.
 
-Este repositorio proporciona una capa operativa que define cómo interactúan:
-- Los agentes de IA.
-- El desarrollador.
-- La arquitectura del proyecto.
-
-El objetivo es crear un entorno consistente para proyectos que utilizan herramientas como:
-- Antigravity
-- Windsurf
-- Cursor
-- Sistemas multi-agente personalizados
+Este proyecto provisiona un runtime ligero y modular en cualquier repositorio, aplicando estándares de ingeniería de alto rendimiento, optimización de contexto y compatibilidad con múltiples stacks tecnológicos.
 
 ---
 
-## Por qué existe este repositorio
+## 🚀 Inicio Rápido (v2)
 
-La mayoría de repositorios definen **la estructura del código**, pero no definen **cómo debe comportarse la IA dentro del proyecto**.
+Convierte cualquier repositorio en un espacio de trabajo listo para la IA en segundos.
 
-Este kit resuelve ese problema proporcionando:
-- Reglas de ingeniería para IA.
-- Habilidades modulares reutilizables.
-- Flujos de trabajo estandarizados.
-- Scripts de automatización.
-- Validación de la arquitectura de habilidades.
-- Documentación optimizada para bajo consumo de tokens.
+### Instalación en 1 paso
+Desde la raíz de tu proyecto destino:
 
-El resultado es un **entorno portable de desarrollo asistido por IA** reutilizable entre múltiples proyectos.
-
----
-
-## Principios del sistema
-
-### 1. Adaptación al entorno
-El kit **no impone tecnologías**.
-Debe adaptarse al ecosistema real del proyecto.
-Por ejemplo:
-- Proyectos Python → herramientas Python
-- Proyectos Node → herramientas Node
-- Proyectos híbridos → toolchains separadas
-
-### 2. Contexto modular
-Las reglas se separan en módulos para evitar cargar contexto innecesario:
-- `ai_rules/`
-- `skills/`
-- `skills_registry/`
-- `workflows/`
-- `templates/`
-- `config/`
-- `scripts/`
-
-Esto permite mantener un **consumo mínimo de tokens** para el agente.
-
-### 3. Arquitectura basada en Skills
-El sistema utiliza **Skills** como unidades de conocimiento reutilizable.
-Una Skill representa una capacidad técnica concreta, por ejemplo:
-- Debugging sistemático
-- Arquitectura frontend
-- Testing
-- Migraciones de base de datos
-
-Cada Skill contiene:
-- `SKILL.md`
-- `scripts/`
-- `resources/`
-
-### 4. Activación explícita
-Escribir una skill define **QUÉ hace**.
-El sistema de registro define **CUÁNDO se usa**.
-La lógica de activación se gestiona en:
-- `skills_registry/`
-
----
-
-## Inicio rápido
-
-### 1. Clonar el repositorio
 ```bash
-git clone <repo> ai-engineering-workspace-kit
+# 1. Provisión (Crea .agent/ y detecta tu stack)
+bash ruta/al/kit/scripts/provision.sh
+
+# 2. Registro (Indexa las skills disponibles)
+bash ruta/al/kit/scripts/generate-registry.sh
 ```
 
-### 2. Inicializar un proyecto
-Dentro de tu proyecto:
+### 🔄 Actualización Segura
+Si el kit base se actualiza, sincroniza tu proyecto sin perder tus personalizaciones:
 ```bash
-cd mi-proyecto
-bash ../ai-engineering-workspace-kit/scripts/bootstrap-workspace.sh
+bash ruta/al/kit/scripts/sync-workspace-v2.sh
 ```
-Esto generará una carpeta `.devkit/` que contendrá las configuraciones necesarias para el entorno de IA.
 
-### 3. Validar la arquitectura
-Después de modificar habilidades:
+---
+
+## 🛠️ Principios del Sistema
+
+### 1. Adaptación al Entorno
+El kit **nunca impone herramientas**. Detecta tu stack (Node, Python, Bun, Híbrido) y resuelve tokens operativos como `[OP_TEST]` o `[OP_INSTALL]` dinámicamente mediante `.agent/state/env_state.json`.
+
+### 2. Contexto Modular
+La información se segmenta en capas especializadas para minimizar el consumo de tokens y maximizar la profundidad del razonamiento del agente:
+- `core/`: Reglas fundamentales de comportamiento.
+- `registry/`: Manifiestos de skills y políticas de activación.
+- `skills/`: Capacidades técnicas reutilizables.
+- `workflows/`: Procedimientos estándar de operación (SOPs).
+
+### 3. Arquitectura Basada en Skills
+Las skills son unidades atómicas de conocimiento. Definen **QUÉ** puede hacer el agente. El **Registro** define **CUÁNDO** y **CÓMO** se activan según la intención de la tarea.
+
+---
+
+## 📂 Estructura del Repositorio (Fuente)
+
+- **`core/`**: Fuente de las reglas base de comportamiento de la IA.
+- **`registry/`**: Fuente de manifiestos, tiers y lógica de activación.
+- **`skills/`**: Biblioteca de capacidades técnicas modulares.
+- **`workflows/`**: Procedimientos agnósticos (feature, bugfix, refactor, release).
+- **`scripts/`**: Herramientas de automatización (provisión, sync, validación).
+- **`docs/`**: Documentación técnica detallada.
+
+---
+
+## 🏗️ El Runtime .agent (Salida)
+
+Al ejecutar `provision.sh`, el kit inyecta un directorio `.agent/` en tu proyecto. Este es el **cerebro operativo** de la IA:
+- `.agent/core/`: Reglas inyectadas.
+- `.agent/registry/`: Índice local de skills.
+- `.agent/skills/`: Conjunto de skills activas.
+- `.agent/workflows/`: Procedimientos ejecutables.
+- `.agent/state/`: Estado dinámico del entorno (herramientas detectadas).
+
+---
+
+## 🎯 Sistema de Tiers
+
+Las skills se organizan por impacto y coste:
+- **Tier 1 — Core**: Siempre activas. Velan por la atomicidad, seguridad y corrección.
+- **Tier 2 — Calidad de Código**: Skills de implementación (debugging, TDD, refactor).
+- **Tier 3 — Orquestación**: Planificación y delegación multi-agente.
+- **Tier 4 — Entrega**: Historial de Git, finalización de ramas y releases.
+
+---
+
+## 🧪 Validación
+Mantén la integridad del kit validando la estructura de las skills y la consistencia del registro:
 ```bash
 bash scripts/validate-skills.sh
 ```
-Esto asegura:
-- Que el manifiesto esté sincronizado.
-- Que no existan skills huérfanas.
-- Que la estructura sea correcta.
-
-### 4. Sincronizar actualizaciones
-Si el kit base evoluciona:
-```bash
-bash scripts/sync-workspace.sh
-```
-Esto actualizará reglas, skills y workflows.
 
 ---
 
-## Estructura del repositorio
-
-- **`ai_rules/`**: Reglas base de comportamiento para los agentes IA. Siempre activas.
-- **`skills/`**: Capacidades técnicas modulares. Cada skill se encuentra en su propio directorio.
-- **`skills_registry/`**: Capa de orquestación del sistema. Define activación de skills, niveles (tiers), manifiesto de habilidades y skills preferidas.
-- **`workflows/`**: Procedimientos estándar para tareas repetibles (ej. debugging, despliegues, releases).
-- **`templates/`**: Plantillas reutilizables para crear nuevas skills o arquitecturas.
-- **`config/`**: Configuraciones generales del kit.
-- **`scripts/`**: Herramientas de automatización del entorno (bootstrap, validación, sincronización).
-- **`docs/`**: Documentación detallada del kit.
-
----
-
-## Sistema de Skills
-
-Las skills son módulos reutilizables utilizados por el agente IA.
-
-**Estructura:**
-```text
-skills/
-└── nombre-skill/
-    ├── SKILL.md
-    ├── scripts/
-    └── resources/
-```
-
-**Reglas de escritura:**
-- Usar verbos imperativos.
-- Evitar narrativa innecesaria.
-- Mantener bajo consumo de tokens.
-
----
-
-## Sistema de Tiers
-
-Las skills se clasifican por niveles:
-
-- **Tier 1 — Core**: Siempre activas. Definen disciplina de ingeniería.
-- **Tier 2 — Calidad de código**: Usadas durante implementación (ej. debugging, testing, refactorización).
-- **Tier 3 — Escalado multi-agente**: Usadas para orquestación, planificación, división de tareas.
-- **Tier 4 — Git y entrega**: Usadas para commits, ramas, releases.
-
----
-
-## Documentación
-
-La documentación se encuentra en `docs/` e incluye:
-- Guía de inicio
-- Arquitectura
-- Gestión de skills
-- Proceso de releases
-
----
-
-## Versionado
-
-El repositorio utiliza [Semantic Versioning](https://semver.org/).
-- **MAJOR**: cambios incompatibles.
-- **MINOR**: nuevas capacidades.
-- **PATCH**: correcciones.
-
----
-
-## Contribución
-
-Las contribuciones deben mantener:
-- Modularidad.
-- Bajo consumo de tokens.
-- Compatibilidad entre entornos.
-- Comportamiento determinista del agente.
+## Versionado y Contribución
+Este proyecto sigue [Semantic Versioning](https://semver.org/). Las contribuciones deben enfocarse en **bajo consumo de tokens**, **estilo imperativo** y **comportamiento determinista**.

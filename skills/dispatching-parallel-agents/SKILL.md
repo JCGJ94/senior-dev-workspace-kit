@@ -1,119 +1,84 @@
-# Executing Plans
+# Dispatching Parallel Agents
 
 ## Purpose
-Execute an approved implementation plan step-by-step while preserving task boundaries, minimizing context usage, and ensuring verification before completion.
+Coordinate multiple sub-agents to solve independent sub-problems simultaneously, maximizing throughput while ensuring consistent outputs and rigorous state management.
 
 ## Use when
-- A clear plan has been generated (for example by Writing Plans).
-- A complex task requires structured execution.
-- Work must be performed in sequential or staged steps.
-- Implementation must follow predefined milestones.
+- A task is large and can be decomposed into non-overlapping sub-tasks.
+- You need to perform multiple independent research, implementation, or testing steps.
+- The task exceeds a single context window and needs parallel processing capacity.
+- Work must be completed faster by using concurrent execution lanes.
 
 ## Do not use when
-- No plan exists.
-- The plan is incomplete or ambiguous.
-- The task is trivial and does not require structured execution.
-- Requirements have changed and the plan is outdated.
+- Sub-tasks share a mutable state or depend on each other's outputs sequentially.
+- The task is small enough for a single agent pass.
+- Bounded execution targets are not yet defined.
+- Resource constraints (API limits, memory) prevent parallel execution.
 
-## Execution Workflow
+## Parallel Dispatch Workflow
 
-1. **Load the Plan**
-   - Read the full plan before starting execution.
-   - Identify steps, dependencies, and expected outcomes.
-   - Do not begin execution without understanding the full sequence.
+1. **Decomposition & Boundary Definition**
+   - Split the main goal into independent chunks (e.g., separate modules, distinct test suites).
+   - Ensure each sub-task has 100% isolation.
+   - Define exact input/output contracts for each agent.
 
-2. **Execute One Step at a Time**
-   - Follow the plan strictly.
-   - Complete the current step before moving to the next.
-   - Avoid jumping ahead or combining steps.
+2. **Context Packaging**
+   - Provide each sub-agent ONLY the context required for its chunk.
+   - Include global interfaces or shared schemas but exclude unrelated implementation details.
+   - Pass instructions on how to report success/failure.
 
-3. **Respect Step Boundaries**
-   Each step should remain focused on its defined objective.
+3. **Concurrency Execution**
+   - Launch sub-agents using parallel tool calls.
+   - Monitor for timeouts or resource exhaustion.
+   - Track the status of each execution lane independently.
 
-   Do not:
-   - introduce unrelated improvements
-   - refactor outside the step scope
-   - add speculative changes.
+4. **Result Aggregation**
+   - Collect structured outputs (JSON, Markdown) from all sub-agents.
+   - Audit each result for correctness and scope adherence.
+   - Filter out redundant information or hallucinated APIs.
 
-4. **Minimize Context Usage**
-   For each step load only:
+5. **Conflict Resolution & Merging**
+   - Detect if parallel changes affect shared files (e.g., `package.json`, shared utils).
+   - Resolve merge conflicts or logical overlaps.
+   - If severe conflicts arise, halt and re-plan.
 
-   - files required for the step
-   - relevant interfaces
-   - configuration involved
-
-   Avoid loading the full repository.
-
-5. **Handle Dependencies**
-   If a step depends on previous results:
-
-   - confirm the previous step succeeded
-   - verify outputs before continuing.
-
-6. **Detect Plan Deviations**
-   If execution reveals a mismatch between the plan and reality:
-
-   - stop execution
-   - report the issue
-   - request plan revision.
-
-7. **Verify Each Step**
-   After completing a step:
-
-   - run relevant tests or checks
-   - confirm the expected result.
-
-8. **Perform Final Verification**
-   After the last step:
-
-   - run repository verification commands
-   - ensure no regressions were introduced.
+6. **Global Verification**
+   - Run a full system-wide verification (`[OP_TEST]`, `[OP_TYPECHECK]`) on the integrated result.
+   - Ensure the combination of all parts satisfies the original complex goal.
 
 ## Rules
-- Never skip plan steps.
-- Do not modify the plan during execution.
-- Follow the plan sequence strictly.
-- Avoid scope creep.
-- Verify each step before continuing.
-- Stop if the plan becomes invalid.
-- Respect repository conventions and tooling.
+- **Isolation First**: Never dispatch parallel agents on overlapping file sets.
+- **Contract-Driven**: Sub-agents must return data in the requested structure.
+- **Independent Verification**: Validate each agent's output before merging.
+- **Fail-Fast**: If one critical sub-task fails, assess if the entire parallel block should be aborted.
+- **No Shared State**: Do not allow sub-agents to assume state changes from their peers.
 
 ## Context Efficiency
-When executing steps:
-
-Prefer loading:
-- specific files
-- small code sections
-- interfaces
-
-Avoid loading:
-- full repository
-- unrelated modules
-- large documentation files.
+- Do not pass the entire repository to all agents.
+- Distill only the relevant slice for each task.
+- Use summaries for cross-agent dependencies.
 
 ## Validation
-Before confirming completion:
-
-- All plan steps were executed.
-- No step was skipped.
-- Verification commands succeeded.
-- The result matches the expected plan outcome.
+- Sub-tasks were truly independent.
+- Each agent stayed within its assigned scope.
+- Result integration yielded no regressions.
+- Global verification commands passed successfully.
 
 ## Output
 
-Return execution report:
+Return a Dispatch Report:
 
-### Plan Summary
-Short description of the plan executed.
+### Task Decomposition
+How the problem was split.
 
-### Steps Completed
-List of executed steps.
+### Agent Assignments
+Map of agents to sub-tasks and scopes.
 
-### Verification
-Commands executed and results.
+### Aggregated Results
+Summary of what each agent achieved.
 
-### Deviations
-Any differences between plan and execution.
+### Integration Status
+Notes on merge correctness and conflict resolution.
 
-### Final Status
-Completed / Blocked / Requires Plan Update
+### Global Verification
+Evidence that the combined solution works.

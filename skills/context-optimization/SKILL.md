@@ -1,3 +1,10 @@
+---
+name: "context-optimization"
+description: "Minimize token usage while preserving necessary information."
+tier: 1
+triggers: ["analysis", "large-codebase", "always"]
+context_cost: 500
+---
 # Context Optimization
 
 ## Purpose

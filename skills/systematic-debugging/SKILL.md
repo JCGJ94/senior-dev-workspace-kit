@@ -1,154 +1,88 @@
-# TypeScript Ecosystem
+# Systematic Debugging
 
 ## Purpose
-Work effectively within TypeScript and JavaScript repositories by detecting the real project tooling and respecting the repository’s existing runtime, package manager, and development workflow.
+Apply a rigorous, hypothesis-driven methodology to isolate, diagnose, and resolve complex defects while ensuring zero regression and high system reliability.
 
 ## Use when
-- Working on TypeScript or JavaScript projects.
-- Implementing backend or frontend logic written in TS/JS.
-- Managing dependencies, builds, or tooling for a TS-based project.
-- Debugging or refactoring TypeScript modules.
+- Investigating high-impact or intermittent bugs.
+- Resolving defects that span multiple modules or services.
+- Fixing issues that have resisted initial debugging attempts.
+- Ensuring that a fix does not introduce side effects in sensitive areas.
 
 ## Do not use when
-- The repository is not using JavaScript or TypeScript.
-- The task is strictly Python or another runtime environment.
-- The runtime or toolchain cannot be determined from the repository.
-- The change does not involve TS/JS code.
+- The bug is trivial and easily identifiable.
+- The failure is caused by a syntax error or obvious typo.
+- You are implementing a new feature.
 
-## TypeScript Workflow
+## Systematic Debugging Workflow
 
-1. **Detect the Toolchain**
-   Identify the environment used by the repository.
+1. **Information Gathering**
+   - Collect all available signals: stack traces, logs, environment state, and recent changes.
+   - Map the observed failure to specific lines of code or data flows.
 
-   Check for:
+2. **Reproduction & Baselining**
+   - Create a minimal, deterministic reproduction case (unit test or script).
+   - Confirm the reproduction fails as expected in the current environment.
+   - Establish a baseline where the system is known to work (e.g., a previous commit).
 
-   - `package.json`
-   - `tsconfig.json`
-   - lockfiles (`pnpm-lock.yaml`, `package-lock.json`, `yarn.lock`)
-   - build or runtime configuration.
+3. **Hypothesis Generation**
+   - Formulate specific, testable hypotheses about the root cause.
+   - Rank hypotheses by probability and ease of testing.
 
-   Detect:
+4. **Iterative Isolation**
+   - Test hypotheses one by one using binary search (bisect) or targeted instrumentation.
+   - Eliminate variables (headers, config, dependencies) until the smallest failure surface is found.
+   - **Forbidden**: Making multiple simultaneous changes during isolation.
 
-   - runtime (Node, Bun, Deno)
-   - package manager
-   - build tools
-   - test framework
-   - lint and format tools.
+5. **Root Cause Identification**
+   - Identify the exact mechanism of failure (e.g., race condition, logic error, memory leak).
+   - Document **why** the bug happened, not just how.
 
-   Never assume Bun, Node, or Deno without repository evidence.
+6. **Minimal Surgical Fix**
+   - Design the smallest possible change that resolves the root cause.
+   - Prioritize architectural consistency over quick patches.
 
-2. **Respect the Existing Runtime**
-   Follow the runtime already used by the project.
+7. **Verification & Hardening**
+   - Verify the reproduction test now passes.
+   - Run the full regression suite to ensure zero impact on related modules.
+   - Add edge-case tests to prevent similar bugs in the future.
 
-   Examples may include:
-
-   - Node.js
-   - Bun
-   - Deno
-
-   Do not switch runtimes unless explicitly required.
-
-3. **Follow the Package Manager**
-   Use the repository’s dependency workflow.
-
-   Possible managers include:
-
-   - npm
-   - pnpm
-   - yarn
-   - bun
-
-   Do not mix package managers.
-
-4. **Respect TypeScript Configuration**
-   Follow the repository’s `tsconfig` settings.
-
-   Maintain consistency with:
-
-   - module resolution
-   - strictness settings
-   - path aliases
-   - compilation targets.
-
-5. **Preserve Project Structure**
-   Follow the repository’s organization:
-
-   - module boundaries
-   - folder structure
-   - import patterns
-   - naming conventions.
-
-6. **Maintain Type Safety**
-   Prefer explicit and reliable typing.
-
-   Avoid:
-
-   - unnecessary `any`
-   - unsafe type casting
-   - bypassing type checks without justification.
-
-7. **Handle Dependencies Carefully**
-   - Add dependencies only when necessary.
-   - Prefer existing utilities and libraries.
-   - Avoid dependency duplication.
-
-8. **Verify with Project Tooling**
-   Use the repository’s real verification commands.
-
-   Examples may include:
-
-   - type checking
-   - linting
-   - tests
-   - build validation.
+8. **Post-Mortem & Documentation**
+   - Summarize the bug, the fix, and any lessons learned for the repository's knowledge base.
 
 ## Rules
-- Detect runtime and tooling from the repository before acting.
-- Do not force Bun or any runtime by default.
-- Use the repository’s package manager.
-- Respect `tsconfig` and project conventions.
-- Preserve module boundaries and project structure.
-- Maintain strong typing whenever possible.
-- Avoid unnecessary dependencies.
-- Verify changes using repository tooling.
+- **No Test, No Fix**: A bug is not considered fixed until a test proves it.
+- **Isolate One Variable at a Time**: Change only one thing during diagnosis.
+- **Trust No Assertion**: Verify assumptions with logs or debuggers.
+- **Fix the Cause, Not the Symptom**: Avoid "if (value == null) return" patches unless that is the true fix.
+- **Maintain State Integrity**: Ensure the fix handles state transitions and errors gracefully.
 
 ## Context Efficiency
-When working with TypeScript code:
-
-Prefer examining:
-- module interfaces
-- type definitions
-- affected files
-- configuration files.
-
-Avoid loading:
-- entire dependency trees
-- generated build artifacts
-- unrelated modules.
+- Focus on logs, stack traces, and affected files first.
+- Only expand context to dependencies when isolation points to them.
+- Avoid reading unrelated business logic.
 
 ## Validation
-Before confirming completion:
-
-- The runtime and package manager were correctly detected.
-- TypeScript configuration was respected.
-- No new tooling conflicts were introduced.
-- Type checks, tests, and verification commands succeed.
+- The bug is reproduced deterministically.
+- The fix resolves the root cause.
+- No regressions were introduced in the full test suite.
+- New tests cover the fix and its edge cases.
 
 ## Output
 
-Return environment summary:
+Return a Structured Debugging Report:
 
-### Runtime Detected
-Node / Bun / Deno.
+### Failure Context
+Signs and symptoms observed.
 
-### Package Manager
-Dependency tool used by the repository.
+### Reproduction
+Command or test used to trigger the bug.
 
-### Changes
-Modules or files modified.
+### Root Cause
+Technical deep-dive into the failure mechanism.
 
-### Dependency Impact
-New or updated packages.
+### Fix Implementation
+Surgical changes applied.
 
-### Verification
-Results of type checks and tests.
+### Verification Evidence
+Output of passing tests and regression checks.

@@ -15,8 +15,8 @@ def main():
 
     # Root directory is one level up from scripts/
     root_dir = Path(__file__).resolve().parent.parent
-    manifest_path = root_dir / 'skills_registry' / 'skill_manifest.json'
-    preferred_skills_path = root_dir / 'skills_registry' / 'preferred_skills.md'
+    manifest_path = root_dir / 'registry' / 'skill_manifest.json'
+    preferred_skills_path = root_dir / 'registry' / 'preferred_skills.md'
     skills_dir = root_dir / 'skills'
 
     # 1. Load manifest

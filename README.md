@@ -2,181 +2,91 @@
 
 🇬🇧 [English](README.md) | 🇪🇸 [Español](README.es.md)
 
-A **reusable development environment kit** designed to standardize projects that use AI-assisted development.
+A **professional AI-assisted development environment kit** designed to standardize how AI agents interact with your codebase.
 
-This repository provides an operational layer that defines how the following interact:
-- AI agents.
-- The developer.
-- Project architecture.
-
-The goal is to create a consistent environment for projects using tools like:
-- Antigravity
-- Windsurf
-- Cursor
-- Custom multi-agent systems
+This project provisions a lightweight, modular runtime into any repository, enforcing high-performance engineering standards, context optimization, and cross-stack compatibility.
 
 ---
 
-## Why this repository exists
+## 🚀 Quick Start (v2)
 
-Most repositories define **code structure**, but they do not define **how AI should behave within the project**.
+Turn any repository into an AI-ready workspace in seconds.
 
-This kit solves that problem by providing:
-- Engineering rules for AI.
-- Reusable modular skills.
-- Standardized workflows.
-- Automation scripts.
-- Skill architecture validation.
-- Documentation optimized for low token consumption.
+### 1-Step Installation
+From the root of your target project:
 
-The result is a **portable AI-assisted development environment** reusable across multiple projects.
+```bash
+# 1. Provision (Creates .agent/ and detects your stack)
+bash path/to/kit/scripts/provision.sh
+
+# 2. Registration (Indexes available skills)
+bash path/to/kit/scripts/generate-registry.sh
+```
+
+### 🔄 Safe Update
+If the base kit is updated, synchronize your project without losing customizations:
+```bash
+bash path/to/kit/scripts/sync-workspace-v2.sh
+```
 
 ---
 
-## System Principles
+## 🛠️ System Principles
 
 ### 1. Environment Adaptation
-The kit **does not impose technologies**.
-It must adapt to the real ecosystem of the project.
-For example:
-- Python projects → Python tools
-- Node projects → Node tools
-- Hybrid projects → separate toolchains
+The kit **never imposes tools**. It detects your stack (Node, Python, Bun, Hybrid) and resolves operation tokens like `[OP_TEST]` or `[OP_INSTALL]` dynamically via `.agent/state/env_state.json`.
 
 ### 2. Modular Context
-Rules are separated into modules to avoid loading unnecessary context:
-- `ai_rules/`
-- `skills/`
-- `skills_registry/`
-- `workflows/`
-- `templates/`
-- `config/`
-- `scripts/`
-
-This maintains **minimal token consumption** for the agent.
+Information is segmented into specialized layers to minimize token consumption and maximize agent reasoning depth:
+- `core/`: Fundamental behavioral rules.
+- `registry/`: Skill manifests and activation policies.
+- `skills/`: Reusable technical capabilities.
+- `workflows/`: Standard Operating Procedures (SOPs).
 
 ### 3. Skill-Based Architecture
-The system uses **Skills** as reusable knowledge units.
-A Skill represents a specific technical capability, for example:
-- Systematic debugging
-- Frontend architecture
-- Testing
-- Database migrations
-
-Each Skill contains:
-- `SKILL.md`
-- `scripts/`
-- `resources/`
-
-### 4. Explicit Activation
-Writing a skill defines **WHAT it does**.
-The registry system defines **WHEN it is used**.
-Activation logic is managed in:
-- `skills_registry/`
+Skills are atomic units of knowledge. They define **WHAT** the agent can do. The **Registry** defines **WHEN** and **HOW** they are activated based on task intent.
 
 ---
 
-## Quick Start
+## 📂 Repository Structure (Source)
 
-### 1. Clone the repository
-```bash
-git clone <repo> ai-engineering-workspace-kit
-```
+- **`core/`**: Source for fundamental AI behavior rules.
+- **`registry/`**: Source for skill manifests, tiers, and activation logic.
+- **`skills/`**: The library of modular technical capabilities.
+- **`workflows/`**: Agnostic Procedures (feature, bugfix, refactor, release).
+- **`scripts/`**: Automation tools (provisioning, sync, validation).
+- **`docs/`**: Detailed technical documentation.
 
-### 2. Initialize a project
-Inside your project:
-```bash
-cd my-project
-bash ../ai-engineering-workspace-kit/scripts/bootstrap-workspace.sh
-```
-This will generate a `.devkit/` folder containing the necessary configurations for the AI environment.
+---
 
-### 3. Validate architecture
-After modifying skills:
+## 🏗️ The .agent Runtime (Output)
+
+When you run `provision.sh`, the kit injects a `.agent/` directory into your project. This is the **operational brain** of the AI:
+- `.agent/core/`: Injected rules.
+- `.agent/registry/`: Local skill index.
+- `.agent/skills/`: Active skill set.
+- `.agent/workflows/`: Executable procedures.
+- `.agent/state/`: Dynamic environment state (detected tools).
+
+---
+
+## 🎯 Tiers System
+
+Skills are organized by impact and cost:
+- **Tier 1 — Core**: Always active. Guards atomicity, safety, and correctness.
+- **Tier 2 — Code Quality**: Implementation skills (debugging, TDD, refactor).
+- **Tier 3 — Orchestration**: Planning and multi-agent delegation.
+- **Tier 4 — Delivery**: Git history, branch finalization, and release.
+
+---
+
+## 🧪 Validation
+Maintain kit integrity by validating skill structure and registry consistency:
 ```bash
 bash scripts/validate-skills.sh
 ```
-This ensures:
-- The manifest is synchronized.
-- There are no orphaned skills.
-- The structure is correct.
-
-### 4. Synchronize updates
-If the base kit evolves:
-```bash
-bash scripts/sync-workspace.sh
-```
-This will update rules, skills, and workflows.
 
 ---
 
-## Repository Structure
-
-- **`ai_rules/`**: Base behavioral rules for AI agents. Always active.
-- **`skills/`**: Modular technical capabilities. Each skill is in its own directory.
-- **`skills_registry/`**: System orchestration layer. Defines skill activation, tiers, skill manifest, and preferred skills.
-- **`workflows/`**: Standard procedures for repeatable tasks (e.g., debugging, deployments, releases).
-- **`templates/`**: Reusable templates for creating new skills or architectures.
-- **`config/`**: General kit configurations.
-- **`scripts/`**: Environment automation tools (bootstrap, validation, synchronization).
-- **`docs/`**: Detailed kit documentation.
-
----
-
-## Skills System
-
-Skills are reusable modules used by the AI agent.
-
-**Structure:**
-```text
-skills/
-└── skill-name/
-    ├── SKILL.md
-    ├── scripts/
-    └── resources/
-```
-
-**Writing rules:**
-- Use imperative verbs.
-- Avoid unnecessary narrative.
-- Maintain low token consumption.
-
----
-
-## Tiers System
-
-Skills are classified by levels:
-
-- **Tier 1 — Core**: Always active. Define engineering discipline.
-- **Tier 2 — Code Quality**: Used during implementation (e.g., debugging, testing, refactoring).
-- **Tier 3 — Multi-Agent Scaling**: Used for orchestration, planning, task division.
-- **Tier 4 — Git and Delivery**: Used for commits, branching, releases.
-
----
-
-## Documentation
-
-Documentation is located in `docs/` and includes:
-- Quick start guide
-- Architecture
-- Skill management
-- Release process
-
----
-
-## Versioning
-
-The repository uses [Semantic Versioning](https://semver.org/).
-- **MAJOR**: incompatible changes.
-- **MINOR**: new capabilities.
-- **PATCH**: bug fixes.
-
----
-
-## Contribution
-
-Contributions must maintain:
-- Modularity.
-- Low token consumption.
-- Cross-environment compatibility.
-- Deterministic agent behavior.
+## Versioning & Contribution
+This project follows [Semantic Versioning](https://semver.org/). Contributions must focus on **low token consumption**, **imperative style**, and **deterministic behavior**.

@@ -2,90 +2,83 @@
 
 🇬🇧 [English](../en/00_usage_guide.md) | 🇪🇸 [Español](00_guia_de_uso.md)
 
-Este documento explica cómo utilizar el kit dentro de proyectos reales.
-
-El workspace actúa como una **capa operativa de desarrollo asistido por IA**.
+Este documento explica cómo utilizar el kit dentro de proyectos reales para estandarizar el desarrollo asistido por IA.
 
 ---
 
 ## Ciclo de vida del workspace
 
-El sistema funciona en tres fases.
+El sistema funciona mediante el aprovisionamiento de un runtime operativo.
 
-### 1. Bootstrap
+### 1. Provisión (Provisioning)
 
-Instalar el workspace en un proyecto.
+Instalar el workspace en un proyecto nuevo o existente:
 
 ```bash
-bash scripts/bootstrap-workspace.sh
+# Detecta tu stack y crea .agent/
+bash ruta/al/kit/scripts/provision.sh
 ```
 
-Esto crea la carpeta `.devkit/`.
+Esto crea la carpeta `.agent/`, que contiene las reglas, skills y workflows optimizados para tu entorno.
 
 ---
 
-### 2. Desarrollo
+### 2. Registro (Indexing)
+
+Preparar el catálogo de habilidades para el agente:
+
+```bash
+# Genera el índice de skills local
+bash ruta/al/kit/scripts/generate-registry.sh
+```
+
+---
+
+### 3. Desarrollo
 
 Durante el desarrollo:
-- Las reglas guían al agente.
-- Las skills se activan cuando son necesarias.
-- Los workflows estandarizan procesos.
+- El agente consulta `.agent/core/` para seguir las reglas de ingeniería.
+- Las skills se activan según la intención detectada.
+- Los workflows guían procesos complejos (feature, bugfix, etc.).
 
 ---
 
-### 3. Mantenimiento
+### 4. Sincronización
 
-Cuando el kit evoluciona:
+Cuando el kit base evoluciona (nuevas skills o reglas core):
 
 ```bash
-bash scripts/sync-workspace.sh
+# Actualiza .agent/ protegiendo tus configuraciones locales
+bash ruta/al/kit/scripts/sync-workspace-v2.sh
 ```
-
-Esto actualiza los proyectos existentes.
 
 ---
 
 ## Flujo de trabajo diario
 
-El flujo habitual es:
-1. El usuario pide al agente implementar una funcionalidad.
-2. El agente activa las skills relevantes.
-3. Las reglas aseguran la calidad de la arquitectura.
-4. Los workflows guían los procesos complejos.
+1. Pides al agente implementar una funcionalidad o corregir un error.
+2. El agente detecta el stack (vía `.agent/state/env_state.json`).
+3. El agente activa las skills adecuadas (ej. `typescript-ecosystem`, `debugging`).
+4. Se ejecutan comandos agnósticos (ej. `[OP_TEST]`) que se traducen a tu herramienta real (`npm test`, `pytest`, etc.).
 
 ---
 
-## Crear nuevas skills
+## Crear nuevas skills en el Kit
 
-Pasos para crear una nueva skill:
+Para añadir una capacidad al kit fuente:
 
-1. **Crear carpeta:**
-   ```bash
-   mkdir -p skills/nueva-skill
-   ```
-2. **Añadir archivo:**
-   Crea el archivo principal `skills/nueva-skill/SKILL.md`.
-3. **Registrar:**
-   Registra la nueva skill en el sistema dentro de `skills_registry/`.
-4. **Validar:**
-   Ejecuta el script de validación:
-   ```bash
-   bash scripts/validate-skills.sh
-   ```
+1. **Crear carpeta:** `mkdir -p skills/mi-nueva-skill`
+2. **Añadir SKILL.md:** Define el comportamiento y herramientas.
+3. **Registrar:** Actualiza `registry/skill_manifest.json`.
+4. **Validar:** Ejecuta `bash scripts/validate-skills.sh`.
 
 ---
 
-## Resolución de entorno
+## Resolución dinámica del entorno
 
-El kit nunca fuerza herramientas. Se basa en señales del repositorio actual:
+El kit se basa en señales del repositorio para no forzar herramientas:
+- Lockfiles detectados.
+- Gestores de paquetes presentes.
+- Configuración de tipos (`tsconfig`, `pyproject.toml`).
 
-- Archivos de bloqueo (lockfiles).
-- Gestores de paquetes.
-- Configuración del lenguaje.
-- Herramientas de tipado.
-
-Esto permite soportar de forma natural:
-- Python
-- Node.js
-- Bun
-- Proyectos híbridos
+Esto permite un soporte nativo y sin fricción para Node.js, Python, Bun y proyectos híbridos.

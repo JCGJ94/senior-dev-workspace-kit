@@ -1,0 +1,15 @@
+{
+  "max_active_skills": 5,
+  "max_domain_skills": 2,
+  "total_context_budget": 5000,
+  "default_tiers": [1],
+  "activation_priority": [
+    "user_explicit",
+    "trigger_match",
+    "tier_fallback"
+  ],
+  "auto_load_on_startup": [
+    "context-optimization",
+    "verification-before-completion"
+  ]
+}

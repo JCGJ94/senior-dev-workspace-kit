@@ -1,3 +1,10 @@
+---
+name: "verification-before-completion"
+description: "Ensure work is verified through concrete evidence before completion."
+tier: 1
+triggers: ["completion", "commit", "fix", "always"]
+context_cost: 400
+---
 # Verification Before Completion
 
 ## Purpose

@@ -1,126 +1,72 @@
-# Verification Before Completion
+# Using Git Worktrees
 
 ## Purpose
-Ensure that all implemented changes are verified with real evidence before declaring a task complete, preventing false success reports and undetected regressions.
+Manage multiple active branches or tasks in parallel without switching branches in the main directory, preserving build state and minimizing context switching overhead.
 
 ## Use when
-- Finishing any implementation task.
-- Completing bug fixes or feature development.
-- Finalizing code changes before committing or merging.
-- Reporting task completion to the user or system.
+- You need to perform a critical bugfix while working on a long-term feature.
+- Comparing behavior or running tests on different branches simultaneously.
+- Performing code reviews that require local execution without disturbing your current workspace.
+- Managing multiple environments (staging vs. main) side-by-side.
 
 ## Do not use when
-- No changes were made.
-- The task is purely informational.
-- Verification is impossible due to missing infrastructure.
-- The task explicitly requires exploratory work without verification.
+- The task is simple and branch switching is trivial.
+- The repository is not versioned with Git.
+- Disk space is extremely limited (worktrees create a new checkout).
 
-## Verification Workflow
+## Git Worktree Workflow
 
-1. **Confirm Implementation Scope**
-   Review what was changed:
+1. **Assess the Need**
+   - Confirm that switching branches would be more expensive than creating a worktree (e.g., due to heavy build artifacts or environment setup).
 
-   - modified files
-   - affected modules
-   - configuration updates
-   - dependency changes.
+2. **Create a New Worktree**
+   - Use `git worktree add <path> <branch>` to create a separate checkout in a dedicated directory outside the main project root.
+   - If the branch doesn't exist, use `-b <new-branch>`.
 
-2. **Run Repository Verification Commands**
-   Execute the repository’s real verification steps.
+3. **Isolate Environment State**
+   - Understand that each worktree might need its own `node_modules`, `.env`, or build cache depending on the repository structure.
+   - Run `[OP_INSTALL]` in the new worktree path before executing logic.
 
-   Examples may include:
+4. **Task Execution**
+   - Perform the secondary task in the worktree directory.
+   - Verify changes using the worktree's local context and tooling.
 
-   - automated tests
-   - lint checks
-   - type checks
-   - build validation
-   - formatting checks.
+5. **Commit & Cleanup**
+   - Commit changes within the worktree.
+   - Once the task is finished and merged/pushed, remove the worktree with `git worktree remove <path>`.
+   - Ensure no stale worktree directories are left behind.
 
-   Use the project’s actual tooling rather than assumptions.
-
-3. **Validate Expected Behavior**
-   Confirm that the implemented behavior matches the task objective.
-
-   Check:
-
-   - feature works as intended
-   - bug is resolved
-   - no regressions appear.
-
-4. **Inspect Related System Areas**
-   Verify that the change does not break:
-
-   - related modules
-   - integration points
-   - configuration logic
-   - public interfaces.
-
-5. **Confirm No Silent Failures**
-   Ensure there are no hidden issues:
-
-   - failing tests ignored
-   - warnings masking errors
-   - skipped verification steps.
-
-6. **Check Repository State**
-   Confirm the repository is in a stable state:
-
-   - no uncommitted accidental changes
-   - dependency updates are intentional
-   - configuration files remain valid.
-
-7. **Document Evidence**
-   Provide evidence of successful verification:
-
-   - test results
-   - commands executed
-   - observed outputs.
+6. **Prune Stale Metadata**
+   - Use `git worktree prune` if directories were manually deleted to clean up Git's internal tracking.
 
 ## Rules
-- Never declare completion without verification evidence.
-- Always run repository-native verification commands.
-- Do not assume success without executing checks.
-- Verify both the intended change and related system areas.
-- Do not ignore failing tests or warnings.
-- Avoid skipping verification steps for convenience.
-- Prefer automated verification when available.
+- **Path Separation**: Always create worktrees in a predictable location (e.g., `../worktrees/<branch-name>`) to avoid cluttering the main project root.
+- **Lock Management**: Be aware that some lockfiles or databases might conflict if two worktrees access them simultaneously.
+- **Explicit Cleanup**: Always remove the worktree via Git commands once the task is done.
+- **State Awareness**: Never assume a worktree shares the same build artifacts as the main folder.
 
 ## Context Efficiency
-When verifying:
-
-Prefer examining:
-- changed files
-- affected modules
-- verification command results
-
-Avoid loading:
-- entire repository
-- unrelated components
-- large generated outputs.
+- Only load files from the active worktree involved in the secondary task.
+- Avoid cross-referencing files from the main directory to prevent path confusion.
 
 ## Validation
-Before confirming task completion:
-
-- All relevant verification commands were executed.
-- Expected behavior matches the implementation goal.
-- No regressions were introduced.
-- The repository remains in a stable state.
+- The worktree was created successfully.
+- The task was completed and committed in the correct branch.
+- The worktree was removed and resources were cleaned up.
+- The main workspace remains undisturbed.
 
 ## Output
 
-Return verification summary:
+Return a Worktree Management Report:
 
-### Changes Verified
-Files or modules affected.
+### Worktree Path
+Location of the parallel checkout.
 
-### Commands Executed
-Verification commands used.
+### Target Branch
+Branch being worked on in the worktree.
 
-### Results
-Outcome of tests and checks.
+### Task Status
+Status of the secondary task.
 
-### Regressions
-Any detected issues.
-
-### Final Status
-Verified / Requires Fixes
+### Cleanup Status
+Confirmation that the worktree was removed or is ready for removal.
