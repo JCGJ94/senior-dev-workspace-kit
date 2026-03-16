@@ -43,7 +43,7 @@ show_help() {
 }
 
 add_skill() {
-    local SKILL_NAME=$1
+    local SKILL_NAME="$1"
     if [ -z "$SKILL_NAME" ]; then
         echo -e "${YELLOW}Usage: bash scripts/agent add-skill <skill-name>${NC}"
         echo -e "Available skills in global library:"
@@ -114,14 +114,14 @@ check_context7() {
 
 case "$COMMAND" in
     "init")
-        if [ ${#FORWARD_ARGS[@]} -eq 0 ]; then
+        if [ "${#FORWARD_ARGS[@]}" -eq 0 ]; then
             FORWARD_ARGS=("--non-interactive")
         fi
         bash "$KIT_ROOT/scripts/provision.sh" "${FORWARD_ARGS[@]}"
         bash "$KIT_ROOT/scripts/generate-registry.sh"
         ;;
     "add-skill")
-        add_skill "$2"
+        add_skill "${1:-}"
         ;;
     "sync")
         bash "$KIT_ROOT/scripts/sync-workspace.sh" "${FORWARD_ARGS[@]}"

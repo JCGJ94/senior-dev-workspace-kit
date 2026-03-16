@@ -119,10 +119,11 @@ provision_skills() {
     echo -e "${BLUE}📦 Provisioning V3 Orchestration Skills...${NC}"
     
     provision_skill() {
-        if [ -d "${KIT_ROOT}/skills/$1" ]; then
-            mkdir -p "${AGENT_DIR}/skills/$1"
-            cp "${KIT_ROOT}/skills/$1/SKILL.md" "${AGENT_DIR}/skills/$1/"
-            echo -e "   ✅ Loaded: $1"
+        local skill_name="$1"
+        if [ -d "${KIT_ROOT}/skills/${skill_name}" ]; then
+            mkdir -p "${AGENT_DIR}/skills/${skill_name}"
+            cp "${KIT_ROOT}/skills/${skill_name}/SKILL.md" "${AGENT_DIR}/skills/${skill_name}/"
+            echo -e "   ✅ Loaded: ${skill_name}"
         fi
     }
 
@@ -139,14 +140,14 @@ provision_skills() {
     provision_skill "humanized-communication"
     provision_skill "verification-before-completion"
 
-    if [ "$INTERACTIVE" = true ]; then
+    if [ "$INTERACTIVE" = "true" ]; then
         echo -e "\n${BLUE}🦸 Choose additional skills? (y/n, default n): ${NC}"
         read -r ADD_SKILLS
         if [[ "$ADD_SKILLS" =~ ^[Yy]$ ]]; then
             echo -e "Available skills: $(ls "${KIT_ROOT}/skills" | xargs)"
             echo -e "Enter skill names separated by space: "
             read -r SKILLS_TO_LOAD
-            for s in $SKILLS_TO_LOAD; do
+            for s in ${SKILLS_TO_LOAD}; do
                 provision_skill "$s"
             done
         fi
