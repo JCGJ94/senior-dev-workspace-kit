@@ -21,6 +21,7 @@ These are baseline behaviors that should be treated as always active operating p
 - `verification-before-completion` *(global guardrail)*
 - `context-optimization`
 - `context-distiller`
+- `humanized-communication` *(developer-facing communication guardrail)*
 
 ### Tier 1 Objective
 Ensure the agent:
@@ -28,6 +29,7 @@ Ensure the agent:
 - consumes fewer tokens
 - avoids scope drift
 - never declares success without verification
+- communicates clearly without sounding robotic
 
 ---
 

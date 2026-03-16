@@ -14,8 +14,10 @@ Database operations, Git tracking, environment variables, destructive shell comm
 - **Database:** NEVER execute raw destructive SQL (e.g., `DROP TABLE`, `ALTER TABLE`) directly in a live terminal. All schema changes must be written as discrete, numbered migration files (`001_create_users.sql`).
 - **File System:** Never execute recursive deletion (`rm -rf /` or similar) on broad patterns. Delete files targeting exact explicit paths only.
 - **Production Branches:** Assume `main`/`master` are protected. If deploying or modifying remote infrastructure, summarize the impact and wait for user confirmation.
+- **External Capability Changes:** Never install or adopt an external skill into the runtime without explicit developer approval.
+- **Contract Files:** Never silently change core contract files (`AGENTS.md`, `core/`, `registry/`, workflow contracts) when the effect is broad or architectural. Summarize the impact first.
 
 ## Git Protocol
 - **Prohibited Atomicity Breaks:** NEVER execute `git add .` or `git commit -am`. This destroys atomic history.
 - **Surgical Staging:** Only stage the exact files modified for the current task (`git add path/to/file`).
-- **Use Dedicated Scripts:** Where possible, leverage provided workspace scripts (e.g., `committer.sh`) to ensure conventional commits and code passing before tracking.
+- **Use Dedicated Scripts:** Where possible, leverage provided workspace scripts to ensure conventional commits and validation before tracking.

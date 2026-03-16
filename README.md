@@ -1,90 +1,91 @@
 ```text
        ___  ____
       / _ \/  _/
-     / __ _/ /  
-    /_/ |_/___/ 
-                
+     / __ _/ /
+    /_/ |_/___/
+
    A G E N T   K I T
 ```
 
 **English** | [Español](README.es.md)
 
-The **AI Engineering Workspace Kit** is a purpose-built runtime designed to contextualize, constrain limit, and empower AI agents (such as Claude, Cursor, Copilot, or Gemini) executing within a standard repository.
+The **AI Engineering Workspace Kit** is a V3 source kit for installing a governed AI engineering runtime into any repository.
 
-It provisions a lightweight, strictly-typed `.agent/` orchestrator that establishes base operational ground truths for your codebase.
+It keeps the contract simple:
 
----
+- `AGENTS.md` is the runtime contract.
+- `core/`, `registry/`, `skills/`, and `workflows/` are the source-kit assets.
+- `.agent/` is the installed runtime inside the target project.
 
-## The Problem
+## What it gives you
 
-Foundational models lack persistent context regarding a project's architectural standards and its current tech stack. This leads to "vibe-coding": generating code that superficially works but violates the underlying codebase design principles.
+- a consistent V3 runtime in `.agent/`
+- guarded autonomy with developer approval for sensitive actions
+- low-token context discipline
+- durable memory through `docs/engram/`
+- workflow-based execution for non-trivial work
+- governed JIT skill adoption from trusted sources
+- a calm, human developer-facing tone
 
-## The Solution
+## Quick start
 
-The Kit injects a predictable architecture into the project. It acts as the bridge between LLM reasoning and the source code.
-
-1. **Determinism:** Autodetects the working environment (e.g., Node, Bun, Python) and adapts execution tokens accordingly.
-2. **Skill System:** Provides a standardized suite of capabilities for analysis, refactoring, and quality-of-code operations.
-3. **Strict Workflows:** Forces the agent to follow empirical Standard Operating Procedures (SOPs) for features, bugfixes, and releases.
-
----
-
-## Quick Start Installation
-
-For a professional deployment, the kit functions as a "Master Suite" that injects the AI brain into your target projects.
-
-### 1. Set up the Master Suite (Clone)
-Clone this repository into a stable directory on your machine (e.g., `~/tools/`):
+Clone the kit somewhere stable:
 
 ```bash
-# Clone the kit into a tools directory
-mkdir -p ~/tools && cd ~/tools
 git clone https://github.com/YOUR_USER/ai-engineering-workspace-kit.git
 ```
 
-### 2. Inject into your Project
-Navigate to your project's root (new or existing) and run the initializer:
+Initialize a target repository:
 
 ```bash
-# Enter your project directory
 cd /path/to/your/project
-
-# Run the agent (pointing to where you cloned the kit)
-bash ~/tools/ai-engineering-workspace-kit/scripts/agent init
+bash /path/to/ai-engineering-workspace-kit/scripts/agent init
 ```
 
-That's it! The agent will autodetect your stack and configure the `.agent/` environment automatically.
-
----
-
-## Runtime Architecture
-
-Once initialized, the repository root will contain a hidden `.agent/` directory. This acts as the operational brain.
-
-- `core/`: Foundational behavior rules.
-- `registry/`: Local manifests and routing rules for operative skills.
-- `skills/`: A library of atomic technical capabilities executable by the LLM.
-- `workflows/`: Step-by-step Standard Operating Procedures for complex tasks.
-- `state/`: Analyzed environment topology and dynamic configuration.
-
----
-
-## Auditing and Orchestration
-
-The kit incorporates hallucination-detection capabilities ("Doctor") by forcing the agent to ground its code via actual context from repositories like Context7 (if available) and MCP (Model Context Protocol) ecosystems.
-
-To audit connectivity availability and runtime health:
+Sync an existing runtime after kit updates:
 
 ```bash
-bash path/to/ai-engineering-workspace-kit/scripts/agent doctor
+bash /path/to/ai-engineering-workspace-kit/scripts/agent sync
 ```
 
-To force a synchronization of the base state and skills when the upstream has been updated:
+Validate the source kit:
 
 ```bash
-bash path/to/ai-engineering-workspace-kit/scripts/agent sync
+bash /path/to/ai-engineering-workspace-kit/scripts/validate-kit.sh
 ```
 
----
+## Runtime layout
 
-*Built for precision AI-driven engineering.*
+After initialization, the target repository contains:
+
+- `.agent/core/` - installed operating rules
+- `.agent/registry/` - installed runtime registry and generated `skills.json`
+- `.agent/skills/` - installed runtime skills
+- `.agent/workflows/` - installed workflows
+- `.agent/state/` - generated runtime state and allowed operations
+- `docs/engram/` - durable memory packs
+- `specs/` - auditable work artifacts for non-trivial changes
+
+## Skill model
+
+The agent starts generalist, keeps context small, and activates the minimum useful skill set.
+
+If a required skill is missing, the trusted discovery order is:
+
+1. local kit/runtime skills
+2. `https://skills.sh/`
+3. `https://agents.md/`
+4. `https://github.com/obra/superpowers`
+
+External skill adoption still requires developer approval and V3 adaptation before activation.
+
+## Documentation
+
+- `docs/en/00_usage_guide.md`
+- `docs/en/01_getting_started.md`
+- `docs/en/02_architecture.md`
+- `docs/en/03_skills_management.md`
+- `docs/engram/index.md`
+- `specs/README.md`
+
+Built for precise, low-noise, developer-governed AI engineering.

@@ -3,9 +3,9 @@ set -e
 
 # Setup directories
 WORKSPACE_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
-DEVKIT_DIR="$WORKSPACE_ROOT/.devkit"
+DEVKIT_DIR="$WORKSPACE_ROOT/.agent"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
-MANIFEST_FILE="$SCRIPT_DIR/../skills_registry/profiles/profiles_manifest.json"
+MANIFEST_FILE="$SCRIPT_DIR/../registry/profiles/profiles_manifest.json"
 ACTIVE_CONTEXT_FILE="$DEVKIT_DIR/active_workspace_capabilities.md"
 
 mkdir -p "$DEVKIT_DIR"

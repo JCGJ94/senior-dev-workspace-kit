@@ -1,0 +1,37 @@
+name: Deploy Readiness
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  deploy-readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Deploy Domains Manifest
+        run: |
+          [ -f "registry/deploy_domains.json" ] || exit 1
+          python - <<'PY'
+          import json
+          with open("registry/deploy_domains.json") as f:
+              data = json.load(f)
+              domains = data.get("domains", {})
+              for name, conf in domains.items():
+                  assert "required_checks" in conf
+                  assert "build" in conf["required_checks"] or "smoke" in conf["required_checks"]
+          print("Deploy domains validated.")
+          PY
+      - name: Check Deploy Workflow Exists
+        run: |
+          [ -f "workflows/deploy_workflow.md" ] || exit 1
+          grep -q "deploy-orchestrator" workflows/deploy_workflow.md
+      - name: Validate Official Sync Script
+        run: |
+          [ -f "scripts/sync-workspace.sh" ] || exit 1
+      - name: Verify V3 Core Rules for Deploy
+        run: |
+          [ -f "core/10_deploy_rules.md" ] || exit 1
+          grep -q "Preflight" core/10_deploy_rules.md
+          grep -q "rollback" core/10_deploy_rules.md

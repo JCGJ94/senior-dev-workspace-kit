@@ -1,12 +1,13 @@
 {
-  "kitVersion": "0.1.0",
+  "kitVersion": "3.0.0",
   "installedModules": [
     "core",
     "skills",
     "workflows"
   ],
   "customizableFiles": [
-    "core/project_rules.md",
-    "core/memory_rules.md"
+    "core/05_project_rules.md",
+    "core/06_memory_rules.md",
+    "config/developer_preferences.md"
   ]
 }

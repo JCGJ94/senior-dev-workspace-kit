@@ -25,7 +25,7 @@ show_help() {
     echo "                "
     echo "   A G E N T   K I T"
     echo -e "${NC}"
-    echo -e "${BLUE}🤖 Unified AI Engineering CLI (v2.1)${NC}"
+    echo -e "${BLUE}🤖 Unified AI Engineering CLI (v3)${NC}"
     echo -e "The bridge between LLM reasoning and professional source code.\n"
     echo -e "Usage: ${GREEN}bash scripts/agent <command>${NC}\n"
     echo "Commands:"
@@ -117,7 +117,7 @@ case "$COMMAND" in
         add_skill "$2"
         ;;
     "sync")
-        bash "$KIT_ROOT/scripts/sync-workspace-v2.sh"
+        bash "$KIT_ROOT/scripts/sync-workspace.sh"
         ;;
     "registry")
         bash "$KIT_ROOT/scripts/generate-registry.sh"

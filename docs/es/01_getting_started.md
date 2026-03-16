@@ -1,24 +1,23 @@
-# Primeros Pasos
+# Primeros pasos
 
-## 1. Instalación e Inicialización
-Para inicializar un nuevo proyecto con el AI Engineering Workspace Kit, clona el repositorio y ejecuta el script de inicialización (`bootstrap`) dentro de la carpeta raíz de tu proyecto de destino:
+## Instalacion
+
+Clona el repositorio e inicializa un proyecto objetivo desde su raiz:
 
 ```bash
 git clone <repo> ai-engineering-workspace-kit
-cd mi-nuevo-proyecto
-bash ../ai-engineering-workspace-kit/scripts/bootstrap-workspace.sh
+cd /ruta/al/proyecto-objetivo
+bash ../ai-engineering-workspace-kit/scripts/agent init
 ```
 
-Se generará una carpeta `.devkit` que contendrá todas las configuraciones de IA necesarias, habilidades (skills) y reglas operativas para tu nuevo repositorio.
+Esto crea `.agent/` dentro del proyecto objetivo.
 
-## 2. Scripts de Uso
-El directorio `scripts/` contiene varias utilidades de automatización para gestionar el entorno de trabajo (workspace):
+## Scripts principales
 
-- **`bootstrap-workspace.sh`**: Inicializa el entorno de trabajo en un directorio de destino.
-- **`validate-skills.sh`**: Valida la integridad del registro de habilidades y la estructura del sistema de archivos. Ejecútalo siempre después de modificar cualquier habilidad.
-  ```bash
-  bash scripts/validate-skills.sh
-  ```
-- **`install-rules.sh` / `install-skills.sh` / `install-workflows.sh`**: Instala componentes individuales de los módulos.
-- **`set-skill-profile.sh`**: Cambia entre diferentes perfiles de habilidades para el agente.
-- **`sync-workspace.sh`**: Sincroniza proyectos existentes con las actualizaciones del repositorio base.
+- `scripts/agent` - entrada unificada V3
+- `scripts/provision.sh` - instala el runtime en un proyecto objetivo
+- `scripts/sync-workspace.sh` - refresca un runtime existente
+- `scripts/generate-registry.sh` - regenera `.agent/registry/skills.json`
+- `scripts/skill-manager.sh` - instala skills confiables en el runtime
+- `scripts/validate-kit.sh` - valida el kit fuente
+- `scripts/validate-skills.sh` - valida la estructura local de skills

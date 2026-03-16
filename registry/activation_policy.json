@@ -1,5 +1,5 @@
 {
-  "max_active_skills": 5,
+  "max_active_skills": 7,
   "max_domain_skills": 2,
   "total_context_budget": 5000,
   "default_tiers": [1],
@@ -8,8 +8,14 @@
     "trigger_match",
     "tier_fallback"
   ],
+  "trusted_skill_sources": [
+    "https://skills.sh/",
+    "https://agents.md/",
+    "https://github.com/obra/superpowers"
+  ],
   "auto_load_on_startup": [
     "context-optimization",
-    "verification-before-completion"
+    "verification-before-completion",
+    "context-keeper"
   ]
 }

@@ -1,0 +1,41 @@
+name: Runtime Smoke Test
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mock Project Init
+        run: |
+          mkdir mock-project
+          cd mock-project
+          touch package.json
+          bash ../scripts/provision.sh --non-interactive
+      - name: Mock Project Sync
+        run: |
+          cd mock-project
+          bash ../scripts/sync-workspace.sh
+      - name: Verify Runtime Artifacts
+        run: |
+          cd mock-project
+          [ -d ".agent/core" ] || exit 1
+          [ -d ".agent/registry" ] || exit 1
+          [ -f ".agent/registry/skills.json" ] || exit 1
+          [ -f ".agent/state/allowed_ops.json" ] || exit 1
+          [ -f ".agent/skills/humanized-communication/SKILL.md" ] || exit 1
+          [ -f "AGENTS.md" ] || exit 1
+          [ -d "docs/engram" ] || exit 1
+          [ -d "specs" ] || exit 1
+      - name: Verify SDD Templates
+        run: |
+          cd mock-project
+          [ -f "specs/_template/01-intake.md" ] || exit 1
+      - name: Verify V3 Registry
+        run: |
+          cd mock-project
+          grep -q "architect-orchestrator-v3" .agent/registry/skills.json

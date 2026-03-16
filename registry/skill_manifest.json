@@ -4,6 +4,10 @@
             "path": "skills/ai-agent/SKILL.md",
             "description": "Skills for orchestrating self-prompting and LLM tools."
         },
+        "architect-orchestrator-v3": {
+            "path": "skills/architect-orchestrator-v3/SKILL.md",
+            "description": "Serve as the V3 master architect-orchestrator that routes work across specialized sub-agents under SDD, Engram, security, testing, and deploy constraints."
+        },
         "backend": {
             "path": "skills/backend/SKILL.md",
             "description": "Server-side logic, routing, and schema definition."
@@ -24,9 +28,17 @@
             "path": "skills/context-optimization/SKILL.md",
             "description": "Enforce lean information exchange and maximize the signal-to-noise ratio in AI operations."
         },
+        "context-keeper": {
+            "path": "skills/context-keeper/SKILL.md",
+            "description": "Keep the active context window stable by selecting, summarizing, and rotating only the minimum valid context per workflow phase."
+        },
         "debugging": {
             "path": "skills/debugging/SKILL.md",
             "description": "Methodical root-cause analysis and bug fixing."
+        },
+        "deploy-orchestrator": {
+            "path": "skills/deploy-orchestrator/SKILL.md",
+            "description": "Coordinate build, release, deploy, smoke validation, and rollback planning across the V3 deploy domain."
         },
         "dispatching-parallel-agents": {
             "path": "skills/dispatching-parallel-agents/SKILL.md",
@@ -35,6 +47,10 @@
         "docs-pro": {
             "path": "skills/docs-pro/SKILL.md",
             "description": "Maintain Documentation as Code by tracking technical debt and synchronizing docs with logic."
+        },
+        "engram-manager": {
+            "path": "skills/engram-manager/SKILL.md",
+            "description": "Manage durable cross-session memory, promote verified knowledge into Engram, and keep ephemeral state out of long-term memory."
         },
         "executing-plans": {
             "path": "skills/executing-plans/SKILL.md",
@@ -52,13 +68,29 @@
             "path": "skills/fullstack/SKILL.md",
             "description": "Bridging frontend and backend technologies seamlessly."
         },
+        "humanized-communication": {
+            "path": "skills/humanized-communication/SKILL.md",
+            "description": "Keep developer-facing communication calm, human, friendly, and precise without weakening technical rigor."
+        },
         "python-ecosystem": {
             "path": "skills/python-ecosystem/SKILL.md",
             "description": "Environment detection, virtual environments, and validation for Python projects."
         },
+        "sdd-manager": {
+            "path": "skills/sdd-manager/SKILL.md",
+            "description": "Enforce the full 9-phase Spec-Driven Development lifecycle and keep the active change artifact set complete, ordered, and auditable."
+        },
+        "security-reviewer": {
+            "path": "skills/security-reviewer/SKILL.md",
+            "description": "Review workflows, code, runtime boundaries, CI/CD gates, and deploy plans against the V3 security model and golden rule."
+        },
         "skill-creator": {
             "path": "skills/skill-creator/SKILL.md",
             "description": "Empower the agent to design, draft, and implement new technical and operational skills."
+        },
+        "skill-governor": {
+            "path": "skills/skill-governor/SKILL.md",
+            "description": "Govern skill activation, adaptation, trust levels, and V3-compatible adoption of high-reliability upstream skills."
         },
         "skill-manager": {
             "path": "skills/skill-manager/SKILL.md",
@@ -71,6 +103,10 @@
         "test-driven-development": {
             "path": "skills/test-driven-development/SKILL.md",
             "description": "Ensure logic changes are driven and verified by automated tests."
+        },
+        "test-verifier": {
+            "path": "skills/test-verifier/SKILL.md",
+            "description": "Own the verification gate by mapping required checks, validating evidence, and ensuring completion claims are backed by tests and structural quality signals."
         },
         "typescript-ecosystem": {
             "path": "skills/typescript-ecosystem/SKILL.md",

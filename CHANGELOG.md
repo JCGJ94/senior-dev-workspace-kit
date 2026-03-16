@@ -16,3 +16,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Base `config` files (`workspace.manifest.json`, `project-types.json`).
 - Minimal professional GitHub repository files (`README.md`, `.gitignore`, `LICENSE`).
 - Release methodology defined in `docs/release-process.md`.
+
+## [3.0.0] - 2026-03-16
+
+### Changed
+- Standardized the V3 contract around `AGENTS.md`, `core/` source assets, and `.agent/` runtime installation.
+- Replaced the legacy sync path with `scripts/sync-workspace.sh` and kept `scripts/sync-workspace-v2.sh` as a compatibility wrapper.
+- Updated onboarding and architecture docs to describe the actual V3 runtime model.
+- Formalized developer approval gates for architectural, external skill, dependency, security, and deploy-sensitive actions.
+- Added trusted JIT skill discovery guidance for `skills.sh`, `agents.md`, and `github.com/obra/superpowers`.
+
+### Added
+- Added `humanized-communication` as a V3 skill for calm, friendly, developer-facing communication.
+
+### Deprecated
+- Deprecated legacy references to `.devkit`, `skills_registry`, and obsolete install/sync scripts in the main operational path.

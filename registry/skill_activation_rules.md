@@ -26,6 +26,7 @@ These behaviors must always be applied when relevant, even if the user does not 
 - `verification-before-completion`
 - `context-optimization`
 - `context-distiller`
+- `humanized-communication` for developer-facing summaries and explanations
 - repository stack detection
 - repository convention adherence
 - scope minimization
@@ -236,6 +237,17 @@ Skills must adapt to:
 
 A skill never overrides repository truth.
 
+---
+
+## Rule 14A — Human Tone Must Not Dilute Technical Truth
+Use `humanized-communication` when the output is aimed at a developer and clarity improves through a calmer, more human tone.
+
+Do not use it to:
+- weaken safety language
+- soften approval gates
+- blur uncertainty
+- replace exact technical statements with generic prose
+
 This is especially important for:
 - `backend`
 - `frontend`
@@ -253,6 +265,48 @@ Avoid redundant combinations such as:
 - `dispatching-parallel-agents` for a tiny scoped change
 
 Use the smallest valid combination.
+
+---
+
+## Rule 16 — V3 Master Orchestrator Owns Cross-Cutting Work
+Activate `architect-orchestrator-v3` when:
+- the task spans memory, planning, verification, security, and deploy concerns
+- the repository is operating under the V3 architecture model
+- multiple specialized sub-agents need one architecture owner
+
+Do not activate it for tiny direct tasks where a single skill is enough.
+
+---
+
+## Rule 17 — Specialized V3 Sub-Agents Stay Narrow
+Use the V3 specialized sub-agents only for their bounded responsibility:
+
+- `engram-manager` for durable memory promotion and retrieval structure
+- `sdd-manager` for 9-phase lifecycle control
+- `skill-governor` for skill adaptation, trust, and activation
+- `security-reviewer` for security and CI/CD risk review
+- `test-verifier` for evidence-driven verification
+- `deploy-orchestrator` for release and deploy readiness
+- `context-keeper` for stable context selection and rotation
+
+Do not treat them as generic replacements for implementation or domain work.
+
+---
+
+## Rule 18 — Trusted Upstream Skills Still Require V3 Adaptation
+Maintainer-selected skills from the mother repository are high-trust inputs and should be preferred over arbitrary external sources.
+
+However:
+- they still must be adapted to V3 metadata and orchestration contracts when needed
+- they must not bypass core guardrails
+- they must not weaken context stability or verification discipline
+
+When the required skill is not local, external lookup should happen in this order:
+1. `https://skills.sh/`
+2. `https://agents.md/`
+3. `https://github.com/obra/superpowers`
+
+External discovery does not imply automatic adoption. Approval and V3 adaptation still apply.
 
 ---
 
@@ -283,9 +337,21 @@ Use the smallest valid combination.
 
 ### Large decomposable task
 1. `writing-plans`
-2. `ai-agent`
-3. `dispatching-parallel-agents`
-4. `verification-before-completion`
+2. optional `architect-orchestrator-v3`
+3. `ai-agent`
+4. optional `dispatching-parallel-agents`
+5. `verification-before-completion`
+
+### V3 architecture-governed task
+1. `context-keeper`
+2. `architect-orchestrator-v3`
+3. `sdd-manager`
+4. optional domain skill
+5. optional `skill-governor`
+6. `test-verifier`
+7. optional `security-reviewer`
+8. optional `deploy-orchestrator`
+9. `engram-manager`
 
 ### Commit / branch handoff
 1. `commit-sentinel`

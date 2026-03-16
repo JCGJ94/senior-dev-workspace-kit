@@ -1,84 +1,50 @@
-# AI Engineering Workspace Kit Usage Guide
+# AI Engineering Workspace Kit usage guide
 
-🇬🇧 [English](00_usage_guide.md) | 🇪🇸 [Español](../es/00_guia_de_uso.md)
+## Lifecycle
 
-This document explains how to use the kit within real projects to standardize AI-assisted development.
-
----
-
-## Workspace Lifecycle
-
-The system works by provisioning an operational runtime.
-
-### 1. Provisioning
-
-Install the workspace in a new or existing project:
+### 1. Install the runtime
 
 ```bash
-# Detects your stack and creates .agent/
-bash path/to/kit/scripts/provision.sh
+bash /path/to/ai-engineering-workspace-kit/scripts/agent init
 ```
 
-This creates the `.agent/` directory containing optimized rules, skills, and workflows for your environment.
+This provisions `.agent/`, `docs/engram/`, and `specs/` into the target repository.
 
----
-
-### 2. Registration (Indexing)
-
-Prepare the skill catalog for the agent:
+### 2. Sync the runtime
 
 ```bash
-# Generates the local skill index
-bash path/to/kit/scripts/generate-registry.sh
+bash /path/to/ai-engineering-workspace-kit/scripts/agent sync
 ```
 
----
+This refreshes the runtime from the source kit while keeping the V3 model intact.
 
-### 3. Development
-
-During development:
-- The agent consults `.agent/core/` for engineering rules.
-- Skills are activated based on detected intent.
-- Workflows guide complex processes (feature, bugfix, etc.).
-
----
-
-### 4. Synchronization
-
-When the base kit evolves (new skills or core rules):
+### 3. Validate the source kit
 
 ```bash
-# Updates .agent/ while protecting your local configurations
-bash path/to/kit/scripts/sync-workspace-v2.sh
+bash /path/to/ai-engineering-workspace-kit/scripts/validate-kit.sh
 ```
 
----
+## Operating rules
 
-## Daily Workflow
+- The agent reads `.agent/core/` for installed rules.
+- `AGENTS.md` is the runtime contract.
+- `docs/engram/` stores durable memory.
+- `specs/` stores non-trivial work artifacts.
+- The agent keeps context lean and activates the minimum useful skill set.
 
-1. You ask the agent to implement a feature or fix a bug.
-2. The agent detects the stack (via `.agent/state/env_state.json`).
-3. The agent activates suitable skills (e.g., `typescript-ecosystem`, `debugging`).
-4. Agnostic commands (e.g., `[OP_TEST]`) are executed and translated to your real tool (`npm test`, `pytest`, etc.).
+## Approval model
 
----
+The agent may analyze, plan, summarize, and prepare low-risk reversible changes autonomously.
 
-## Creating New Skills in the Kit
+The agent must ask before architecture changes, external skill adoption, dependency changes, destructive file actions, or security/deploy/data actions.
 
-To add a capability to the source kit:
+## JIT skills
 
-1. **Create folder:** `mkdir -p skills/my-new-skill`
-2. **Add SKILL.md:** Define behavior and tools.
-3. **Register:** Update `registry/skill_manifest.json`.
-4. **Validate:** Run `bash scripts/validate-skills.sh`.
+When a skill is missing, the trusted lookup order is:
 
----
+1. local kit or runtime skills
+2. `https://skills.sh/`
+3. `https://agents.md/`
+4. `https://github.com/obra/superpowers`
 
-## Dynamic Environment Resolution
-
-The kit relies on repository signals to avoid forcing tools:
-- Detected lockfiles.
-- Present package managers.
-- Type configurations (`tsconfig`, `pyproject.toml`).
-
-This allows native, frictionless support for Node.js, Python, Bun, and hybrid projects.
+External skills require approval and V3 adaptation before activation.

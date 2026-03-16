@@ -75,11 +75,14 @@ These should be treated as globally preferred and implicitly active whenever rel
 - `verification-before-completion`
 - `context-optimization`
 - `context-distiller`
+- `humanized-communication` for developer-facing messaging only
 
 These three form the minimum operating baseline for reliable agent behavior:
 - verify before claiming success
 - minimize context usage
 - distill only relevant information
+
+`humanized-communication` should ride on top of that baseline when the agent is speaking to developers, writing summaries, or improving onboarding text.
 
 ---
 
@@ -115,11 +118,33 @@ Default policy:
 Activate when the task is large enough to benefit from controlled delegation:
 
 - `ai-agent`
+- `architect-orchestrator-v3`
 - `dispatching-parallel-agents`
 
 Default policy:
 - Use `ai-agent` when decomposition is useful
+- Use `architect-orchestrator-v3` when the task needs V3-level orchestration across memory, SDD, security, testing, deploy, and context control
 - Use `dispatching-parallel-agents` only for genuinely independent subtasks
+
+### V3 Specialized Sub-Agents
+Activate only under the master orchestrator or when the task clearly targets their responsibility:
+
+- `engram-manager`
+- `sdd-manager`
+- `skill-governor`
+- `security-reviewer`
+- `test-verifier`
+- `deploy-orchestrator`
+- `context-keeper`
+
+Default policy:
+- `engram-manager` for durable memory promotion and retrieval discipline
+- `sdd-manager` for phase ownership and artifact completeness
+- `skill-governor` for skill activation and V3 adaptation of trusted upstream skills
+- `security-reviewer` for CI/CD and runtime safety reviews
+- `test-verifier` for evidence-based verification
+- `deploy-orchestrator` for release and deploy workflows
+- `context-keeper` for stable context packing and rotation
 
 ---
 
@@ -202,6 +227,7 @@ Optional:
 ### Large parallelizable task
 Preferred skills:
 - `writing-plans`
+- `architect-orchestrator-v3`
 - `ai-agent`
 - `dispatching-parallel-agents`
 - `verification-before-completion`
