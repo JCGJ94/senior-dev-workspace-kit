@@ -1,3 +1,11 @@
+---
+name: "context-distiller"
+description: "Extract and compress the minimum useful context required to solve a task while preserving critical details."
+tier: 1
+triggers: ["distill", "sub-agent", "large-context", "compression"]
+context_cost: 350
+---
+
 # Context Distiller
 
 ## Purpose
@@ -77,6 +85,7 @@ Extract and compress the minimum useful context required to solve a task while r
 - Avoid repeating information already present in the prompt.
 - Do not remove critical technical constraints.
 - Never invent context during compression.
+- Under V3, align distilled output with `context-keeper` so compression improves stability instead of hiding critical state.
 
 ## Context Compression Guidelines
 

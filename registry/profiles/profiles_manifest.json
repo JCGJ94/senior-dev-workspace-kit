@@ -21,12 +21,19 @@
             "Tier 1",
             "Tier 2",
             "Tier Meta"
+        ],
+        "v3-orchestrator": [
+            "Tier 1",
+            "Tier 2",
+            "Tier 3",
+            "Tier Meta"
         ]
     },
     "aliases": {
         "tier1": "default",
         "tier2": "quality",
         "tier3": "multi-agent",
-        "tier4": "release"
+        "tier4": "release",
+        "v3": "v3-orchestrator"
     }
 }

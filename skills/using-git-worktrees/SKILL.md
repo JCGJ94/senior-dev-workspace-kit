@@ -1,3 +1,11 @@
+---
+name: "using-git-worktrees"
+description: "Manage isolated parallel branches safely using git worktrees without disturbing the main workspace."
+tier: 2
+triggers: ["worktree", "parallel-branch", "isolation", "branch-safety"]
+context_cost: 350
+---
+
 # Using Git Worktrees
 
 ## Purpose
@@ -44,6 +52,7 @@ Manage multiple active branches or tasks in parallel without switching branches 
 - **Lock Management**: Be aware that some lockfiles or databases might conflict if two worktrees access them simultaneously.
 - **Explicit Cleanup**: Always remove the worktree via Git commands once the task is done.
 - **State Awareness**: Never assume a worktree shares the same build artifacts as the main folder.
+- Under V3, use this skill when isolation improves SDD execution safety or release readiness, especially under `architect-orchestrator-v3`.
 
 ## Context Efficiency
 - Only load files from the active worktree involved in the secondary task.

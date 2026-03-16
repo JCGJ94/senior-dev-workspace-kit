@@ -7,12 +7,16 @@ Maintain long-term architectural continuity across distinct sessions without con
 Historical context retrieval, documentation persistence. (Tier 3 Priority).
 
 ## Separation of Memory
-1. **Global Prompt Memory:** Instructions on how the agent behaves (Language, habits) live in the system `.cursorrules` or platform-level `user_global` instructions. These are read-only.
-2. **Local Repository Memory:** Architectural knowledge of the *project* lives directly inside the project tree, typically in `docs/architecture/` or `docs/decisions/` (ADRs - Architecture Decision Records).
+1. **Global Prompt Memory:** Instructions on how the agent behaves (Language, habits) live in platform-level instructions. These are read-only.
+2. **Durable Repository Memory:** Architectural and reusable project knowledge lives in `docs/engram/` and linked architecture docs.
+3. **Active Change Memory:** Current work artifacts live in `specs/<change-id>/`.
+4. **Ephemeral Runtime Memory:** Session-only runtime summaries may live in `.agent/`, but they are not the durable source of truth.
 
 ## Updating Local Memory (Local Engram Pattern)
-- When a complex bug is resolved, a new pattern is introduced, or a major architecture decision is made, the agent should update or create an ADR in `docs/decisions/`.
-- This ensures that future sessions do not lose the "Why" behind the "How" (supporting Chesterton’s Fence).
+- When a complex bug is resolved, a reusable pattern is introduced, or a major architecture decision is made, the agent should promote knowledge into `docs/engram/`.
+- Decisions may still link to ADR-style documents, but `docs/engram/` is the canonical durable memory index for V3.
+- Promotion should be selective, evidence-backed, and retrieval-friendly.
 
 ## Bootstrapping 
-- The agent should scan `docs/decisions/` or the project `README.md` to understand the domain before making deep infrastructural changes, relying on these persisted text artifacts instead of expecting an active persistent state daemon.
+- The agent should scan `docs/engram/index.md`, relevant Engram entries, active specs, or the project `README.md` before making deep infrastructural changes.
+- Do not assume `.agent/` contains the full architectural memory of the project.

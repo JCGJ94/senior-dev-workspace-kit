@@ -62,6 +62,7 @@ Coordinate sub-agents and tool-driven execution with minimal context, strict bou
 - Do not merge parallel outputs without a final global verification pass.
 - Stop when outputs conflict, overlap, or fail validation.
 - Favor deterministic, reproducible steps over clever agent behavior.
+- Under V3, defer cross-cutting orchestration to `architect-orchestrator-v3` when memory, SDD, security, deploy, and verification concerns are all in play.
 
 ## Context Packing Standard
 When dispatching a sub-agent, include only:

@@ -1,3 +1,11 @@
+---
+name: "finishing-a-development-branch"
+description: "Execute a clean branch-closing protocol with verification evidence, documentation sync, and merge or release readiness."
+tier: 2
+triggers: ["finish-branch", "merge-ready", "release-candidate", "handover"]
+context_cost: 400
+---
+
 # Finishing a Development Branch
 
 ## Purpose
@@ -50,6 +58,7 @@ Execute a clean, standardized protocol for closing a development cycle, ensuring
 - **Document Changes**: Every feature/fix should be reflected in documentation.
 - **Match Conventions**: Follow repository-specific merge and commit strategies strictly.
 - **Evidence-Backed**: Provide final verification logs as part of the closing report.
+- Under V3, branch closure should reference the active SDD archive and verification artifacts before handoff or release.
 
 ## Context Efficiency
 - Focus on the branch diff and final verification outputs.

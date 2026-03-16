@@ -94,6 +94,7 @@ Create clear, structured implementation plans before starting complex tasks, ens
 - Respect repository architecture and tooling.
 - Do not include implementation details that belong in execution.
 - Plans must be concise and structured.
+- Under V3, route non-trivial plans into the 9-phase SDD artifact set through `sdd-manager` when the repository is operating in full workflow mode.
 
 ## Context Efficiency
 When planning:

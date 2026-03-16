@@ -1,3 +1,11 @@
+---
+name: "systematic-debugging"
+description: "Apply a rigorous, hypothesis-driven methodology to isolate, diagnose, and resolve complex defects with durable learning."
+tier: 2
+triggers: ["debug", "root-cause", "complex-failure", "incident"]
+context_cost: 550
+---
+
 # Systematic Debugging
 
 ## Purpose
@@ -56,6 +64,7 @@ Apply a rigorous, hypothesis-driven methodology to isolate, diagnose, and resolv
 - **Trust No Assertion**: Verify assumptions with logs or debuggers.
 - **Fix the Cause, Not the Symptom**: Avoid "if (value == null) return" patches unless that is the true fix.
 - **Maintain State Integrity**: Ensure the fix handles state transitions and errors gracefully.
+- Under V3, route reusable debugging lessons and incident knowledge to `engram-manager` once the issue is verified.
 
 ## Context Efficiency
 - Focus on logs, stack traces, and affected files first.

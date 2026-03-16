@@ -21,3 +21,8 @@ Project initialization, package management, and repository structure. (Tier 2 Pr
 ## Ownership & Versioning
 - Commits must use Conventional Commits format (`feat:`, `fix:`, `chore:`, `refactor:`).
 - Keep dependencies updated but lock versions for critical infrastructural tools.
+
+## V3 Project Memory & Specs
+- Non-trivial work should create or update an artifact directory under `specs/`.
+- Durable project knowledge should live in `docs/engram/`, not only in ephemeral runtime state.
+- Projects integrating this kit should keep setup, validation, and deploy knowledge linkable from repository docs.

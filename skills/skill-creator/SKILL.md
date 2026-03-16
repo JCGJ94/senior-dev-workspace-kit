@@ -107,6 +107,7 @@ Design and generate new skills that integrate correctly with the repository’s 
 - Ensure skills remain stack-agnostic unless explicitly required.
 - Optimize for clarity and deterministic execution.
 - Keep instructions concise to minimize token usage.
+- Under V3, every newly created or adapted skill must include normalized metadata, trust assumptions, verification expectations, and context-discipline compatibility.
 
 ## Context Efficiency
 When generating a new skill:

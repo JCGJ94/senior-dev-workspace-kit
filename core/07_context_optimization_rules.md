@@ -15,3 +15,8 @@ File reading, token management, search operations. (Tier 3 Priority).
 - If reading large documentation or terminal outputs, summarize the key findings conceptually rather than dumping raw 500-line logs.
 - If a file is too large to read entirely, read in chunks or rely on semantic grep searching.
 - Reference existing facts from KIs (Knowledge Items), `/core` rules, or `/docs` instead of rewriting them fully in chat prompts.
+
+## V3 Stable Context Policy
+- The active context window must remain stable across iterations; growing the knowledge base must not imply loading all accumulated knowledge.
+- Prefer `specs/<change-id>/summary.md`, `docs/engram/index.md`, and compact phase artifacts over reloading broad history.
+- Use `context-keeper` and `context-distiller` to preserve signal while protecting continuity.

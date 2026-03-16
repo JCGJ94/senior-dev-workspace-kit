@@ -1,3 +1,11 @@
+---
+name: "test-driven-development"
+description: "Drive logic changes through failing tests first, then minimal implementation, then safe refactoring."
+tier: 2
+triggers: ["tdd", "test-first", "bugfix", "new-logic"]
+context_cost: 450
+---
+
 # Test-Driven Development (TDD)
 
 ## Purpose
@@ -25,3 +33,4 @@ If code is written without a test, or a test passes immediately upon creation, t
 - **Minimal**: Test one thing. If the test name has "and", split it.
 - **Intent-driven**: Show how the API should be used, demonstrating desired behavior rather than mocking internals.
 - **Edge-case inclusive**: Do not assume manual testing covers edge cases; automate them.
+- Under V3, record RED-GREEN-REFACTOR evidence in the active SDD verification artifacts and coordinate final readiness with `test-verifier`.

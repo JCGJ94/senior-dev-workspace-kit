@@ -10,7 +10,7 @@ def main():
 
     def report_error(msg):
         nonlocal has_errors
-        print(f"❌ ERROR: {msg}", file=sys.stderr)
+        print(f"ERROR: {msg}", file=sys.stderr)
         has_errors = True
 
     # Root directory is one level up from scripts/
@@ -87,7 +87,7 @@ def main():
         print("\nValidation FAILED. Please fix the above errors.", file=sys.stderr)
         sys.exit(1)
     else:
-        print("✅ All checks passed! The skill architecture is consistent and strictly compliant.")
+        print("All checks passed. The skill architecture is consistent and strictly compliant.")
 
 if __name__ == "__main__":
     main()

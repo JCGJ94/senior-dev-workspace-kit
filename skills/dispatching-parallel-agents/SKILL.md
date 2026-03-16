@@ -1,3 +1,11 @@
+---
+name: "dispatching-parallel-agents"
+description: "Coordinate multiple sub-agents to solve independent sub-problems simultaneously while preserving isolation and verification quality."
+tier: 2
+triggers: ["parallel", "concurrent", "independent-subtasks", "subagents"]
+context_cost: 500
+---
+
 # Dispatching Parallel Agents
 
 ## Purpose
@@ -52,6 +60,7 @@ Coordinate multiple sub-agents to solve independent sub-problems simultaneously,
 - **Independent Verification**: Validate each agent's output before merging.
 - **Fail-Fast**: If one critical sub-task fails, assess if the entire parallel block should be aborted.
 - **No Shared State**: Do not allow sub-agents to assume state changes from their peers.
+- Under V3, use `architect-orchestrator-v3` as the owner when parallel work is part of a larger SDD-governed execution graph.
 
 ## Context Efficiency
 - Do not pass the entire repository to all agents.
