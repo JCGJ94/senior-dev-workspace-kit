@@ -11,6 +11,7 @@ bash ../ai-engineering-workspace-kit/scripts/agent init
 ```
 
 This creates `.agent/` in the target project.
+The `init` command is non-interactive by default.
 
 ## Main scripts
 

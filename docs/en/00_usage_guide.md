@@ -9,6 +9,7 @@ bash /path/to/ai-engineering-workspace-kit/scripts/agent init
 ```
 
 This provisions `.agent/`, `docs/engram/`, and `specs/` into the target repository.
+It runs in non-interactive mode by default.
 
 ### 2. Sync the runtime
 

@@ -42,6 +42,8 @@ cd /path/to/your/project
 bash /path/to/ai-engineering-workspace-kit/scripts/agent init
 ```
 
+`init` runs in non-interactive mode by default so a fresh runtime installs in one command.
+
 Sync an existing runtime after kit updates:
 
 ```bash
@@ -52,6 +54,12 @@ Validate the source kit:
 
 ```bash
 bash /path/to/ai-engineering-workspace-kit/scripts/validate-kit.sh
+```
+
+If you want the optional skill picker during initialization, pass flags through to the provisioner:
+
+```bash
+bash /path/to/ai-engineering-workspace-kit/scripts/agent init --interactive
 ```
 
 ## Runtime layout

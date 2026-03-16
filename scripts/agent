@@ -7,7 +7,11 @@
 set -e
 
 KIT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-COMMAND=$1
+COMMAND="${1:-}"
+if [ $# -gt 0 ]; then
+    shift
+fi
+FORWARD_ARGS=("$@")
 
 # Colors
 GREEN='\033[0;32m'
@@ -29,7 +33,7 @@ show_help() {
     echo -e "The bridge between LLM reasoning and professional source code.\n"
     echo -e "Usage: ${GREEN}bash scripts/agent <command>${NC}\n"
     echo "Commands:"
-    echo "  init        Provision the strictly-typed .agent/ runtime"
+    echo "  init        Provision the strictly-typed .agent/ runtime (non-interactive by default)"
     echo "  add-skill   Add a specific skill from the global library to this project"
     echo "  sync        Synchronize local .agent/ with the kit's upstream"
     echo "  registry    Force-rebuild the lightweight skills.json index"
@@ -110,14 +114,17 @@ check_context7() {
 
 case "$COMMAND" in
     "init")
-        bash "$KIT_ROOT/scripts/provision.sh"
+        if [ ${#FORWARD_ARGS[@]} -eq 0 ]; then
+            FORWARD_ARGS=("--non-interactive")
+        fi
+        bash "$KIT_ROOT/scripts/provision.sh" "${FORWARD_ARGS[@]}"
         bash "$KIT_ROOT/scripts/generate-registry.sh"
         ;;
     "add-skill")
         add_skill "$2"
         ;;
     "sync")
-        bash "$KIT_ROOT/scripts/sync-workspace.sh"
+        bash "$KIT_ROOT/scripts/sync-workspace.sh" "${FORWARD_ARGS[@]}"
         ;;
     "registry")
         bash "$KIT_ROOT/scripts/generate-registry.sh"

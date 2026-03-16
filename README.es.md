@@ -42,10 +42,18 @@ cd /ruta/a/tu/proyecto
 bash /ruta/al/ai-engineering-workspace-kit/scripts/agent init
 ```
 
+`init` se ejecuta en modo no interactivo por defecto, asi que el runtime se instala de una sola vez.
+
 Sincroniza un runtime existente tras actualizar el kit:
 
 ```bash
 bash /ruta/al/ai-engineering-workspace-kit/scripts/agent sync
+```
+
+Si quieres usar el selector opcional de skills durante la inicializacion, pasa flags al provisioner:
+
+```bash
+bash /ruta/al/ai-engineering-workspace-kit/scripts/agent init --interactive
 ```
 
 Valida el kit fuente:

@@ -9,6 +9,7 @@ bash /ruta/al/ai-engineering-workspace-kit/scripts/agent init
 ```
 
 Esto provisiona `.agent/`, `docs/engram/` y `specs/` dentro del repositorio objetivo.
+Se ejecuta en modo no interactivo por defecto.
 
 ### 2. Sincronizar el runtime
 
