@@ -13,8 +13,7 @@ KIT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # Colors
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
-YELLOW='\033[1;33m'
-RED='\033[0;31m'
+# YELLOW and RED defined but unused in this script (SC2034)
 NC='\033[0m'
 
 echo -e "${BLUE}"
@@ -144,7 +143,7 @@ provision_skills() {
         echo -e "\n${BLUE}🦸 Choose additional skills? (y/n, default n): ${NC}"
         read -r ADD_SKILLS
         if [[ "$ADD_SKILLS" =~ ^[Yy]$ ]]; then
-            echo -e "Available skills: $(ls "${KIT_ROOT}/skills" | xargs)"
+            echo -e "Available skills: $(find "${KIT_ROOT}/skills" -maxdepth 1 -mindepth 1 -type d -exec basename {} \; | sort | xargs)"
             echo -e "Enter skill names separated by space: "
             read -r SKILLS_TO_LOAD
             for s in ${SKILLS_TO_LOAD}; do

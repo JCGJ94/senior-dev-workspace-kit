@@ -47,7 +47,7 @@ add_skill() {
     if [ -z "$SKILL_NAME" ]; then
         echo -e "${YELLOW}Usage: bash scripts/agent add-skill <skill-name>${NC}"
         echo -e "Available skills in global library:"
-        ls -F "$KIT_ROOT/skills" | sed 's/\///' | column
+        find "$KIT_ROOT/skills" -maxdepth 1 -mindepth 1 -type d -exec basename {} \; | sort | column
         return
     fi
 
