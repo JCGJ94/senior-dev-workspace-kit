@@ -83,6 +83,25 @@ def main():
     else:
         report_error(f"Skills directory not found at {skills_dir}")
 
+    # 6. Semantic identity check: verify required sections in each SKILL.md
+    # Pattern: Skill Identity = Content, Not Name (docs/engram/patterns/001-skill-identity-validation.md)
+    REQUIRED_SECTIONS = ["## Purpose", "## Use when"]
+    if skills_dir.exists():
+        for entry in os.scandir(skills_dir):
+            if entry.is_dir():
+                skill_md_path = Path(entry.path) / 'SKILL.md'
+                if skill_md_path.exists():
+                    try:
+                        content = skill_md_path.read_text(encoding='utf-8')
+                        for section in REQUIRED_SECTIONS:
+                            if section not in content:
+                                report_error(
+                                    f"Skill '{entry.name}' SKILL.md is missing required section '{section}'. "
+                                    f"Identity defect: content may not match the skill's declared purpose."
+                                )
+                    except Exception as e:
+                        report_error(f"Could not read SKILL.md for '{entry.name}': {e}")
+
     if has_errors:
         print("\nValidation FAILED. Please fix the above errors.", file=sys.stderr)
         sys.exit(1)

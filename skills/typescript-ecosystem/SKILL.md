@@ -3,6 +3,16 @@
 ## Purpose
 Manage TypeScript/JavaScript environment resolution, package management, and validation standards.
 
+## Use when
+- Resolving which package manager to use in a TypeScript or JavaScript project.
+- Running type-checks, linting, or tests in a TS/JS environment.
+- Detecting monorepo workspace boundaries before running commands.
+- Any task requiring ecosystem-aware command execution in a TypeScript codebase.
+
+## Do not use when
+- Working in a Python-only or shell-only project (use `python-ecosystem`).
+- Reviewing code quality (use `code-review-pro`).
+
 ## Requirements
 - Prefer `bun` if `bun.lockb` or `bun.lock` is present.
 - Support `pnpm`, `npm`, or `yarn` based on lockfile detection.

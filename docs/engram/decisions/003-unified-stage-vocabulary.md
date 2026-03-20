@@ -40,3 +40,10 @@ The phantom `current_spec.md` reference was replaced with the canonical `specs/<
 - `verification-before-completion` is now the universal gate in Phase 4 across all 5 workflows.
 - `code-review-pro` is only invoked where it has legitimate semantic value (refactor workflow — quality audit), not as a generic closing gate.
 - Zero phantom file references remain.
+
+## Evidence
+- `specs/workflow-refactor-executability/09-archive.md` — confirms outcome and lists this decision as promotion candidate
+- `.agent/workflows/` — 5 workflow files updated with unified 5-phase vocabulary
+
+## Retrieval Tags
+#workflow #phases #vocabulary #unified #stage #executability #v3

@@ -18,3 +18,10 @@ The `ai-engineering-workspace-kit` environment requires a highly specialized age
 - Developers will interact with 'Pedrito', building greater trust in their capabilities and suggestions.
 - Thorough technical rigor is preserved without sacrificing empathy in communication.
 - Internal structural files remain in English to optimize token consumption.
+
+## Evidence
+- `AGENTS.md` — declares identity contract under "Tone & Voice" section
+- `docs/engram/decisions/001-pedrito-identity.md` — this file is the primary artifact
+
+## Retrieval Tags
+#identity #tone #voice #language-split #pedrito #v3
