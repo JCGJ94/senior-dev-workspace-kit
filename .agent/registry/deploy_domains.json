@@ -1,0 +1,70 @@
+{
+  "domains": {
+    "docker": {
+      "description": "Containerized build and deployment flow.",
+      "required_checks": ["build", "smoke", "rollback"],
+      "artifacts": ["Dockerfile", "image tag"],
+      "notes": "Validate image build contract and runtime configuration."
+    },
+    "vercel": {
+      "description": "Frontend and fullstack deployment to Vercel.",
+      "required_checks": ["build", "preview or smoke", "rollback"],
+      "artifacts": ["build output", "environment variables"],
+      "notes": "Confirm framework output mode and environment parity."
+    },
+    "netlify": {
+      "description": "Static or hybrid deployment to Netlify.",
+      "required_checks": ["build", "smoke", "rollback"],
+      "artifacts": ["publish directory", "environment variables"],
+      "notes": "Validate build command and publish directory."
+    },
+    "railway": {
+      "description": "Application deployment to Railway.",
+      "required_checks": ["build", "smoke", "rollback"],
+      "artifacts": ["service config", "environment variables"],
+      "notes": "Validate service startup and post-deploy health."
+    },
+    "fly-io": {
+      "description": "Deployment to Fly.io.",
+      "required_checks": ["build", "smoke", "rollback"],
+      "artifacts": ["fly.toml", "release target"],
+      "notes": "Confirm region and machine rollout assumptions."
+    },
+    "supabase": {
+      "description": "Database and edge deployment to Supabase.",
+      "required_checks": ["migration validation", "smoke", "rollback"],
+      "artifacts": ["migration files", "project target"],
+      "notes": "Prefer reversible migrations and explicit environment targeting."
+    },
+    "aws": {
+      "description": "Deployment to AWS services.",
+      "required_checks": ["build", "infra validation", "smoke", "rollback"],
+      "artifacts": ["service manifest", "environment config"],
+      "notes": "Capture exact service and rollback route."
+    },
+    "gcp": {
+      "description": "Deployment to GCP services.",
+      "required_checks": ["build", "infra validation", "smoke", "rollback"],
+      "artifacts": ["service manifest", "environment config"],
+      "notes": "Confirm project, region, and service target."
+    },
+    "azure": {
+      "description": "Deployment to Azure services.",
+      "required_checks": ["build", "infra validation", "smoke", "rollback"],
+      "artifacts": ["service manifest", "environment config"],
+      "notes": "Validate target app and deployment slot strategy."
+    },
+    "vps": {
+      "description": "Manual or semi-automated deployment to a VPS.",
+      "required_checks": ["build", "smoke", "rollback"],
+      "artifacts": ["deploy script", "service config"],
+      "notes": "Require explicit service restart and rollback procedure."
+    },
+    "cloudflare": {
+      "description": "Deployment to Cloudflare platform services.",
+      "required_checks": ["build", "smoke", "rollback"],
+      "artifacts": ["worker or pages config", "environment variables"],
+      "notes": "Validate target product and edge runtime assumptions."
+    }
+  }
+}

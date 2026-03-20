@@ -4,12 +4,12 @@
      / __ _/ /
     /_/ |_/___/
 
-   A G E N T   K I T
+   A G E N T   K I T   (P E D R I T O)
 ```
 
 **English** | [Español](README.es.md)
 
-The **AI Engineering Workspace Kit** is a V3 source kit for installing a governed AI engineering runtime into any repository.
+The **AI Engineering Workspace Kit** is a V3 source kit for installing a governed AI engineering runtime (operated by **Pedrito**) into any repository.
 
 It keeps the contract simple:
 

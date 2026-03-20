@@ -1,0 +1,424 @@
+{
+  "last_updated": "2026-03-20T19:15:00Z",
+  "skills": [
+    {
+      "name": "ai-agent",
+      "description": "Coordinate sub-agents and tool-driven execution with minimal context, strict boundaries, and mandatory verification before integration.",
+      "tier": 1,
+      "context_cost": 400,
+      "triggers": [
+        "sub-agent",
+        "orchestrate",
+        "delegate",
+        "parallel"
+      ],
+      "path": "skills/ai-agent/SKILL.md"
+    },
+    {
+      "name": "backend",
+      "description": "Design, implement, and evolve backend systems and APIs with strong contracts, security, validation, and environment-aware execution.",
+      "tier": 1,
+      "context_cost": 450,
+      "triggers": [
+        "backend",
+        "api",
+        "server",
+        "endpoint",
+        "persistence"
+      ],
+      "path": "skills/backend/SKILL.md"
+    },
+    {
+      "name": "architect-orchestrator-v3",
+      "description": "Act as the V3 master sub-agent that routes work across specialized sub-agents while enforcing Engram, SDD, context stability, testing, security, and deploy readiness.",
+      "tier": 2,
+      "context_cost": 800,
+      "triggers": [
+        "v3",
+        "orchestrate",
+        "master-agent",
+        "subagent",
+        "architecture"
+      ],
+      "path": "skills/architect-orchestrator-v3/SKILL.md"
+    },
+    {
+      "name": "code-review-pro",
+      "description": "Guard repository integrity by ensuring commits are atomic, meaningful, and aligned with repository conventions before they are created.",
+      "tier": 1,
+      "context_cost": 300,
+      "triggers": [
+        "commit",
+        "review",
+        "atomic",
+        "sentinel",
+        "git"
+      ],
+      "path": "skills/code-review-pro/SKILL.md"
+    },
+    {
+      "name": "commit-sentinel",
+      "description": "Act as the gateway for Git history health by auditing every commit for strict atomicity, type-safety, and conventional compliance.",
+      "tier": 1,
+      "context_cost": 280,
+      "triggers": [
+        "commit",
+        "history",
+        "atomic",
+        "conventional",
+        "git-quality"
+      ],
+      "path": "skills/commit-sentinel/SKILL.md"
+    },
+    {
+      "name": "context-distiller",
+      "description": "Extract and compress the minimum useful context required to solve a task while preserving critical details.",
+      "tier": 1,
+      "context_cost": 350,
+      "triggers": [
+        "distill",
+        "sub-agent",
+        "large-context",
+        "compression"
+      ],
+      "path": "skills/context-distiller/SKILL.md"
+    },
+    {
+      "name": "context-keeper",
+      "description": "Keep the active context window stable by selecting, summarizing, and rotating only the minimum valid context for each V3 workflow phase.",
+      "tier": 2,
+      "context_cost": 300,
+      "triggers": [
+        "context",
+        "window",
+        "stable",
+        "pack",
+        "memory"
+      ],
+      "path": "skills/context-keeper/SKILL.md"
+    },
+    {
+      "name": "context-optimization",
+      "description": "Minimize token usage while preserving necessary information.",
+      "tier": 1,
+      "context_cost": 500,
+      "triggers": [
+        "analysis",
+        "large-codebase",
+        "always"
+      ],
+      "path": "skills/context-optimization/SKILL.md"
+    },
+    {
+      "name": "debugging",
+      "description": "Systematically diagnose and resolve errors, failures, and unexpected behavior while preserving system stability.",
+      "tier": 1,
+      "context_cost": 400,
+      "triggers": [
+        "debug",
+        "error",
+        "failure",
+        "bug",
+        "troubleshoot"
+      ],
+      "path": "skills/debugging/SKILL.md"
+    },
+    {
+      "name": "docs-pro",
+      "description": "Maintain Documentation as Code by tracking technical debt, enforcing style guides, and synchronizing docs with logic.",
+      "tier": 1,
+      "context_cost": 320,
+      "triggers": [
+        "documentation",
+        "readme",
+        "adr",
+        "docs-sync",
+        "technical-writing"
+      ],
+      "path": "skills/docs-pro/SKILL.md"
+    },
+    {
+      "name": "deploy-orchestrator",
+      "description": "Coordinate build, release, deploy, smoke validation, and rollback planning across the V3 deploy domain.",
+      "tier": 2,
+      "context_cost": 600,
+      "triggers": [
+        "deploy",
+        "release",
+        "rollback",
+        "environment",
+        "delivery"
+      ],
+      "path": "skills/deploy-orchestrator/SKILL.md"
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "description": "Coordinate multiple sub-agents to solve independent sub-problems simultaneously while preserving isolation and verification quality.",
+      "tier": 2,
+      "context_cost": 500,
+      "triggers": [
+        "parallel",
+        "concurrent",
+        "independent-subtasks",
+        "subagents"
+      ],
+      "path": "skills/dispatching-parallel-agents/SKILL.md"
+    },
+    {
+      "name": "engram-manager",
+      "description": "Manage durable cross-session memory, promote verified knowledge into Engram, and keep ephemeral state out of long-term memory.",
+      "tier": 2,
+      "context_cost": 400,
+      "triggers": [
+        "engram",
+        "memory",
+        "decision",
+        "pattern",
+        "lesson"
+      ],
+      "path": "skills/engram-manager/SKILL.md"
+    },
+    {
+      "name": "executing-plans",
+      "description": "Follow a previously established plan with strict adherence, avoiding distractions and scope creep.",
+      "tier": 1,
+      "context_cost": 300,
+      "triggers": [
+        "execute",
+        "plan",
+        "strict",
+        "follow",
+        "implement"
+      ],
+      "path": "skills/executing-plans/SKILL.md"
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "description": "Execute a clean branch-closing protocol with verification evidence, documentation sync, and merge or release readiness.",
+      "tier": 2,
+      "context_cost": 400,
+      "triggers": [
+        "finish-branch",
+        "merge-ready",
+        "release-candidate",
+        "handover"
+      ],
+      "path": "skills/finishing-a-development-branch/SKILL.md"
+    },
+    {
+      "name": "frontend",
+      "description": "Design and implement frontend components, UI behavior, and client-side interactions while respecting repository conventions.",
+      "tier": 1,
+      "context_cost": 420,
+      "triggers": [
+        "frontend",
+        "ui",
+        "component",
+        "client-side",
+        "react"
+      ],
+      "path": "skills/frontend/SKILL.md"
+    },
+    {
+      "name": "fullstack",
+      "description": "Implement and coordinate changes that span both backend and frontend layers while maintaining consistent contracts.",
+      "tier": 2,
+      "context_cost": 500,
+      "triggers": [
+        "fullstack",
+        "end-to-end",
+        "api-integration",
+        "full-layer"
+      ],
+      "path": "skills/fullstack/SKILL.md"
+    },
+    {
+      "name": "humanized-communication",
+      "description": "Keep developer-facing communication calm, human, friendly, and precise without weakening technical rigor.",
+      "tier": 1,
+      "context_cost": 180,
+      "triggers": [
+        "tone",
+        "human",
+        "friendly",
+        "summary",
+        "developer-facing"
+      ],
+      "path": "skills/humanized-communication/SKILL.md"
+    },
+    {
+      "name": "python-ecosystem",
+      "description": "Work effectively in Python repositories by detecting real tooling, respecting environment boundaries, and using native Python workflows.",
+      "tier": 1,
+      "context_cost": 380,
+      "triggers": [
+        "python",
+        "poetry",
+        "uv",
+        "pytest",
+        "pyproject"
+      ],
+      "path": "skills/python-ecosystem/SKILL.md"
+    },
+    {
+      "name": "sdd-manager",
+      "description": "Enforce the full 9-phase Spec-Driven Development lifecycle and keep the active change artifact set complete, ordered, and auditable.",
+      "tier": 2,
+      "context_cost": 650,
+      "triggers": [
+        "sdd",
+        "spec",
+        "design",
+        "tasks",
+        "workflow"
+      ],
+      "path": "skills/sdd-manager/SKILL.md"
+    },
+    {
+      "name": "security-reviewer",
+      "description": "Review workflows, code, runtime boundaries, CI/CD gates, and deploy plans against the V3 security model and golden rule.",
+      "tier": 2,
+      "context_cost": 550,
+      "triggers": [
+        "security",
+        "risk",
+        "ci/cd",
+        "audit",
+        "hardening"
+      ],
+      "path": "skills/security-reviewer/SKILL.md"
+    },
+    {
+      "name": "skill-creator",
+      "description": "Empower the agent to design, draft, and implement new technical and operational skills.",
+      "tier": 2,
+      "context_cost": 300,
+      "triggers": [
+        "create skill",
+        "new skill",
+        "standardize workflow"
+      ],
+      "path": "skills/skill-creator/SKILL.md"
+    },
+    {
+      "name": "skill-governor",
+      "description": "Govern skill activation, adaptation, trust levels, and V3-compatible adoption of high-reliability upstream skills.",
+      "tier": 2,
+      "context_cost": 500,
+      "triggers": [
+        "skill",
+        "activate",
+        "govern",
+        "adopt",
+        "registry"
+      ],
+      "path": "skills/skill-governor/SKILL.md"
+    },
+    {
+      "name": "skill-manager",
+      "description": "Act as a JIT (Just-In-Time) Package Manager for AI capabilities. Dynamically download, standardise, and install missing skills based on the task requirement.",
+      "tier": 2,
+      "context_cost": 250,
+      "triggers": [
+        "install skill",
+        "fetch capability",
+        "missing skill",
+        "need workflow",
+        "jit"
+      ],
+      "path": "skills/skill-manager/SKILL.md"
+    },
+    {
+      "name": "systematic-debugging",
+      "description": "Apply a rigorous, hypothesis-driven methodology to isolate, diagnose, and resolve complex defects with durable learning.",
+      "tier": 2,
+      "context_cost": 550,
+      "triggers": [
+        "debug",
+        "root-cause",
+        "complex-failure",
+        "incident"
+      ],
+      "path": "skills/systematic-debugging/SKILL.md"
+    },
+    {
+      "name": "test-driven-development",
+      "description": "Drive logic changes through failing tests first, then minimal implementation, then safe refactoring.",
+      "tier": 2,
+      "context_cost": 450,
+      "triggers": [
+        "tdd",
+        "test-first",
+        "bugfix",
+        "new-logic"
+      ],
+      "path": "skills/test-driven-development/SKILL.md"
+    },
+    {
+      "name": "test-verifier",
+      "description": "Own the verification gate by mapping required checks, validating evidence, and ensuring completion claims are backed by tests and structural quality signals.",
+      "tier": 2,
+      "context_cost": 450,
+      "triggers": [
+        "test",
+        "verify",
+        "validation",
+        "quality",
+        "evidence"
+      ],
+      "path": "skills/test-verifier/SKILL.md"
+    },
+    {
+      "name": "typescript-ecosystem",
+      "description": "Manage TypeScript/JavaScript environment resolution, package management, and validation standards with tooling detection.",
+      "tier": 1,
+      "context_cost": 340,
+      "triggers": [
+        "typescript",
+        "javascript",
+        "bun",
+        "npm",
+        "tsc"
+      ],
+      "path": "skills/typescript-ecosystem/SKILL.md"
+    },
+    {
+      "name": "using-git-worktrees",
+      "description": "Manage isolated parallel branches safely using git worktrees without disturbing the main workspace.",
+      "tier": 2,
+      "context_cost": 350,
+      "triggers": [
+        "worktree",
+        "parallel-branch",
+        "isolation",
+        "branch-safety"
+      ],
+      "path": "skills/using-git-worktrees/SKILL.md"
+    },
+    {
+      "name": "verification-before-completion",
+      "description": "Ensure work is verified through concrete evidence before completion.",
+      "tier": 1,
+      "context_cost": 400,
+      "triggers": [
+        "completion",
+        "commit",
+        "fix",
+        "always"
+      ],
+      "path": "skills/verification-before-completion/SKILL.md"
+    },
+    {
+      "name": "writing-plans",
+      "description": "Create structured implementation plans before starting complex tasks.",
+      "tier": 1,
+      "context_cost": 600,
+      "triggers": [
+        "complex-task",
+        "new-feature",
+        "refactor"
+      ],
+      "path": "skills/writing-plans/SKILL.md"
+    }
+  ]
+}

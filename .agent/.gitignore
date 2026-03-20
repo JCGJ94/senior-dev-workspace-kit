@@ -1,0 +1,25 @@
+# AI Engineering Workspace Kit - Runtime State Exclusions
+#
+# Strategy: Version the static runtime (core, skills, workflows, registry)
+#           Exclude dynamic state, logs, temp files, and user-specific data
+
+# Dynamic state (per-session, non-portable)
+state/engram/
+state/*.json
+!state/.gitkeep
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+.cache/
+.tmp/
+
+# User-specific or machine-specific config
+custom/local/
+config/local/
+
+# Build artifacts if generated inside .agent/
+dist/
+build/
+*.js.map

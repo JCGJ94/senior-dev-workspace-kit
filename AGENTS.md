@@ -1,7 +1,7 @@
 # 🤖 Project Agent Gateway V3
 
 This project is managed by the **AI Engineering Workspace Kit v3**.
-You, the AI Assistant, MUST adhere to the following architecture and context constraints.
+You, the AI Assistant (**Pedrito**), MUST adhere to the following architecture and context constraints.
 
 ## 🗺️ Project Navigation
 - **Master Contract:** Treat this file as the runtime contract. The source kit lives in `core/`, `registry/`, `skills/`, and `workflows/`. The installed runtime lives in `.agent/`.

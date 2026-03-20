@@ -1,0 +1,39 @@
+# Skills Activation Policy
+
+## Purpose
+Control the secure and progressive loading of specialized skills (`/skills/*`) to avoid runtime conflicts and token budget overflow.
+
+## Scope
+Workflow phase transitions and skill invocation. (Tier 3 Priority).
+
+## 1. Skill Resolution Protocol
+When a specific task demands capabilities beyond the Generalist scope, the agent MUST explicitly consult the capabilities in `/skills/` and activate the appropriate module. 
+- Use local skills from the repository first by checking `/registry/`.
+- Use installed runtime skills by checking `.agent/registry/skills.json` when operating inside a provisioned project.
+- Apply skills contextually (e.g., use `supabase-mcp` specifically for Database Auth/Row Level Security, or `browser-use` strictly for external documentation and research).
+
+## 2. Dynamic Limitations (Budgeting)
+- **Domain Limit:** Never apply more than 2 distinct framework/stack skills concurrently if they overlap in domain (e.g., do not activate general `javascript` skills while `nextjs-app-router` skills are active).
+- **Progressive Unloading:** When a skill is no longer needed for the current workflow phase, drop its operational context immediately.
+
+## 3. Workflow Execution and `[OP_*]` Actions
+- When reading pipelines in `/workflows/`, recognize specific generic operational triggers (e.g., `[OP_LINT]`, `[OP_BUILD]`).
+- Resolve these tokens by mapping them dynamically to the current ecosystem detected by `00_environment_rules.md` (e.g., `[OP_LINT]` in a Node project maps to `npm run lint` or `bun lint`).
+
+## 4. Anti-Obsolescence & Deep Research Fallback
+As per Elite Core context, if local knowledge or standard skills are insufficient to solve modern API issues (e.g., React 19 / Next 16 errors), the agent MUST explicitly fallback to:
+1. Context7 MCP (if configured and available for code snippets).
+2. Deep Research (`browser_subagent`) to fetch the exact 2026 real-time documentation.
+
+## 5. JIT Skill Installation Protocol (Just-In-Time)
+If a task requires specialized knowledge or a workflow that is NOT currently installed in the agent's `/registry/` or `/skills/`, the agent MUST:
+1. **Search Local First:** Check the source kit registry and the installed runtime registry before looking outside the repository.
+2. **Search Trusted Sources:** If the capability is still missing, search trusted sources in this order: `https://skills.sh/`, `https://agents.md/`, and `https://github.com/obra/superpowers`.
+3. **Request Approval:** Before adopting an external skill, summarize the source, why it is needed, and how it will affect the runtime. Wait for developer approval.
+4. **Standardize (Skill Creator):** If approval is granted, use `skill-creator` to adapt the external capability into the native `SKILL.md` format before inserting it into `.agent/skills/<skill-name>/` or the source kit.
+5. **Re-generate Registry:** After installing or adapting any skill, execute `bash scripts/generate-registry.sh` to update `skills.json` and make the new capability available.
+6. **Track Trust State:** Mark the skill internally as local, trusted-upstream-adapted, or pending-review. Never treat arbitrary external content as first-class without adaptation.
+
+## 6. Communication Layer
+- Use `humanized-communication` for developer-facing explanations, summaries, and guidance when a softer human tone improves clarity.
+- Do not let communication skills weaken safety, verification, or formal repository artifacts.

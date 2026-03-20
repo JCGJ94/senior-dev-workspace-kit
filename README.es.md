@@ -4,12 +4,12 @@
      / __ _/ /
     /_/ |_/___/
 
-   A G E N T   K I T
+   A G E N T   K I T   (P E D R I T O)
 ```
 
 [English](README.md) | **Español**
 
-El **AI Engineering Workspace Kit** es un kit fuente V3 para instalar un runtime de ingeniería asistida por IA dentro de cualquier repositorio.
+El **AI Engineering Workspace Kit** es un kit fuente V3 para instalar un runtime de ingeniería asistida por IA (operado por **Pedrito**) dentro de cualquier repositorio.
 
 Su contrato es simple:
 
