@@ -42,11 +42,17 @@ done
 # 1. Detect Environment and Build Command Map
 detect_and_map() {
     echo -e "${BLUE}🔍 Detecting stack...${NC}"
+
+    # Agent-kit detection (self-hosting: the kit provisioning itself)
+    if [ -f "AGENTS.md" ] && [ -d "core" ] && [ -d "skills" ]; then
+        STACKS+=("shell" "python" "markdown")
+    fi
+
     # Node detection
     if [ -f "package.json" ]; then
         STACKS+=("node")
-        NODE_INSTALL="npm install"; [[ -f "bun.lockb" ]] && NODE_INSTALL="bun install"
-        NODE_TEST="npm test"; [[ -f "bun.lockb" ]] && NODE_TEST="bun test"
+        NODE_INSTALL="npm install"; [[ -f "bun.lockb" || -f "bun.lock" ]] && NODE_INSTALL="bun install"
+        NODE_TEST="npm test"; [[ -f "bun.lockb" || -f "bun.lock" ]] && NODE_TEST="bun test"
         NODE_LINT="npm run lint"; [[ -f "package.json" ]] && grep -q '"lint"' package.json || NODE_LINT="eslint ."
         NODE_TYPECHECK="npm run typecheck"; [[ -f "package.json" ]] && grep -q '"typecheck"' package.json || NODE_TYPECHECK="tsc --noEmit"
     fi
@@ -61,7 +67,14 @@ detect_and_map() {
     fi
 
     # Resolution Logic
-    if [[ " ${STACKS[*]} " =~ " node " && " ${STACKS[*]} " =~ " python " ]]; then
+    if [[ " ${STACKS[*]} " =~ " shell " && " ${STACKS[*]} " =~ " markdown " ]]; then
+        # Agent-kit: map OP_* to kit validation scripts
+        PROJECT_TYPE="agent-kit"
+        OP_INSTALL="echo 'No runtime deps — agent kit is config-only'"
+        OP_TEST="bash scripts/validate-kit.sh"
+        OP_TYPECHECK="python scripts/validate-skills.py"
+        OP_LINT="bash scripts/validate-skills.sh"
+    elif [[ " ${STACKS[*]} " =~ " node " && " ${STACKS[*]} " =~ " python " ]]; then
         PROJECT_TYPE="hybrid"
         OP_INSTALL="$NODE_INSTALL && $PY_INSTALL"
         OP_TEST="echo 'Hybrid: Use specific test commands'"
@@ -81,10 +94,10 @@ detect_and_map() {
         OP_LINT="$PY_LINT"
     else
         PROJECT_TYPE="generic"
-        OP_INSTALL="echo 'No install'"
-        OP_TEST="echo 'No test'"
-        OP_TYPECHECK="echo 'No typecheck'"
-        OP_LINT="echo 'No lint'"
+        OP_INSTALL="echo 'No install configured — define in project config'"
+        OP_TEST="echo 'No test configured — define in project config'"
+        OP_TYPECHECK="echo 'No typecheck configured — define in project config'"
+        OP_LINT="echo 'No lint configured — define in project config'"
     fi
 }
 
