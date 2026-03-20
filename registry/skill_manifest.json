@@ -14,7 +14,7 @@
         },
         "code-review-pro": {
             "path": "skills/code-review-pro/SKILL.md",
-            "description": "Perform deep architectural audits and code red-teaming to eliminate technical debt and security risks."
+            "description": "Perform deep code quality audits, detect architectural smells, and evaluate patterns to reduce technical debt and improve maintainability."
         },
         "commit-sentinel": {
             "path": "skills/commit-sentinel/SKILL.md",

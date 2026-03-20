@@ -44,15 +44,15 @@
     },
     {
       "name": "code-review-pro",
-      "description": "Guard repository integrity by ensuring commits are atomic, meaningful, and aligned with repository conventions before they are created.",
+      "description": "Perform deep code quality audits, detect architectural smells, and evaluate patterns to reduce technical debt and improve maintainability.",
       "tier": 1,
-      "context_cost": 300,
+      "context_cost": 450,
       "triggers": [
-        "commit",
         "review",
-        "atomic",
-        "sentinel",
-        "git"
+        "audit",
+        "quality",
+        "refactor",
+        "tech-debt"
       ],
       "path": "skills/code-review-pro/SKILL.md"
     },

@@ -1,139 +1,111 @@
-# Commit Sentinel
+---
+name: "code-review-pro"
+description: "Perform deep code quality audits, detect architectural smells, and evaluate patterns to reduce technical debt and improve maintainability."
+tier: 1
+triggers: ["review", "audit", "quality", "refactor", "tech-debt"]
+context_cost: 450
+---
+# Code Review Pro
 
 ## Purpose
-Guard repository integrity by ensuring commits are atomic, meaningful, and aligned with repository conventions before they are created.
+Perform structured code quality audits focused on correctness, maintainability, patterns, and risk detection. Identify technical debt, architectural smells, and improvement opportunities before they compound.
 
 ## Use when
-- Preparing a commit after completing a task.
-- Reviewing staged changes before committing.
-- Ensuring commit messages follow repository standards.
-- Splitting large changes into safe atomic commits.
+- Reviewing a diff, PR, or recently changed module.
+- Auditing a module for quality before release.
+- Evaluating architectural patterns in a codebase area.
+- Looking for hidden side effects, coupling, or duplication.
+- Assessing security surface at the code level.
 
 ## Do not use when
-- The repository does not use Git.
-- No changes are staged.
-- The task is still incomplete or unverified.
-- Verification commands have not been executed.
+- Preparing or validating a commit message (use `commit-sentinel`).
+- Staging files for Git (use `commit-sentinel`).
+- Performing runtime debugging (use `debugging` or `systematic-debugging`).
+- Writing new implementation from scratch.
 
-## Commit Workflow
+## Review Protocol
 
-1. **Inspect the Change Set**
-   - Review the staged diff.
-   - Identify what problem the change solves.
-   - Detect unrelated modifications in the same commit.
+1. **Scope the Review**
+   Determine what is being reviewed:
 
-2. **Ensure Atomic Scope**
-   - Each commit must represent **one logical change**.
-   - Split commits when changes include:
-     - feature + refactor
-     - bug fix + formatting
-     - multiple independent modules.
+   - a diff (staged or PR)
+   - a module or component
+   - a specific concern (performance, security, patterns)
 
-3. **Remove Noise**
-   Avoid committing:
+   Load only the relevant files and interfaces.
 
-   - generated files
-   - lockfile noise unrelated to the task
-   - debug logs
-   - temporary files
-   - build artifacts
+2. **Check Correctness**
+   - Does the code do what it claims?
+   - Are edge cases handled?
+   - Are error paths explicit and safe?
+   - Are types accurate and narrow?
 
-4. **Check Repository Conventions**
-   Detect and follow the repository’s commit style:
+3. **Evaluate Patterns and Structure**
+   - Does the code follow existing project conventions?
+   - Is responsibility clearly separated?
+   - Is coupling minimized between modules?
+   - Are abstractions at the right level (not too deep, not too shallow)?
+   - Is there unnecessary duplication?
 
-   Examples:
-   - Conventional commits
-   - custom project style
-   - simple imperative messages
+4. **Detect Smells and Debt**
+   Flag:
 
-   Never impose a format if the repository already defines one.
+   - large functions or files (approaching 500 lines)
+   - magic numbers or hardcoded values
+   - mixed concerns in a single module
+   - dead code or unreachable branches
+   - unclear naming
+   - implicit dependencies
 
-5. **Write a Deterministic Commit Message**
+5. **Assess Risk**
+   Identify:
 
-   Good commit messages:
-
-   - describe **what changed**
-   - optionally explain **why**
-   - stay concise
-
-   Example:
-    fix(auth): validate JWT expiration correctly
-
-
-Avoid:
-
-
-changes
-update stuff
-fixes
-
-6. **Verify Before Commit**
-Ensure the change passes repository verification:
-
-Examples may include:
-
-- tests
-- lint
-- type checks
-- build validation
-
-Only commit verified changes.
-
-7. **Check for Hidden Risks**
-
-Review the commit for:
-
-- breaking API changes
-- schema migrations
-- dependency updates
-- configuration changes
-
-These may require documentation or additional commits.
+   - breaking changes to public APIs or contracts
+   - missing or insufficient validation
+   - security concerns (injection, exposed secrets, unescaped output)
+   - performance regressions (N+1 queries, unnecessary re-renders, unbounded loops)
+   - missing tests for critical paths
 
 ## Rules
-- One logical change per commit.
-- Never mix unrelated modifications.
-- Follow repository commit conventions.
-- Avoid committing generated artifacts.
-- Commit only verified changes.
-- Keep messages concise and descriptive.
-- Prefer imperative tense in commit titles.
-- Do not create commits if verification failed.
+- Focus on substance, not style preferences.
+- Respect existing project conventions before suggesting changes.
+- Provide actionable feedback: what, where, and why.
+- Propose concrete alternatives when flagging issues.
+- Do not block on minor style nits.
+- Never suggest changes outside the review scope.
+- Keep feedback concise and prioritized (critical → important → nice-to-have).
 
 ## Context Efficiency
-To minimize context usage:
+Load only:
+- files under review
+- interfaces and types they depend on
+- related test files if evaluating test coverage
 
-Review only:
-- staged files
-- diff summaries
-- affected modules
-
-Avoid reviewing:
+Avoid loading:
 - entire repository
-- unchanged files
-- build outputs
+- unrelated modules
+- build artifacts or generated files
 
 ## Validation
-Before confirming the commit:
+Before completing the review:
 
-- The commit represents a single logical change.
-- No unrelated modifications are included.
-- Repository commit style is respected.
-- Verification commands succeeded.
-- No generated artifacts were included accidentally.
+- All critical issues are documented.
+- Each finding includes location, description, and severity.
+- Suggestions are actionable and scoped.
+- No feedback contradicts project conventions.
 
 ## Output
 
 Return:
 
-### Commit Scope
-Files and modules affected.
+### Summary
+Brief overall assessment (1-3 lines).
 
-### Commit Message
-Proposed commit message.
+### Findings
+Ordered list of issues with severity (🔴 critical, 🟡 important, 🟢 nice-to-have).
 
-### Verification Status
-Commands executed and result.
+### Recommendations
+Concrete improvement suggestions.
 
 ### Risks
-Potential impacts or follow-ups.
+Potential impacts if findings are not addressed.
