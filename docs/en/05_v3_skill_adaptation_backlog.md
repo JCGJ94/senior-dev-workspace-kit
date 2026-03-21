@@ -15,7 +15,7 @@ V3 adaptation means:
 
 ## Status as of 2026-03-21
 
-### ✅ Completed (adapted to V3)
+### ✅ Completed (adapted to V3) — ALL 32 skills
 
 **Priority 1:**
 - `writing-plans` — frontmatter + registry ✓
@@ -23,10 +23,10 @@ V3 adaptation means:
 - `context-optimization` — frontmatter + registry ✓
 - `context-distiller` — frontmatter + registry ✓
 - `dispatching-parallel-agents` — frontmatter + registry ✓
+- `ai-agent` — frontmatter + registry ✓
 
 **Priority 2:**
-- `test-driven-development` — frontmatter + registry ✓
-- `systematic-debugging` — frontmatter + registry ✓
+- `systematic-debugging` — frontmatter + registry ✓ (fixed 2026-03-21)
 - `using-git-worktrees` — frontmatter + registry ✓
 - `finishing-a-development-branch` — frontmatter + registry ✓
 - `skill-manager` — frontmatter + registry ✓
@@ -34,22 +34,16 @@ V3 adaptation means:
 
 **Priority 3:**
 - `code-review-pro` — frontmatter + registry ✓
+- `frontend` — frontmatter + registry ✓
+- `backend` — frontmatter + registry ✓
+- `fullstack` — frontmatter + registry ✓
+- `python-ecosystem` — frontmatter + registry ✓
+- `typescript-ecosystem` — frontmatter + registry ✓
+- `docs-pro` — frontmatter + registry ✓
+- `humanized-communication` — frontmatter + registry ✓
+- `mcp-builder` — frontmatter + registry ✓
 
-### ⏳ Pending
-
-**Priority 1 (remaining):**
-- `ai-agent` — no frontmatter yet
-
-**Priority 3 (remaining):**
-- `frontend` — no frontmatter
-- `backend` — no frontmatter
-- `fullstack` — no frontmatter
-- `python-ecosystem` — no frontmatter
-- `typescript-ecosystem` — no frontmatter
-- `docs-pro` — no frontmatter
-
-## Current Milestone
-V3 orchestration layer is complete and operational:
+**V3 Core Layer (always complete):**
 - `architect-orchestrator-v3`
 - `engram-manager`
 - `sdd-manager`
@@ -58,6 +52,24 @@ V3 orchestration layer is complete and operational:
 - `test-verifier`
 - `deploy-orchestrator`
 - `context-keeper`
-- `mcp-builder`
+- `test-driven-development`
+- `debugging`
+- `commit-sentinel`
+- `context-distiller`
 
-**Next milestone:** Adapt the 7 remaining skills listed under ⏳ Pending above.
+### ⏳ Pending
+
+None. All 32 registered skills are V3-adapted.
+
+## Current Milestone
+
+**V3 Fully Operational — 2026-03-21**
+
+All registered skills have:
+- Normalized YAML frontmatter (name, description, tier, triggers, context_cost)
+- Registry alignment (source manifest = runtime skills.json = installed .agent/skills/)
+- V3 orchestration compatibility
+
+## Next milestone
+
+Maintain alignment as new skills are added. Run `python scripts/validate-skills.py` to detect frontmatter drift.

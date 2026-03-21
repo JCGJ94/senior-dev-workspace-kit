@@ -1,3 +1,10 @@
+---
+name: "systematic-debugging"
+description: "Enforce a methodical workflow to identify and resolve bugs systematically."
+tier: 1
+triggers: ["bug", "defect", "regression", "hypothesis", "reproduce", "bisect"]
+context_cost: 350
+---
 # Systematic Debugging
 
 ## Purpose
