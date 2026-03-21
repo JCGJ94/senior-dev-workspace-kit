@@ -13,29 +13,43 @@ V3 adaptation means:
 - align memory promotion with `engram-manager`
 - align completion criteria with `test-verifier` and `security-reviewer` when relevant
 
-## Priority 1
-- `ai-agent`
-- `writing-plans`
-- `verification-before-completion`
-- `context-optimization`
-- `context-distiller`
-- `dispatching-parallel-agents`
+## Status as of 2026-03-21
 
-## Priority 2
-- `test-driven-development`
-- `systematic-debugging`
-- `using-git-worktrees`
-- `finishing-a-development-branch`
-- `skill-manager`
-- `skill-creator`
+### ✅ Completed (adapted to V3)
 
-## Priority 3
-- domain skills such as `frontend`, `backend`, `fullstack`, `python-ecosystem`, and `typescript-ecosystem`
-- review and documentation skills such as `code-review-pro` and `docs-pro`
-- deploy and infrastructure skills added later under the V3 deploy domain
+**Priority 1:**
+- `writing-plans` — frontmatter + registry ✓
+- `verification-before-completion` — frontmatter + registry ✓
+- `context-optimization` — frontmatter + registry ✓
+- `context-distiller` — frontmatter + registry ✓
+- `dispatching-parallel-agents` — frontmatter + registry ✓
+
+**Priority 2:**
+- `test-driven-development` — frontmatter + registry ✓
+- `systematic-debugging` — frontmatter + registry ✓
+- `using-git-worktrees` — frontmatter + registry ✓
+- `finishing-a-development-branch` — frontmatter + registry ✓
+- `skill-manager` — frontmatter + registry ✓
+- `skill-creator` — frontmatter + registry ✓
+
+**Priority 3:**
+- `code-review-pro` — frontmatter + registry ✓
+
+### ⏳ Pending
+
+**Priority 1 (remaining):**
+- `ai-agent` — no frontmatter yet
+
+**Priority 3 (remaining):**
+- `frontend` — no frontmatter
+- `backend` — no frontmatter
+- `fullstack` — no frontmatter
+- `python-ecosystem` — no frontmatter
+- `typescript-ecosystem` — no frontmatter
+- `docs-pro` — no frontmatter
 
 ## Current Milestone
-This repository now contains the first V3 orchestration layer:
+V3 orchestration layer is complete and operational:
 - `architect-orchestrator-v3`
 - `engram-manager`
 - `sdd-manager`
@@ -44,5 +58,6 @@ This repository now contains the first V3 orchestration layer:
 - `test-verifier`
 - `deploy-orchestrator`
 - `context-keeper`
+- `mcp-builder`
 
-The next milestone is to normalize the trusted upstream skills listed above so the generated registry can represent the real capability surface of the system.
+**Next milestone:** Adapt the 7 remaining skills listed under ⏳ Pending above.

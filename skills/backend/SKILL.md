@@ -1,3 +1,10 @@
+---
+name: "backend"
+description: "Design, implement, and evolve backend systems and APIs with strong contracts, security, validation, and environment-aware execution."
+tier: 1
+triggers: ["backend", "api", "server", "endpoint", "persistence"]
+context_cost: 450
+---
 # Backend Skill
 
 ## Purpose

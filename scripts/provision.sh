@@ -211,6 +211,25 @@ generate_gateway() {
     fi
 }
 
+# 8. Validate Sync (core and workflows only — skills diverge intentionally for upstream externals)
+validate_sync() {
+    echo -e "${BLUE}🔍 Validating source ↔ runtime sync...${NC}"
+    SYNC_CLEAN=true
+
+    for dir in core workflows; do
+        if ! diff -rq "${KIT_ROOT}/${dir}" "${AGENT_DIR}/${dir}" > /dev/null 2>&1; then
+            echo -e "   ⚠️  Drift detected in ${dir}/ — source and runtime differ"
+            SYNC_CLEAN=false
+        fi
+    done
+
+    if [ "$SYNC_CLEAN" = "true" ]; then
+        echo -e "   ✅ Source and runtime are in sync"
+    else
+        echo -e "   ℹ️  Run 'diff -rq ${KIT_ROOT}/<dir> ${AGENT_DIR}/<dir>' to inspect drift"
+    fi
+}
+
 # Execution
 detect_and_map
 build_structure
@@ -219,6 +238,7 @@ provision_skills
 generate_v3_state
 finalize_registry
 generate_gateway
+validate_sync
 
 echo -e "\n${GREEN}✨ V3 Runtime Provisioned Successfully!${NC}"
 echo -e "${BLUE}Next: The agent should read AGENTS.md to begin the V3 workflow.${NC}"

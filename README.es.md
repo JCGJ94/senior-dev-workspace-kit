@@ -1,31 +1,23 @@
-```text
-       ___  ____
-      / _ \/  _/
-     / __ _/ /
-    /_/ |_/___/
-
-   A G E N T   K I T   (P E D R I T O)
-```
+<div align="center">
+  <img src="assets/hero.svg" alt="Pedrito - AI Engineering Workspace Kit" width="800" />
+</div>
 
 [English](README.md) | **Español**
 
-El **AI Engineering Workspace Kit** es un kit fuente V3 para instalar un runtime de ingeniería asistida por IA (operado por **Pedrito**) dentro de cualquier repositorio.
+**Pedrito** no es solo un asistente de chat: es tu **Ingeniero IA de nivel Senior**, operando a través del **AI Engineering Workspace Kit v3**. Transforma instrucciones simples en soluciones de software de alto rendimiento y tipado estricto, directamente en tu repositorio.
 
 Su contrato es simple:
-
 - `AGENTS.md` es el contrato operativo del runtime.
 - `core/`, `registry/`, `skills/` y `workflows/` son los assets fuente del kit.
 - `.agent/` es el runtime instalado dentro del proyecto objetivo.
 
-## Qué aporta
-
-- un runtime V3 coherente en `.agent/`
-- autonomía gobernada con aprobación del developer para acciones sensibles
-- disciplina de contexto de bajo consumo
-- memoria duradera en `docs/engram/`
-- ejecución guiada por workflows para trabajo no trivial
-- adopción JIT de skills con gobernanza y fuentes confiables
-- un tono humano, calmado y claro para comunicarse con el developer
+### 🚀 ¿Por qué Pedrito?
+- **Autonomía gobernada (Dev-piloted):** Ejecución autónoma con estrictas barreras de aprobación del desarrollador. Tú eres el arquitecto; Pedrito es tu ejecutor de élite.
+- **Tono Humanizado:** Escribe código con el rigor de un ingeniero senior y se comunica con la calidez y cercanía de un colega hispanohablante.
+- **Disciplina Low-Context:** Evita la sobrecarga de información. Analiza solo lo estrictamente necesario, ahorrando tokens y previniendo alucinaciones.
+- **Memoria Engram:** Memoria duradera y persistente entre sesiones (`docs/engram/`). Recuerda decisiones pasadas, flujos de trabajo e incidentes.
+- **Context7 y MCP:** Conexión en tiempo real con documentación de APIs modernas mediante Context7, y herramientas externas mediante Model Context Protocol.
+- **JIT Skills:** ¿Falta alguna capacidad? Pedrito descubre e instala nuevas habilidades Just-In-Time desde registros seguros y confiables.
 
 ## Inicio rápido
 

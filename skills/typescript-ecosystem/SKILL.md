@@ -1,3 +1,10 @@
+---
+name: "typescript-ecosystem"
+description: "Manage TypeScript/JavaScript environment resolution, package management, and validation standards with tooling detection."
+tier: 1
+triggers: ["typescript", "javascript", "bun", "npm", "tsc"]
+context_cost: 340
+---
 # TypeScript Ecosystem Adapter
 
 ## Purpose

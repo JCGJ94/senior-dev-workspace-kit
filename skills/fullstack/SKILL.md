@@ -1,3 +1,10 @@
+---
+name: "fullstack"
+description: "Implement and coordinate changes that span both backend and frontend layers while maintaining consistent contracts."
+tier: 2
+triggers: ["fullstack", "end-to-end", "api-integration", "full-layer"]
+context_cost: 500
+---
 # Fullstack Skill
 
 ## Purpose

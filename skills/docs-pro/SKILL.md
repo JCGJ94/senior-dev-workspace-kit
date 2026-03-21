@@ -1,3 +1,10 @@
+---
+name: "docs-pro"
+description: "Maintain Documentation as Code by tracking technical debt, enforcing style guides, and synchronizing docs with logic."
+tier: 1
+triggers: ["documentation", "readme", "adr", "docs-sync", "technical-writing"]
+context_cost: 320
+---
 # Docs Pro
 
 ## Purpose

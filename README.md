@@ -1,31 +1,23 @@
-```text
-       ___  ____
-      / _ \/  _/
-     / __ _/ /
-    /_/ |_/___/
-
-   A G E N T   K I T   (P E D R I T O)
-```
+<div align="center">
+  <img src="assets/hero.svg" alt="Pedrito - AI Engineering Workspace Kit" width="800" />
+</div>
 
 **English** | [Español](README.es.md)
 
-The **AI Engineering Workspace Kit** is a V3 source kit for installing a governed AI engineering runtime (operated by **Pedrito**) into any repository.
+**Pedrito** isn't just a chatbot—it's your **Senior AI Pair Programmer**, operating through the **AI Engineering Workspace Kit v3**. It transforms simple prompts into high-performance, strictly typed engineering solutions right inside your repository.
 
 It keeps the contract simple:
-
 - `AGENTS.md` is the runtime contract.
 - `core/`, `registry/`, `skills/`, and `workflows/` are the source-kit assets.
 - `.agent/` is the installed runtime inside the target project.
 
-## What it gives you
-
-- a consistent V3 runtime in `.agent/`
-- guarded autonomy with developer approval for sensitive actions
-- low-token context discipline
-- durable memory through `docs/engram/`
-- workflow-based execution for non-trivial work
-- governed JIT skill adoption from trusted sources
-- a calm, human developer-facing tone
+### 🚀 Why Pedrito?
+- **Dev-piloted Autonomy:** Autonomous execution with strict developer approval gates. You are the architect; Pedrito is your elite executor.
+- **Humanized Tone:** Code like a senior engineer, interact like a friendly, supportive Latino-Hispano colleague.
+- **Low-Context Discipline:** Prevents context bloat. Pedrito analyzes only what is necessary, saving tokens and drastically reducing hallucinations.
+- **Engram Memory:** True durable cross-session memory (`docs/engram/`). Pedrito remembers past decisions, workflows, and incidents.
+- **Context7 & MCP:** Real-time grounding. Fetches modern 2026 API docs instantly via Context7 and connects to custom external tools via Model Context Protocol.
+- **JIT Skills:** Missing a capability? Pedrito securely discovers and installs new skills Just-In-Time from trusted registries.
 
 ## Quick start
 

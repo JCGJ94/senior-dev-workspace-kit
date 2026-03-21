@@ -1,3 +1,10 @@
+---
+name: "frontend"
+description: "Design and implement frontend components, UI behavior, and client-side interactions while respecting repository conventions."
+tier: 1
+triggers: ["frontend", "ui", "component", "client-side", "react"]
+context_cost: 420
+---
 # Frontend Skill
 
 ## Purpose

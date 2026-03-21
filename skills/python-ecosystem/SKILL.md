@@ -1,3 +1,10 @@
+---
+name: "python-ecosystem"
+description: "Work effectively in Python repositories by detecting real tooling, respecting environment boundaries, and using native Python workflows."
+tier: 1
+triggers: ["python", "poetry", "uv", "pytest", "pyproject"]
+context_cost: 380
+---
 # Python Ecosystem
 
 ## Purpose

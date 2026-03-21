@@ -1,4 +1,9 @@
-# Guia de uso del AI Engineering Workspace Kit
+# Guía de uso del AI Engineering Workspace Kit
+
+> **Nota:** Esta sección está desactualizada respecto a los docs en inglés.
+> Los documentos V3 pendientes de traducción son:
+> - [`04_subagent_architecture_v3.md`](../en/04_subagent_architecture_v3.md)
+> - [`05_v3_skill_adaptation_backlog.md`](../en/05_v3_skill_adaptation_backlog.md)
 
 ## Ciclo de vida
 

@@ -1,43 +1,63 @@
+---
+name: "mcp-builder"
+description: "Diseñar, implementar y evaluar servidores MCP (Model Context Protocol) seguros y bien tipados para que los LLMs puedan interactuar con APIs externas."
+tier: 2
+triggers: ["mcp", "model-context-protocol", "mcp-server", "@modelcontextprotocol", "fastmcp", "mcp[cli]", "llm-tools", "tool-server"]
+context_cost: 600
+---
 # MCP Builder
 
 ## Purpose
-Guide the creation of high-quality Model Context Protocol (MCP) servers that enable LLMs to interact with external services through well-designed, constrained, and secure tools.
+Guiar la construcción de servidores MCP de alta calidad que permitan a los LLMs interactuar con servicios externos a través de herramientas bien diseñadas, seguras y con tipado estricto.
+
+Referencia completa en: `skills/mcp-builder/SKILL.md` y `skills/mcp-builder/reference/`.
 
 ## Use when
-- Building an MCP server to integrate external APIs.
-- Developing in TypeScript (via `@modelcontextprotocol/sdk`) or Python (via `mcp[cli]` or `FastMCP`).
-- Creating comprehensive evaluations to test MCP effectiveness.
+- Se va a construir o extender un servidor MCP en TypeScript (`@modelcontextprotocol/sdk`) o Python (`mcp[cli]` / `FastMCP`).
+- El código importa `@modelcontextprotocol/sdk`, `mcp`, o `fastmcp`.
+- El usuario menciona "MCP", "model context protocol", "tool server", o "servidor de herramientas para LLM".
+- Se evalúa la efectividad de herramientas MCP existentes.
 
 ## Do not use when
-- Developing standard REST/GraphQL APIs that do not need to be interacted with by an LLM via the MCP protocol.
-- The user is only acting as a client calling existing tools.
+- Se está construyendo una API REST/GraphQL estándar sin intención de exponerla como MCP.
+- El usuario solo llama herramientas MCP existentes como cliente (no las construye).
 
 ## Development Phases
-1. **Deep Research**: Understand modern MCP design, prioritize comprehensive API coverage vs. workflow tools, design clear tool schemas.
-2. **Implementation**: Set up project structure, build core infrastructure, and implement `@mcp.tool()` or `server.registerTool` endpoints with Zod/Pydantic validation.
-3. **Review & Test**: Evaluate via MCP Inspector, ensure actionable error messages, and verify structured outputs.
-4. **Evaluations**: Create complex, realistic questions mapping to the implemented server tools to test LLM effectiveness.
+1. **Investigación**: Entender qué endpoints de la API externa son necesarios. No cargar el SDK completo — solo los specs relevantes.
+2. **Implementación**: Setup del proyecto, infraestructura core, registro de tools con Zod/Pydantic.
+3. **Review y Test**: Validar via MCP Inspector, mensajes de error accionables, outputs estructurados.
+4. **Evaluaciones**: Crear casos de prueba realistas que mapeen el comportamiento del LLM con las tools.
 
-## Rules
-- **Type Safety is Mandatory**: Use Zod or Pydantic to tightly constrain input schemas.
-- **Actionable Errors**: Return error messages that actually guide the agent towards an alternative syntax or parameter if they make a mistake.
-- **Support Pagination**: Build pagination into GET tools natively.
-- **Provide Structured Data**: Return both text content and JSON structured content for tool responses when supported by the SDK.
+## Rules (V3-aligned)
+- **Tipado obligatorio**: Zod (TS) o Pydantic (Python) para todos los inputs. Sin `any` implícito.
+- **Errores accionables**: El mensaje de error debe guiar al agente hacia la sintaxis o parámetro correcto.
+- **Paginación nativa**: Incluir paginación en los GET tools desde el inicio.
+- **Outputs estructurados**: Devolver tanto `text` como `json` cuando el SDK lo soporte.
+- **Eficiencia de contexto**: Cargar solo los specs de endpoints necesarios, no el SDK completo.
+- **Seguridad**: No exponer credenciales en las tool descriptions. No aceptar inputs sin validar.
 
-## Context Efficiency
-- Only scan the required endpoint specifications from the underlying API integration, rather than loading the entire SDK reference code.
+## Activation Sequence (V3)
+Bajo el modelo V3, esta skill se activa normalmente como domain skill dentro del flujo:
+1. `context-optimization`
+2. `writing-plans`
+3. **`mcp-builder`** ← esta skill
+4. `executing-plans`
+5. `verification-before-completion`
+
+Si el servidor MCP tiene implicaciones de seguridad significativas, activar también `security-reviewer`.
 
 ## Validation
-- Compilation/interpreter builds cleanly without types dropping to `any`.
-- Server launches locally via stdio or streamable-http without immediate crashing.
-- End-to-end tests confirm the agent can naturally utilize the tool without context leakage.
+- Compilación limpia sin `any` implícito.
+- Servidor levanta localmente via stdio o streamable-http sin crash inmediato.
+- Las tools pasan por MCP Inspector con schemas válidos.
+- Tests end-to-end confirman que el LLM puede usar las tools sin context leakage.
 
 ## Output
 
-Return an MCP Server Development Report:
-### Progress Snapshot
-Phase 1, 2, 3, or 4 status update.
-### Tool Specifications
-The name, schema, and docstrings of the tools implemented or modified.
-### Testing Results
-Inspector or manual tool evaluation findings.
+### MCP Server Development Report
+#### Progress Snapshot
+Estado de la fase actual (1–4).
+#### Tool Specifications
+Nombre, schema, y docstrings de las tools implementadas o modificadas.
+#### Testing Results
+Hallazgos del MCP Inspector o evaluación manual.

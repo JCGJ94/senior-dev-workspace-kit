@@ -14,7 +14,7 @@
         },
         "code-review-pro": {
             "path": "skills/code-review-pro/SKILL.md",
-            "description": "Perform deep code quality audits, detect architectural smells, and evaluate patterns to reduce technical debt and improve maintainability."
+            "description": "Perform deep architectural audits and code red-teaming to eliminate technical debt and security risks."
         },
         "commit-sentinel": {
             "path": "skills/commit-sentinel/SKILL.md",
@@ -119,6 +119,10 @@
         "verification-before-completion": {
             "path": "skills/verification-before-completion/SKILL.md",
             "description": "Ensure that no code change is considered finished until explicitly verified through type-checks, linters, and tests."
+        },
+        "mcp-builder": {
+            "path": "skills/mcp-builder/SKILL.md",
+            "description": "Diseñar, implementar y evaluar servidores MCP seguros y bien tipados en TypeScript o Python."
         },
         "writing-plans": {
             "path": "skills/writing-plans/SKILL.md",
