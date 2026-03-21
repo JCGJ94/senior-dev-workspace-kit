@@ -68,10 +68,10 @@ External skills require explicit developer approval and V3 adaptation before act
 
 ## Documentation
 
-- [docs/en/00_usage_guide.md](docs/en/00_usage_guide.md)
 - [docs/en/02_architecture.md](docs/en/02_architecture.md)
 - [docs/en/03_skills_management.md](docs/en/03_skills_management.md)
 - [docs/en/04_subagent_architecture_v3.md](docs/en/04_subagent_architecture_v3.md)
+- [docs/en/release-process.md](docs/en/release-process.md)
 - [docs/engram/index.md](docs/engram/index.md)
 
 Built for precise, low-noise, developer-governed AI engineering.

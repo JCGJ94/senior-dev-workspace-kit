@@ -68,10 +68,10 @@ Los skills externos requieren aprobación explícita del dev y adaptación V3 an
 
 ## Documentación
 
-- [docs/es/00_guia_de_uso.md](docs/es/00_guia_de_uso.md)
 - [docs/es/02_architecture.md](docs/es/02_architecture.md)
 - [docs/es/03_skills_management.md](docs/es/03_skills_management.md)
 - [docs/es/04_subagent_arquitectura_v3.md](docs/es/04_subagent_arquitectura_v3.md)
+- [docs/es/release-process.md](docs/es/release-process.md)
 - [docs/engram/index.md](docs/engram/index.md)
 
 Diseñado para ingeniería asistida por IA precisa, sin ruido y gobernada por el developer.
