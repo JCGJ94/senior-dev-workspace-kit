@@ -25,7 +25,7 @@ These behaviors must always be applied when relevant, even if the user does not 
 
 - `verification-before-completion`
 - `context-optimization`
-- `context-distiller`
+- `context-distiller` — activar cuando el contexto estimado supera ~800 tokens, la tarea involucra >3 archivos, o se prepara contexto para un agente especializado
 - `humanized-communication` for developer-facing summaries and explanations
 - repository stack detection
 - repository convention adherence

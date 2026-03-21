@@ -20,3 +20,18 @@ File reading, token management, search operations. (Tier 3 Priority).
 - The active context window must remain stable across iterations; growing the knowledge base must not imply loading all accumulated knowledge.
 - Prefer `specs/<change-id>/summary.md`, `docs/engram/index.md`, and compact phase artifacts over reloading broad history.
 - Use `context-keeper` and `context-distiller` to preserve signal while protecting continuity.
+
+## Context Distiller Activation
+
+Activar `context-distiller` cuando:
+- El contexto preparado para un sub-agente supera ~800 tokens estimados.
+- La tarea implica más de 3 archivos o múltiples fases de workflow.
+- Se prepara contexto para un agente especializado (debugging, review, test).
+- Un log o output externo supera 100 líneas sin errores obvios consolidados.
+
+No activar cuando:
+- El contexto ya es pequeño y directo (<5 archivos, tarea clara).
+- La tarea depende de análisis completo del archivo.
+- La compresión eliminaría constraints técnicos críticos.
+
+Coordinar con `context-keeper`: el output de `context-distiller` alimenta el context pack de `context-keeper`, no lo reemplaza.

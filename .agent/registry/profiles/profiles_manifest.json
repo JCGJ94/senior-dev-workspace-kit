@@ -27,6 +27,11 @@
             "Tier 2",
             "Tier 3",
             "Tier Meta"
+        ],
+        "mcp-integration": [
+            "Tier 1",
+            "Tier 2",
+            "mcp-builder"
         ]
     },
     "aliases": {
@@ -34,6 +39,7 @@
         "tier2": "quality",
         "tier3": "multi-agent",
         "tier4": "release",
-        "v3": "v3-orchestrator"
+        "v3": "v3-orchestrator",
+        "mcp": "mcp-integration"
     }
 }

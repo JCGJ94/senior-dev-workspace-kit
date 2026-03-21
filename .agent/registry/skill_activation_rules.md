@@ -25,7 +25,7 @@ These behaviors must always be applied when relevant, even if the user does not 
 
 - `verification-before-completion`
 - `context-optimization`
-- `context-distiller`
+- `context-distiller` — activar cuando el contexto estimado supera ~800 tokens, la tarea involucra >3 archivos, o se prepara contexto para un agente especializado
 - `humanized-communication` for developer-facing summaries and explanations
 - repository stack detection
 - repository convention adherence
@@ -254,6 +254,27 @@ This is especially important for:
 - `fullstack`
 - `python-ecosystem`
 - `typescript-ecosystem`
+
+---
+
+## Rule 19 — MCP Builder Activation
+Activar `mcp-builder` cuando:
+- El usuario quiere construir o extender un servidor MCP.
+- El código importa `@modelcontextprotocol/sdk`, `mcp`, o `fastmcp`.
+- El usuario menciona "MCP", "model context protocol", "servidor de herramientas para LLM", o "tool-server".
+- Se evalúa la efectividad de tools MCP existentes.
+
+No activar cuando:
+- El usuario solo consume herramientas MCP como cliente (no las construye).
+- Se construye una API REST/GraphQL estándar sin intención de exponerla como MCP.
+
+Secuencia típica con `mcp-builder`:
+1. `context-optimization`
+2. `writing-plans`
+3. `mcp-builder`
+4. `executing-plans`
+5. `verification-before-completion`
+6. opcional: `security-reviewer` si el servidor expone datos sensibles o maneja auth.
 
 ---
 

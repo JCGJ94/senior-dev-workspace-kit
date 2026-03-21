@@ -12,4 +12,18 @@
 <!-- Does the change introduce attack surface? Were RLS, permissions, secrets reviewed? -->
 
 ## Context7 or External Grounding Used
-<!-- Was external documentation consulted? Include link/reference. -->
+
+<!--
+Requerido cuando se consultó Context7 u otra fuente externa. Formato mínimo:
+
+| Campo            | Valor                                            |
+|------------------|--------------------------------------------------|
+| Librería / API   | nombre + versión (ej. next@15.2)                 |
+| Query realizada  | descripción exacta de lo que se consultó         |
+| Fuente           | Context7 MCP / URL oficial / browser_subagent    |
+| Qué resolvió     | ambigüedad o comportamiento verificado            |
+| Impacto          | cómo cambió o confirmó el enfoque                |
+| Decisión tomada  | qué se implementó o descartó a partir del result |
+
+Si no se consultó fuente externa: escribir "No aplica — conocimiento local suficiente."
+-->

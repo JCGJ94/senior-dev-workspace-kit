@@ -33,6 +33,13 @@ Define the developer intent and map it to technical capability tiers. "Tiers mea
 - **Meta Skills**: `skill-creator`
 - **Relationship**: Focuses on the "Meta" layer of the repo. Use this when you need to expand the AI's capabilities or refine the system rules.
 
+### 6. `mcp-integration`
+- **Purpose**: Construir, extender, o evaluar servidores MCP (Model Context Protocol).
+- **Active Tiers**: Tier 1 + Tier 2
+- **Extra Skill**: `mcp-builder`
+- **Relationship**: Combina la base segura (Tier 1), disciplina de calidad (Tier 2), y la capability específica de MCP. Usar cuando el objetivo principal es un servidor MCP real, no solo consumir tools MCP como cliente.
+- **Alias**: `mcp`
+
 ## Activation Strategy
 Developers can activate a context using either the profile name or the semantic tier level. Both resolve to the same underlying context to avoid ambiguity.
 
@@ -41,6 +48,7 @@ Developers can activate a context using either the profile name or the semantic 
 - *Are you building a core feature?* → Use `quality`
 - *Are you refactoring 50 files across the repo?* → Use `multi-agent`
 - *Are you closing a branch to merge into main?* → Use `release`
+- *Are you building or extending an MCP server?* → Use `mcp-integration` (alias: `mcp`)
 
 ## Usage (CLI)
 You can set a profile using the explicit script:
@@ -50,6 +58,10 @@ You can set a profile using the explicit script:
 
 # Sets quality profile
 ./scripts/set-skill-profile.sh quality
+
+# Sets MCP integration profile (two equivalent forms)
+./scripts/set-skill-profile.sh mcp-integration
+./scripts/set-skill-profile.sh mcp
 
 # Uses syntactic alias
 ./scripts/set-skill-profile.sh tier2

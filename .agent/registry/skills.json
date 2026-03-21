@@ -409,6 +409,22 @@
       "path": "skills/verification-before-completion/SKILL.md"
     },
     {
+      "name": "mcp-builder",
+      "description": "Diseñar, implementar y evaluar servidores MCP (Model Context Protocol) seguros y bien tipados en TypeScript o Python.",
+      "tier": 2,
+      "context_cost": 600,
+      "triggers": [
+        "mcp",
+        "model-context-protocol",
+        "mcp-server",
+        "@modelcontextprotocol",
+        "fastmcp",
+        "llm-tools",
+        "tool-server"
+      ],
+      "path": "skills/mcp-builder/SKILL.md"
+    },
+    {
       "name": "writing-plans",
       "description": "Create structured implementation plans before starting complex tasks.",
       "tier": 1,

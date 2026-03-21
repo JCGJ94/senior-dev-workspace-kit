@@ -21,9 +21,23 @@ When a specific task demands capabilities beyond the Generalist scope, the agent
 - Resolve these tokens by mapping them dynamically to the current ecosystem detected by `00_environment_rules.md` (e.g., `[OP_LINT]` in a Node project maps to `npm run lint` or `bun lint`).
 
 ## 4. Anti-Obsolescence & Deep Research Fallback
-As per Elite Core context, if local knowledge or standard skills are insufficient to solve modern API issues (e.g., React 19 / Next 16 errors), the agent MUST explicitly fallback to:
-1. Context7 MCP (if configured and available for code snippets).
-2. Deep Research (`browser_subagent`) to fetch the exact 2026 real-time documentation.
+
+Usar Context7 cuando se cumplan **todos** estos criterios:
+- [ ] La librería o API tiene versión mayor lanzada en los últimos 12 meses (Next.js 15, React 19, Supabase 2+, etc.).
+- [ ] El conocimiento local o las reglas de `core/` no cubren el caso específico.
+- [ ] La confianza de inferencia sin grounding externo es baja (ambigüedad de sintaxis, cambio de API, deprecación probable).
+
+No usar Context7 cuando:
+- La sintaxis es estable y está cubierta por `core/` o `docs/`.
+- La duda puede resolverse leyendo el archivo actual del proyecto.
+
+**Protocolo de consulta:**
+1. Formular query precisa: nombre de librería + versión + función o comportamiento específico.
+2. Consultar Context7 MCP (si está configurado y disponible).
+3. Si no está disponible: usar Deep Research (`browser_subagent`) con URL oficial.
+4. Registrar en `specs/<change-id>/08-verification.md` sección "Context7 or External Grounding Used".
+
+Si la consulta resuelve una ambigüedad crítica, no continuar sin haberla registrado.
 
 ## 5. JIT Skill Installation Protocol (Just-In-Time)
 If a task requires specialized knowledge or a workflow that is NOT currently installed in the agent's `/registry/` or `/skills/`, the agent MUST:

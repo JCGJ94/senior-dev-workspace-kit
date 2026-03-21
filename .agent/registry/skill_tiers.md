@@ -125,6 +125,7 @@ These skills activate only when the task surface clearly matches a technical dom
 - `python-ecosystem`
 - `typescript-ecosystem`
 - `docs-pro`
+- `mcp-builder`
 
 ### Objective
 Ensure the agent:
@@ -132,6 +133,7 @@ Ensure the agent:
 - respects layer boundaries
 - avoids forcing foreign tooling
 - documents real behavior when needed
+- construye servidores MCP correctamente tipados y seguros cuando el dominio lo requiere
 
 ---
 

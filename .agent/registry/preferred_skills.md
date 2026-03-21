@@ -157,11 +157,13 @@ Activate only when the repository area clearly matches them:
 - `python-ecosystem`
 - `typescript-ecosystem`
 - `docs-pro`
+- `mcp-builder`
 
 Default policy:
 - detect stack and affected layer first
 - activate only the domain skill that matches the real task surface
 - avoid activating both `python-ecosystem` and `typescript-ecosystem` unless the task truly spans both
+- activate `mcp-builder` cuando el trabajo implica construir o extender un servidor MCP (no solo consumirlo)
 
 ---
 

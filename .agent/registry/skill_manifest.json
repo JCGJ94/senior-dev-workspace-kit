@@ -120,6 +120,10 @@
             "path": "skills/verification-before-completion/SKILL.md",
             "description": "Ensure that no code change is considered finished until explicitly verified through type-checks, linters, and tests."
         },
+        "mcp-builder": {
+            "path": "skills/mcp-builder/SKILL.md",
+            "description": "Diseñar, implementar y evaluar servidores MCP seguros y bien tipados en TypeScript o Python."
+        },
         "writing-plans": {
             "path": "skills/writing-plans/SKILL.md",
             "description": "Establish a structured, step-by-step Execution Plan before writing any complex code."
