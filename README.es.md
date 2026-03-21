@@ -4,88 +4,74 @@
 
 [English](README.md) | **Español**
 
-**Pedrito** no es solo un asistente de chat: es tu **Ingeniero IA de nivel Senior**, operando a través del **AI Engineering Workspace Kit v3**. Transforma instrucciones simples en soluciones de software de alto rendimiento y tipado estricto, directamente en tu repositorio.
+**Pedrito** es tu **Ingeniero IA de nivel Senior**, operando a través del **AI Engineering Workspace Kit v3**. Un solo comando instala todo — y Pedrito corre dentro de tu proyecto con arquitectura V3 completa: SDD, memoria Engram, Context7, MCP y autonomía gobernada.
 
-Su contrato es simple:
-- `AGENTS.md` es el contrato operativo del runtime.
-- `core/`, `registry/`, `skills/` y `workflows/` son los assets fuente del kit.
-- `.agent/` es el runtime instalado dentro del proyecto objetivo.
+## Instalación
 
-### 🚀 ¿Por qué Pedrito?
-- **Autonomía gobernada (Dev-piloted):** Ejecución autónoma con estrictas barreras de aprobación del desarrollador. Tú eres el arquitecto; Pedrito es tu ejecutor de élite.
-- **Tono Humanizado:** Escribe código con el rigor de un ingeniero senior y se comunica con la calidez y cercanía de un colega hispanohablante.
-- **Disciplina Low-Context:** Evita la sobrecarga de información. Analiza solo lo estrictamente necesario, ahorrando tokens y previniendo alucinaciones.
-- **Memoria Engram:** Memoria duradera y persistente entre sesiones (`docs/engram/`). Recuerda decisiones pasadas, flujos de trabajo e incidentes.
-- **Context7 y MCP:** Conexión en tiempo real con documentación de APIs modernas mediante Context7, y herramientas externas mediante Model Context Protocol.
-- **JIT Skills:** ¿Falta alguna capacidad? Pedrito descubre e instala nuevas habilidades Just-In-Time desde registros seguros y confiables.
-
-## Inicio rápido
-
-Clona el kit en una ruta estable:
+Clona el kit una vez y corre el setup en tu proyecto:
 
 ```bash
 git clone https://github.com/YOUR_USER/ai-engineering-workspace-kit.git
+cd /ruta/a/tu-proyecto
+bash /ruta/a/ai-engineering-workspace-kit/setup.sh
 ```
 
-Inicializa un repositorio objetivo:
+Eso es todo. El setup instala el kit globalmente, registra el comando `pedrito` en tu shell y provisiona tu proyecto.
+
+Después de recargar tu shell (`source ~/.bashrc` o reiniciar la terminal), usa `pedrito` desde cualquier directorio:
 
 ```bash
-cd /ruta/a/tu/proyecto
-bash /ruta/al/ai-engineering-workspace-kit/scripts/agent init
+pedrito init      # provisiona cualquier proyecto
+pedrito sync      # sincroniza el runtime tras actualizar el kit
+pedrito status    # estado del runtime de un vistazo
+pedrito doctor    # health check: SDD · Engram · Context7 · MCP
+pedrito validate  # audita skills y estructura del kit
+pedrito update    # actualiza el kit
 ```
 
-`init` se ejecuta en modo no interactivo por defecto, asi que el runtime se instala de una sola vez.
+## ¿Por qué Pedrito?
 
-Sincroniza un runtime existente tras actualizar el kit:
-
-```bash
-bash /ruta/al/ai-engineering-workspace-kit/scripts/agent sync
-```
-
-Si quieres usar el selector opcional de skills durante la inicializacion, pasa flags al provisioner:
-
-```bash
-bash /ruta/al/ai-engineering-workspace-kit/scripts/agent init --interactive
-```
-
-Valida el kit fuente:
-
-```bash
-bash /ruta/al/ai-engineering-workspace-kit/scripts/validate-kit.sh
-```
+- **Autonomía gobernada:** Ejecución autónoma con barreras de aprobación estrictas. Tú eres el arquitecto; Pedrito es tu ejecutor de élite.
+- **Tono humanizado:** Código con rigor de ingeniero senior, comunicación con la cercanía de un colega hispano.
+- **Disciplina Low-Context:** Analiza solo lo necesario — menos tokens, menos alucinaciones.
+- **Memoria Engram:** Memoria duradera entre sesiones (`docs/engram/`). Recuerda decisiones, patrones e incidentes.
+- **Context7 y MCP:** Documentación de APIs en tiempo real via Context7. Herramientas externas via Model Context Protocol. Agnóstico de LLM/IDE.
+- **SDD:** Todo trabajo no trivial sigue un ciclo de vida de 9 fases (`specs/<change-id>/`).
+- **Skills JIT:** ¿Falta una capacidad? Pedrito descubre e instala skills Just-In-Time desde registros confiables.
 
 ## Estructura del runtime
 
-Tras la inicialización, el repositorio objetivo contiene:
+Tras `pedrito init`, tu proyecto contiene:
 
-- `.agent/core/` - reglas operativas instaladas
-- `.agent/registry/` - registro del runtime y `skills.json` generado
-- `.agent/skills/` - skills instaladas en el runtime
-- `.agent/workflows/` - workflows instalados
-- `.agent/state/` - estado generado y operaciones permitidas
-- `docs/engram/` - memoria duradera
-- `specs/` - artefactos auditables para cambios no triviales
+```
+.agent/
+  core/        reglas instaladas (el cerebro de Pedrito)
+  registry/    skills.json — índice de activación JIT
+  skills/      skills del runtime instaladas
+  workflows/   definiciones de workflows SDD
+  state/       env_state.json, allowed_ops.json (tokens OP_*)
+docs/engram/   memoria durable (decisiones, patrones, lecciones)
+specs/         artefactos SDD auditables para trabajo no trivial
+AGENTS.md      contrato del runtime — Pedrito lo lee primero
+```
 
 ## Modelo de skills
 
-El agente empieza como generalista, mantiene el contexto pequeño y activa el conjunto minimo util de skills.
+Pedrito arranca como generalista, mantiene el contexto mínimo y activa el conjunto mínimo necesario de skills. Si falta alguna, el orden de búsqueda confiable es:
 
-Si falta una skill, el orden de busqueda confiable es:
-
-1. skills locales del kit o del runtime
+1. Skills locales del kit o del runtime
 2. `https://skills.sh/`
 3. `https://agents.md/`
 4. `https://github.com/obra/superpowers`
 
-La adopcion de una skill externa sigue requiriendo aprobacion del developer y adaptacion al formato V3.
+Los skills externos requieren aprobación explícita del dev y adaptación V3 antes de activarse.
 
-## Documentacion
+## Documentación
 
-- `docs/es/00_guia_de_uso.md`
-- `docs/es/01_getting_started.md`
-- `docs/es/02_architecture.md`
-- `docs/es/03_skills_management.md`
-- `docs/engram/index.md`
-- `specs/README.md`
+- [docs/es/00_guia_de_uso.md](docs/es/00_guia_de_uso.md)
+- [docs/es/02_architecture.md](docs/es/02_architecture.md)
+- [docs/es/03_skills_management.md](docs/es/03_skills_management.md)
+- [docs/es/04_subagent_arquitectura_v3.md](docs/es/04_subagent_arquitectura_v3.md)
+- [docs/engram/index.md](docs/engram/index.md)
 
-Disenado para una ingenieria asistida por IA precisa, legible y gobernada por el developer.
+Diseñado para ingeniería asistida por IA precisa, sin ruido y gobernada por el developer.

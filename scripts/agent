@@ -34,13 +34,15 @@ show_help() {
     echo -e "The bridge between LLM reasoning and professional source code.\n"
     echo -e "Usage: ${GREEN}bash scripts/agent <command>${NC}\n"
     echo "Commands:"
-    echo "  init        Provision the strictly-typed .agent/ runtime (non-interactive by default)"
-    echo "  add-skill   Add a specific skill from the global library to this project"
-    echo "  sync        Synchronize local .agent/ with the kit's upstream"
-    echo "  registry    Force-rebuild the lightweight skills.json index"
-    echo "  validate    Audit skill manifests for structural integrity"
-    echo "  doctor      Check runtime health: SDD, Engram, Context7, MCP (any LLM/IDE)"
-    echo "  help        Display this technical guide"
+    echo "  init        Provision the .agent/ runtime into the current project"
+    echo "  sync        Sync runtime from kit (preserves all installed skills)"
+    echo "  status      Show current runtime state at a glance"
+    echo "  doctor      Health check: SDD · Engram · Context7 · MCP (any LLM/IDE)"
+    echo "  validate    Full audit: skills, frontmatter, registry, drift"
+    echo "  add-skill   Add a skill from the source library to this runtime"
+    echo "  registry    Rebuild .agent/registry/skills.json"
+    echo "  update      Update the kit itself (git pull or re-copy)"
+    echo "  help        Show this guide"
 }
 
 add_skill() {
@@ -196,6 +198,59 @@ PY
     echo -e "\n${GREEN}Doctor complete. Fix any warnings before starting a SDD cycle.${NC}"
 }
 
+show_status() {
+    echo -e "${BLUE}── Pedrito Runtime Status ──────────────────────${NC}"
+    if [ ! -d ".agent" ]; then
+        echo -e "  ${RED}Not initialized.${NC} Run: pedrito init"
+        return
+    fi
+
+    # Runtime version
+    if [ -f ".agent/state/env_state.json" ]; then
+        PYTHONIOENCODING=utf-8 python - <<'PY'
+import json, os
+s = json.load(open(".agent/state/env_state.json", encoding="utf-8"))
+print(f"  Version      : {s.get('version', '?')}")
+print(f"  Project type : {s.get('project_type', '?')}")
+print(f"  Provisioned  : {s.get('last_provision', '?')}")
+PY
+    fi
+
+    # Skills
+    SKILL_COUNT=$(ls .agent/skills/ 2>/dev/null | wc -l | tr -d ' ')
+    echo -e "  Skills       : ${SKILL_COUNT} installed"
+
+    # Engram
+    if [ -d "docs/engram" ]; then
+        DECISIONS=$(find docs/engram/decisions -name "*.md" ! -name "README.md" 2>/dev/null | wc -l | tr -d ' ')
+        echo -e "  Engram       : active (${DECISIONS} decision(s))"
+    else
+        echo -e "  Engram       : not provisioned"
+    fi
+
+    # SDD
+    SPEC_COUNT=$(find specs -maxdepth 1 -mindepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
+    echo -e "  Specs (SDD)  : ${SPEC_COUNT} active"
+
+    echo -e "${BLUE}────────────────────────────────────────────────${NC}"
+    echo -e "  Run ${GREEN}pedrito doctor${NC} for a full health check."
+}
+
+do_update() {
+    echo -e "${BLUE}Updating Pedrito kit...${NC}"
+    STABLE="$HOME/.pedrito-kit"
+    if [ -d "$STABLE/.git" ]; then
+        echo -e "  Pulling latest from git..."
+        git -C "$STABLE" pull
+        echo -e "  ${GREEN}Kit updated.${NC} Run 'pedrito sync' to apply to the current project."
+    elif [ -d "$STABLE" ]; then
+        echo -e "  ${YELLOW}Kit was copied (no git). Re-run setup.sh to update:${NC}"
+        echo -e "    bash $STABLE/setup.sh"
+    else
+        echo -e "  ${RED}Kit not installed globally. Run: bash setup.sh${NC}"
+    fi
+}
+
 case "$COMMAND" in
     "init")
         if [ "${#FORWARD_ARGS[@]}" -eq 0 ]; then
@@ -218,6 +273,12 @@ case "$COMMAND" in
         ;;
     "doctor")
         check_doctor
+        ;;
+    "status")
+        show_status
+        ;;
+    "update")
+        do_update
         ;;
     "help"|"")
         show_help
