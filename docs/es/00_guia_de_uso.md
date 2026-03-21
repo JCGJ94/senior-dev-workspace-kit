@@ -1,56 +1,64 @@
-# Guía de uso del AI Engineering Workspace Kit
+# AI Engineering Workspace Kit — Guía de Uso
 
-> **Nota:** Esta sección está desactualizada respecto a los docs en inglés.
-> Los documentos V3 pendientes de traducción son:
-> - [`04_subagent_architecture_v3.md`](../en/04_subagent_architecture_v3.md)
-> - [`05_v3_skill_adaptation_backlog.md`](../en/05_v3_skill_adaptation_backlog.md)
+## Instalación
 
-## Ciclo de vida
-
-### 1. Instalar el runtime
+Clona el kit e inicializa un proyecto objetivo desde su raíz:
 
 ```bash
+git clone <repo> ai-engineering-workspace-kit
+cd /ruta/al/proyecto-objetivo
 bash /ruta/al/ai-engineering-workspace-kit/scripts/agent init
 ```
 
-Esto provisiona `.agent/`, `docs/engram/` y `specs/` dentro del repositorio objetivo.
-Se ejecuta en modo no interactivo por defecto.
+Esto provisiona `.agent/`, `docs/engram/` y `specs/` dentro del repositorio objetivo. El comando corre en modo no interactivo por defecto.
 
-### 2. Sincronizar el runtime
+## Scripts disponibles
+
+| Script | Propósito |
+|---|---|
+| `scripts/agent` | Punto de entrada V3 unificado (`init`, `sync`, `status`) |
+| `scripts/provision.sh` | Instala el runtime en un proyecto objetivo |
+| `scripts/sync-workspace.sh` | Actualiza un runtime existente desde el kit fuente |
+| `scripts/generate-registry.sh` | Regenera `.agent/registry/skills.json` |
+| `scripts/skill-manager.sh` | Instala skills upstream de confianza en el runtime |
+| `scripts/validate-kit.sh` | Valida la estructura del kit fuente |
+| `scripts/validate-skills.sh` | Valida estructura y frontmatter de skills |
+| `scripts/validate-skills.py` | Verificación completa de metadatos de skills |
+
+## Sincronizar un runtime existente
 
 ```bash
 bash /ruta/al/ai-engineering-workspace-kit/scripts/agent sync
 ```
 
-Esto actualiza el runtime desde el kit fuente manteniendo intacto el modelo V3.
+Actualiza el runtime desde el kit fuente sin tocar el Engram ni los specs activos.
 
-### 3. Validar el kit fuente
+## Reglas de operación
 
-```bash
-bash /ruta/al/ai-engineering-workspace-kit/scripts/validate-kit.sh
-```
+- `AGENTS.md` es el contrato de runtime — Pedrito lo lee al inicio de cada sesión.
+- `.agent/core/` contiene el conjunto de reglas instaladas que gobiernan el comportamiento.
+- `docs/engram/` almacena la memoria durable entre sesiones (decisiones, patrones, lecciones).
+- `specs/` almacena los artefactos de trabajo no trivial (ciclo de vida SDD de 9 fases).
+- El agente mantiene el contexto ajustado y activa el mínimo de skills necesarios.
+- Los tokens `[OP_*]` se resuelven via `.agent/state/allowed_ops.json`.
 
-## Reglas operativas
+## Modelo de aprobación
 
-- El agente lee `.agent/core/` como conjunto de reglas instaladas.
-- `AGENTS.md` es el contrato operativo del runtime.
-- `docs/engram/` guarda la memoria duradera.
-- `specs/` guarda los artefactos de trabajo no trivial.
-- El agente mantiene el contexto pequeno y activa el conjunto minimo util de skills.
+**Autónomo:** análisis, planificación, resúmenes, cambios reversibles de bajo riesgo.
 
-## Modelo de aprobacion
-
-El agente puede analizar, planificar, resumir y preparar cambios reversibles de bajo riesgo de forma autonoma.
-
-Debe pedir aprobacion antes de cambios de arquitectura, adopcion de skills externas, cambios de dependencias, acciones destructivas en archivos o acciones de seguridad/deploy/datos.
+**Requiere aprobación del desarrollador:** cambios de arquitectura, adopción de skills externos, cambios de dependencias, operaciones destructivas de archivos, y cualquier acción relacionada con seguridad, deploy o datos sensibles.
 
 ## Skills JIT
 
-Si falta una skill, el orden de busqueda confiable es:
+Cuando falta un skill en el runtime, el orden de búsqueda de confianza es:
 
-1. skills locales del kit o del runtime
+1. Skills del kit local o runtime instalado
 2. `https://skills.sh/`
 3. `https://agents.md/`
 4. `https://github.com/obra/superpowers`
 
-Las skills externas requieren aprobacion y adaptacion al formato V3 antes de activarse.
+Los skills externos requieren aprobación explícita y adaptación V3 (frontmatter + entrada en registry) antes de activarse.
+
+## Trabajo no trivial (SDD)
+
+Cualquier cambio que toque más de 3 archivos, modifique comportamiento, involucre seguridad o deploy, o tome más de 30 minutos **debe** seguir el ciclo de vida SDD via `specs/<change-id>/`. Ver `.agent/core/03_development_super_rule.md`.

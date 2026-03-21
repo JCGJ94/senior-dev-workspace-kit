@@ -17,6 +17,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Minimal professional GitHub repository files (`README.md`, `.gitignore`, `LICENSE`).
 - Release methodology defined in `docs/release-process.md`.
 
+## [3.0.1] - 2026-03-21
+
+### Fixed
+- `systematic-debugging/SKILL.md`: added missing YAML frontmatter — was the only skill of 32 without it.
+- `docs/en/05_v3_skill_adaptation_backlog.md`: corrected stale status; all 32 registered skills are now V3-adapted.
+- Documentation audit: removed redundant `01_getting_started.md` (en/es), rewrote `00_guia_de_uso.md` in Spanish to V3 standard, translated `04_subagent_architecture_v3.md` to Spanish.
+
+### Added
+- `docs/es/04_subagent_arquitectura_v3.md`: Spanish translation of the V3 orchestration architecture.
+
+## [3.0.0-patch] - 2026-03-20
+
+### Fixed
+- Runtime drift: 8 skills declared in `registry/skill_manifest.json` were missing from `.agent/skills/` (`backend`, `commit-sentinel`, `debugging`, `docs-pro`, `frontend`, `fullstack`, `python-ecosystem`, `typescript-ecosystem`). All 32 skills are now installed and aligned.
+- `.agent/` is now version-controlled (core, registry, skills, workflows) with `.agent/.gitignore` excluding dynamic state files to prevent future drift.
+
+## [3.0.0-identity] - 2026-03-19
+
+### Added
+- Pedrito identity formally documented in `docs/engram/decisions/001-pedrito-identity.md`.
+- Unified 5-phase workflow vocabulary across all workflows (Plan → Prepare → Execute → Verify → Close).
+- `docs/engram/decisions/003-unified-stage-vocabulary.md`: records the workflow standardization decision.
+- `docs/engram/lessons/001-registry-drift-silent-failures.md`: operational lesson from the skill drift incident.
+
 ## [3.0.0] - 2026-03-16
 
 ### Changed

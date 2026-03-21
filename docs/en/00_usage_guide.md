@@ -1,51 +1,64 @@
-# AI Engineering Workspace Kit usage guide
+# AI Engineering Workspace Kit — Usage Guide
 
-## Lifecycle
+## Installation
 
-### 1. Install the runtime
+Clone the kit and initialize a target project from its root:
 
 ```bash
+git clone <repo> ai-engineering-workspace-kit
+cd /path/to/target-project
 bash /path/to/ai-engineering-workspace-kit/scripts/agent init
 ```
 
-This provisions `.agent/`, `docs/engram/`, and `specs/` into the target repository.
-It runs in non-interactive mode by default.
+This provisions `.agent/`, `docs/engram/`, and `specs/` into the target repository and runs in non-interactive mode by default.
 
-### 2. Sync the runtime
+## Available Scripts
+
+| Script | Purpose |
+|---|---|
+| `scripts/agent` | Unified V3 entrypoint (`init`, `sync`, `status`) |
+| `scripts/provision.sh` | Installs the runtime into a target project |
+| `scripts/sync-workspace.sh` | Refreshes an existing runtime from the source kit |
+| `scripts/generate-registry.sh` | Regenerates `.agent/registry/skills.json` |
+| `scripts/skill-manager.sh` | Installs trusted upstream skills into the runtime |
+| `scripts/validate-kit.sh` | Validates the source kit structure |
+| `scripts/validate-skills.sh` | Validates skill structure and frontmatter |
+| `scripts/validate-skills.py` | Full skill metadata compliance check |
+
+## Sync an Existing Runtime
 
 ```bash
 bash /path/to/ai-engineering-workspace-kit/scripts/agent sync
 ```
 
-This refreshes the runtime from the source kit while keeping the V3 model intact.
+Refreshes the runtime from the source kit while keeping the V3 model and Engram intact.
 
-### 3. Validate the source kit
+## Operational Rules
 
-```bash
-bash /path/to/ai-engineering-workspace-kit/scripts/validate-kit.sh
-```
+- `AGENTS.md` is the runtime contract — the agent reads it on every session.
+- `.agent/core/` contains the installed rule set that governs behavior.
+- `docs/engram/` stores durable cross-session memory (decisions, patterns, lessons).
+- `specs/` stores non-trivial work artifacts (9-phase SDD lifecycle).
+- The agent keeps context lean and activates the minimum necessary skill set.
+- Resolve `[OP_*]` tokens via `.agent/state/allowed_ops.json`.
 
-## Operating rules
+## Approval Model
 
-- The agent reads `.agent/core/` for installed rules.
-- `AGENTS.md` is the runtime contract.
-- `docs/engram/` stores durable memory.
-- `specs/` stores non-trivial work artifacts.
-- The agent keeps context lean and activates the minimum useful skill set.
+**Autonomous:** analysis, planning, summaries, low-risk reversible changes.
 
-## Approval model
+**Requires developer approval:** architecture changes, external skill adoption, dependency changes, destructive file operations, and any security, deploy, or data-sensitive action.
 
-The agent may analyze, plan, summarize, and prepare low-risk reversible changes autonomously.
+## JIT Skills
 
-The agent must ask before architecture changes, external skill adoption, dependency changes, destructive file actions, or security/deploy/data actions.
+When a skill is missing from the runtime, the trusted lookup order is:
 
-## JIT skills
-
-When a skill is missing, the trusted lookup order is:
-
-1. local kit or runtime skills
+1. Local kit or installed runtime skills
 2. `https://skills.sh/`
 3. `https://agents.md/`
 4. `https://github.com/obra/superpowers`
 
-External skills require approval and V3 adaptation before activation.
+External skills require explicit approval and V3 adaptation (frontmatter + registry entry) before activation.
+
+## Non-Trivial Work
+
+Any change that touches more than 3 files, modifies behavior, involves security or deploy, or takes more than 30 minutes **must** follow the SDD lifecycle via `specs/<change-id>/`. See `.agent/core/03_development_super_rule.md`.
