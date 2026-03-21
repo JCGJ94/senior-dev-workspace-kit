@@ -1,3 +1,10 @@
+---
+name: "git-commit"
+description: "Execute semantic git commit operations using Conventional Commits, parsing the working tree diff automatically."
+tier: 1
+triggers: ["commit", "git commit", "save changes", "conventional commit", "finalize branch"]
+context_cost: 200
+---
 # Git Commit
 
 ## Purpose

@@ -1,3 +1,10 @@
+---
+name: "typescript-advanced-types"
+description: "Master TypeScript advanced type system including generics, conditional types, mapped types and template literals."
+tier: 2
+triggers: ["typescript types", "generics", "conditional types", "mapped types", "type safety", "infer", "utility types"]
+context_cost: 450
+---
 # TypeScript Advanced Types
 
 ## Purpose

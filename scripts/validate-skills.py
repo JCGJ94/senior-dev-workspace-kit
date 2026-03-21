@@ -83,24 +83,53 @@ def main():
     else:
         report_error(f"Skills directory not found at {skills_dir}")
 
-    # 6. Semantic identity check: verify required sections in each SKILL.md
+    # 6. Frontmatter + semantic identity check on every SKILL.md in skills/
+    # Frontmatter is mandatory V3 metadata (incident: systematic-debugging had none).
     # Pattern: Skill Identity = Content, Not Name (docs/engram/patterns/001-skill-identity-validation.md)
+    REQUIRED_FRONTMATTER_FIELDS = ["name", "description", "tier", "triggers"]
     REQUIRED_SECTIONS = ["## Purpose", "## Use when"]
+
+    def check_skill_md(skill_name: str, skill_md_path: Path):
+        try:
+            content = skill_md_path.read_text(encoding='utf-8')
+        except Exception as e:
+            report_error(f"Could not read SKILL.md for '{skill_name}': {e}")
+            return
+
+        # Frontmatter check
+        lines = content.splitlines()
+        if not lines or lines[0].strip() != "---":
+            report_error(
+                f"Skill '{skill_name}' SKILL.md is missing YAML frontmatter. "
+                f"All V3 skills must start with '---' and declare: {REQUIRED_FRONTMATTER_FIELDS}."
+            )
+        else:
+            # Extract frontmatter block
+            fm_lines = []
+            for line in lines[1:]:
+                if line.strip() == "---":
+                    break
+                fm_lines.append(line)
+            for field in REQUIRED_FRONTMATTER_FIELDS:
+                if not any(l.strip().startswith(f"{field}:") or l.strip().startswith(f"{field} :") for l in fm_lines):
+                    report_error(
+                        f"Skill '{skill_name}' frontmatter is missing required field '{field}'."
+                    )
+
+        # Semantic section check
+        for section in REQUIRED_SECTIONS:
+            if section not in content:
+                report_error(
+                    f"Skill '{skill_name}' SKILL.md is missing required section '{section}'. "
+                    f"Identity defect: content may not match the skill's declared purpose."
+                )
+
     if skills_dir.exists():
         for entry in os.scandir(skills_dir):
             if entry.is_dir():
                 skill_md_path = Path(entry.path) / 'SKILL.md'
                 if skill_md_path.exists():
-                    try:
-                        content = skill_md_path.read_text(encoding='utf-8')
-                        for section in REQUIRED_SECTIONS:
-                            if section not in content:
-                                report_error(
-                                    f"Skill '{entry.name}' SKILL.md is missing required section '{section}'. "
-                                    f"Identity defect: content may not match the skill's declared purpose."
-                                )
-                    except Exception as e:
-                        report_error(f"Could not read SKILL.md for '{entry.name}': {e}")
+                    check_skill_md(entry.name, skill_md_path)
 
     if has_errors:
         print("\nValidation FAILED. Please fix the above errors.", file=sys.stderr)

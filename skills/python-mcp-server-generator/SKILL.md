@@ -1,3 +1,10 @@
+---
+name: "python-mcp-server-generator"
+description: "Generate a complete production-ready MCP server project in Python using mcp[cli] and FastMCP."
+tier: 3
+triggers: ["mcp server", "python mcp", "fastmcp", "model context protocol", "generate mcp", "mcp python"]
+context_cost: 700
+---
 # Python MCP Server Generator
 
 ## Purpose

@@ -5,10 +5,12 @@ set -euo pipefail
 AGENT_DIR=".agent"
 REGISTRY_FILE="${AGENT_DIR}/registry/skills.json"
 
-if [ -d "skills" ]; then
-    SKILLS_DIR="skills"
-elif [ -d "${AGENT_DIR}/skills" ]; then
+# Runtime registry always reflects the installed runtime (.agent/skills/), not the source library.
+# Source library (skills/) may contain unregistered/experimental skills that should not appear in the runtime registry.
+if [ -d "${AGENT_DIR}/skills" ]; then
     SKILLS_DIR="${AGENT_DIR}/skills"
+elif [ -d "skills" ]; then
+    SKILLS_DIR="skills"
 else
     echo "❌ Skills directory not found!"
     exit 1

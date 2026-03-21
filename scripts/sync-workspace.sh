@@ -27,18 +27,17 @@ copy_skill() {
     fi
 }
 
-echo "📦 Refreshing mandatory V3 runtime skills..."
-copy_skill "architect-orchestrator-v3"
-copy_skill "engram-manager"
-copy_skill "sdd-manager"
-copy_skill "skill-governor"
-copy_skill "security-reviewer"
-copy_skill "test-verifier"
-copy_skill "deploy-orchestrator"
-copy_skill "context-keeper"
-copy_skill "context-optimization"
-copy_skill "humanized-communication"
-copy_skill "verification-before-completion"
+# Sync all skills currently installed in the runtime (not just the mandatory baseline).
+# This preserves extra skills added via add-skill or skill-manager after initial provisioning.
+echo "📦 Refreshing all installed runtime skills..."
+if [ -d "${AGENT_DIR}/skills" ]; then
+    for skill_dir in "${AGENT_DIR}/skills"/*/; do
+        skill_name="$(basename "$skill_dir")"
+        copy_skill "$skill_name"
+    done
+else
+    echo "⚠️  No runtime skills directory found. Run 'init' first."
+fi
 
 echo "⚙️ Regenerating runtime state and registry..."
 bash "${KIT_ROOT}/scripts/generate-registry.sh" > /dev/null

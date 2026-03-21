@@ -1,3 +1,10 @@
+---
+name: "find-skills"
+description: "Discover and integrate new capabilities from the open agent skills ecosystem for specialized domain problems."
+tier: 2
+triggers: ["find skill", "discover skill", "skill search", "new capability", "install skill", "what skill"]
+context_cost: 250
+---
 # Find Skills
 
 ## Purpose

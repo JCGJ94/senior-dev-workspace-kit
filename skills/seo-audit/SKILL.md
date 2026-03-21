@@ -1,3 +1,10 @@
+---
+name: "seo-audit"
+description: "Identify SEO issues and provide actionable recommendations to improve organic search performance."
+tier: 3
+triggers: ["seo", "seo audit", "search ranking", "crawlability", "meta tags", "traffic dropped", "not ranking"]
+context_cost: 450
+---
 # SEO Audit
 
 ## Purpose

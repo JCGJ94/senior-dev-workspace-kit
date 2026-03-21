@@ -1,3 +1,10 @@
+---
+name: "executing-plans"
+description: "Follow a previously established implementation plan with strict adherence, avoiding scope creep and context drift."
+tier: 1
+triggers: ["execute plan", "follow plan", "implement plan", "execute", "execute approved plan"]
+context_cost: 200
+---
 # Executing Plans
 
 ## Purpose

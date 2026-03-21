@@ -1,3 +1,10 @@
+---
+name: "debugging"
+description: "Systematically diagnose and resolve errors, failures and unexpected behavior while preserving system stability."
+tier: 1
+triggers: ["debug", "error", "bug", "failing test", "stack trace", "unexpected behavior", "broken"]
+context_cost: 300
+---
 # Debugging Skill
 
 ## Purpose

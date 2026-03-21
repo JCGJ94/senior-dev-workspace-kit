@@ -1,3 +1,10 @@
+---
+name: "frontend-responsive-design-standards"
+description: "Ensure UI layouts are mobile-first with fluid containers, flexible units, and consistent media queries."
+tier: 2
+triggers: ["responsive", "mobile first", "media query", "breakpoint", "fluid layout", "touch target"]
+context_cost: 400
+---
 # Frontend Responsive Design Standards
 
 ## Purpose

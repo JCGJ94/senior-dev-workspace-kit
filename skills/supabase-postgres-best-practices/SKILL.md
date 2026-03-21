@@ -1,3 +1,10 @@
+---
+name: "supabase-postgres-best-practices"
+description: "Apply Supabase Postgres performance optimization rules for low-latency, scalable and secure database interactions."
+tier: 2
+triggers: ["supabase", "postgres", "postgresql", "database optimization", "sql performance", "connection pooling"]
+context_cost: 500
+---
 # Supabase Postgres Best Practices
 
 ## Purpose

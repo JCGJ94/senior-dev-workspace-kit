@@ -38,7 +38,7 @@ show_help() {
     echo "  sync        Synchronize local .agent/ with the kit's upstream"
     echo "  registry    Force-rebuild the lightweight skills.json index"
     echo "  validate    Audit skill manifests for structural integrity"
-    echo "  doctor      Review health of documentation ground truths (Context7/MCP)"
+    echo "  doctor      Check Claude MCP config and runtime health"
     echo "  help        Display this technical guide"
 }
 
@@ -62,10 +62,10 @@ add_skill() {
     fi
 }
 
-check_context7() {
-    echo -e "${BLUE}🔍 Running Health Check (Doctor)...${NC}"
-    
-    # 1. Environment State
+check_doctor() {
+    echo -e "${BLUE}🔍 Running Runtime Health Check...${NC}"
+
+    # 1. Runtime state
     if [ -d ".agent/state" ]; then
         echo -e "✅ Runtime initialized (.agent/state exists)"
         if grep -q "version" .agent/state/env_state.json 2>/dev/null; then
@@ -77,39 +77,45 @@ check_context7() {
         echo -e "❌ Runtime not initialized. Run 'init' first."
     fi
 
-    # 2. Context7 Node Check
-    echo -e "\n${BLUE}📡 Checking Context7 Runtime (Node.js)...${NC}"
-    if command -v npx &> /dev/null; then
-        echo -e "✅ Node/npx is installed (Required for local Context7 execution)"
-        
-        # We perform a dry-run or version check for Context7
-        echo -n "Testing @context7/server... "
-        if npx --yes --quiet @context7/server --version &>/dev/null; then
-            echo -e "✅ Context7 packages available."
-        else
-            echo -e "⚠️ Context7 executing for the first time or not cached on this network."
-        fi
-    else
-        echo -e "❌ Node/npx is missing. Context7 local execution WILL FAIL."
-    fi
-    
-    # 3. Global Config Check (Anti-Hallucination)
-    echo -e "\n${BLUE}🌍 Checking Global MCP Settings...${NC}"
-    GLOBAL_MCP="$HOME/.gemini/antigravity/mcp_config.json"
-    
-    if [ -f "$GLOBAL_MCP" ]; then
-        echo -e "✅ Global MCP configuration detected at: $GLOBAL_MCP"
-        # Check if context7 is registered using Python instead of jq
-        if node -e "const fs=require('fs'); try{ const config=JSON.parse(fs.readFileSync('$GLOBAL_MCP', 'utf8')); if(config.mcpServers && config.mcpServers.context7) process.exit(0); else process.exit(1); }catch(e){process.exit(1)}" &>/dev/null; then
-            echo -e "✅ Context7 is properly configured in the global MCP registry."
-        else
-            echo -e "❌ Context7 is NOT registered in $GLOBAL_MCP. Vibe-coding risk is high."
-        fi
-    else
-        echo -e "⚠️ No Antigravity global MCP configuration found in $GLOBAL_MCP."
+    # 2. Skill drift check
+    echo -e "\n${BLUE}📦 Checking skill drift...${NC}"
+    MANIFEST="${KIT_ROOT}/registry/skill_manifest.json"
+    RUNTIME_SKILLS=".agent/skills"
+    if [ -f "$MANIFEST" ] && [ -d "$RUNTIME_SKILLS" ]; then
+        python - "$MANIFEST" "$RUNTIME_SKILLS" <<'PY'
+import json, sys, os
+manifest = json.load(open(sys.argv[1]))
+registered = set(manifest['skills'].keys())
+runtime = set(os.listdir(sys.argv[2]))
+missing = (registered & set(os.listdir(os.path.join(sys.argv[2], '..', '..', 'skills')) if os.path.isdir(os.path.join(sys.argv[2], '..', '..', 'skills')) else [])) - runtime
+if missing:
+    print(f"  ⚠️  Skills registered+source but missing from runtime: {sorted(missing)}")
+else:
+    print(f"  ✅ No skill drift ({len(runtime)} skills in runtime)")
+PY
     fi
 
-    echo -e "\n${GREEN}Doctor check complete. If Context7 is missing, the agent will vibe-code (DANGEROUS).${NC}"
+    # 3. Claude MCP config check
+    echo -e "\n${BLUE}🌍 Checking Claude MCP configuration...${NC}"
+    CLAUDE_MCP_LOCATIONS=(
+        "$HOME/.claude/claude_desktop_config.json"
+        "$HOME/Library/Application Support/Claude/claude_desktop_config.json"
+        "$APPDATA/Claude/claude_desktop_config.json"
+    )
+    MCP_FOUND=false
+    for mcp_path in "${CLAUDE_MCP_LOCATIONS[@]}"; do
+        if [ -f "$mcp_path" ]; then
+            echo -e "✅ Claude MCP config found: $mcp_path"
+            MCP_FOUND=true
+            break
+        fi
+    done
+    if [ "$MCP_FOUND" = "false" ]; then
+        echo -e "⚠️  No Claude MCP config found. Context7 may not be available."
+        echo -e "   Expected locations: ~/.claude/claude_desktop_config.json"
+    fi
+
+    echo -e "\n${GREEN}Doctor check complete.${NC}"
 }
 
 case "$COMMAND" in
@@ -130,10 +136,10 @@ case "$COMMAND" in
         bash "$KIT_ROOT/scripts/generate-registry.sh"
         ;;
     "validate")
-        bash "$KIT_ROOT/scripts/validate-skills.sh"
+        bash "$KIT_ROOT/scripts/validate-kit.sh"
         ;;
     "doctor")
-        check_context7
+        check_doctor
         ;;
     "help"|"")
         show_help

@@ -1,3 +1,10 @@
+---
+name: "frontend-design"
+description: "Create distinctive, production-grade frontend interfaces with high design quality, avoiding generic AI aesthetics."
+tier: 2
+triggers: ["frontend design", "ui design", "landing page", "component design", "web design", "dashboard design"]
+context_cost: 600
+---
 # Frontend Design
 
 ## Purpose

@@ -1,3 +1,10 @@
+---
+name: "audit-website"
+description: "Audit websites for SEO, technical, content, performance and security issues using the squirrelscan CLI."
+tier: 3
+triggers: ["audit", "website audit", "squirrelscan", "site health", "broken links", "accessibility audit"]
+context_cost: 500
+---
 # Website Audit
 
 ## Purpose

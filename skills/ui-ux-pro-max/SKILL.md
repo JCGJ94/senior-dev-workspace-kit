@@ -1,3 +1,10 @@
+---
+name: "ui-ux-pro-max"
+description: "Apply comprehensive UX guidelines, color palettes, font pairings and design patterns for web and mobile interfaces."
+tier: 3
+triggers: ["ui ux", "ux design", "design system", "color palette", "font pairing", "interaction design", "glassmorphism"]
+context_cost: 800
+---
 # UI/UX Pro Max - Design Intelligence
 
 ## Purpose

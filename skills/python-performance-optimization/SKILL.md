@@ -1,3 +1,10 @@
+---
+name: "python-performance-optimization"
+description: "Profile, analyze and optimize Python code using cProfile, line_profiler and memory_profiler to eliminate bottlenecks."
+tier: 2
+triggers: ["python performance", "optimize python", "profile python", "slow python", "python bottleneck", "latency python"]
+context_cost: 500
+---
 # Python Performance Optimization
 
 ## Purpose
