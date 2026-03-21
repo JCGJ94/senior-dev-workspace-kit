@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # ==============================================================================
-# Agent CLI - Unified Workspace Manager (Inspired by Gentle AI)
+# Agent CLI — AI Engineering Workspace Kit V3
+# Pedrito: developer copilot. SDD + Engram + Context7 + MCP as first-class rules.
 # ==============================================================================
 
 set -e
@@ -38,7 +39,7 @@ show_help() {
     echo "  sync        Synchronize local .agent/ with the kit's upstream"
     echo "  registry    Force-rebuild the lightweight skills.json index"
     echo "  validate    Audit skill manifests for structural integrity"
-    echo "  doctor      Check Claude MCP config and runtime health"
+    echo "  doctor      Check runtime health: SDD, Engram, Context7, MCP (any LLM/IDE)"
     echo "  help        Display this technical guide"
 }
 
@@ -63,59 +64,136 @@ add_skill() {
 }
 
 check_doctor() {
-    echo -e "${BLUE}🔍 Running Runtime Health Check...${NC}"
+    echo -e "${BLUE}🔍 V3 Runtime Health Check${NC}"
+    echo -e "${BLUE}   Golden rules: SDD · Engram · Context7 · MCP · Pedrito${NC}\n"
 
     # 1. Runtime state
+    echo -e "${BLUE}[1/5] Runtime...${NC}"
     if [ -d ".agent/state" ]; then
-        echo -e "✅ Runtime initialized (.agent/state exists)"
+        echo -e "  ✅ Runtime initialized (.agent/state exists)"
         if grep -q "version" .agent/state/env_state.json 2>/dev/null; then
-            echo -e "✅ env_state.json is valid"
+            echo -e "  ✅ env_state.json valid"
         else
-            echo -e "❌ env_state.json is corrupted or missing"
+            echo -e "  ❌ env_state.json corrupted or missing"
+        fi
+        if [ -f ".agent/state/allowed_ops.json" ]; then
+            echo -e "  ✅ allowed_ops.json present (OP_* tokens resolvable)"
+        else
+            echo -e "  ⚠️  allowed_ops.json missing — run 'init' to regenerate"
         fi
     else
-        echo -e "❌ Runtime not initialized. Run 'init' first."
+        echo -e "  ❌ Runtime not initialized. Run: bash scripts/agent init"
     fi
 
-    # 2. Skill drift check
-    echo -e "\n${BLUE}📦 Checking skill drift...${NC}"
+    # 2. SDD check
+    echo -e "\n${BLUE}[2/5] SDD (Spec-Driven Development)...${NC}"
+    if [ -f ".agent/core/03_development_super_rule.md" ]; then
+        echo -e "  ✅ SDD super-rule installed"
+    else
+        echo -e "  ❌ SDD super-rule missing (.agent/core/03_development_super_rule.md)"
+    fi
+    if [ -d "specs" ]; then
+        SPEC_COUNT=$(find specs -maxdepth 1 -mindepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
+        echo -e "  ✅ specs/ exists ($SPEC_COUNT active spec(s))"
+    else
+        echo -e "  ⚠️  specs/ not found — non-trivial work cannot be tracked"
+    fi
+
+    # 3. Engram check
+    echo -e "\n${BLUE}[3/5] Engram (durable memory)...${NC}"
+    if [ -f "docs/engram/index.md" ]; then
+        ENTRY_COUNT=$(grep -c "^\|" docs/engram/index.md 2>/dev/null || echo 0)
+        echo -e "  ✅ Engram index present (~${ENTRY_COUNT} table rows)"
+    else
+        echo -e "  ❌ docs/engram/index.md missing — Engram is not provisioned"
+    fi
+    for section in decisions patterns lessons; do
+        if [ -d "docs/engram/$section" ]; then
+            COUNT=$(find "docs/engram/$section" -name "*.md" ! -name "README.md" 2>/dev/null | wc -l | tr -d ' ')
+            echo -e "  ✅ engram/$section: $COUNT entries"
+        else
+            echo -e "  ⚠️  docs/engram/$section/ missing"
+        fi
+    done
+
+    # 4. Skill drift check
+    echo -e "\n${BLUE}[4/5] Skills & registry drift...${NC}"
     MANIFEST="${KIT_ROOT}/registry/skill_manifest.json"
     RUNTIME_SKILLS=".agent/skills"
     if [ -f "$MANIFEST" ] && [ -d "$RUNTIME_SKILLS" ]; then
-        python - "$MANIFEST" "$RUNTIME_SKILLS" <<'PY'
+        PYTHONIOENCODING=utf-8 python - "$MANIFEST" "$RUNTIME_SKILLS" <<'PY'
 import json, sys, os
-manifest = json.load(open(sys.argv[1]))
+manifest = json.load(open(sys.argv[1], encoding="utf-8"))
 registered = set(manifest['skills'].keys())
 runtime = set(os.listdir(sys.argv[2]))
-missing = (registered & set(os.listdir(os.path.join(sys.argv[2], '..', '..', 'skills')) if os.path.isdir(os.path.join(sys.argv[2], '..', '..', 'skills')) else [])) - runtime
+missing = registered - runtime
 if missing:
-    print(f"  ⚠️  Skills registered+source but missing from runtime: {sorted(missing)}")
+    print(f"  [WARN] Skills registered but missing from runtime: {sorted(missing)}")
 else:
-    print(f"  ✅ No skill drift ({len(runtime)} skills in runtime)")
+    print(f"  [OK] No drift — {len(runtime)} skills in runtime, {len(registered)} registered")
 PY
+    else
+        echo -e "  ⚠️  Cannot check drift (manifest or runtime skills dir missing)"
     fi
 
-    # 3. Claude MCP config check
-    echo -e "\n${BLUE}🌍 Checking Claude MCP configuration...${NC}"
-    CLAUDE_MCP_LOCATIONS=(
-        "$HOME/.claude/claude_desktop_config.json"
-        "$HOME/Library/Application Support/Claude/claude_desktop_config.json"
-        "$APPDATA/Claude/claude_desktop_config.json"
-    )
+    # 5. MCP + Context7 check (generic — any LLM/IDE, any OS)
+    echo -e "\n${BLUE}[5/5] MCP & Context7...${NC}"
     MCP_FOUND=false
-    for mcp_path in "${CLAUDE_MCP_LOCATIONS[@]}"; do
-        if [ -f "$mcp_path" ]; then
-            echo -e "✅ Claude MCP config found: $mcp_path"
+    CONTEXT7_FOUND=false
+    MCP_CANDIDATES=(
+        "$HOME/.claude/claude_desktop_config.json"
+        "$HOME/.config/Claude/claude_desktop_config.json"
+        "$HOME/Library/Application Support/Claude/claude_desktop_config.json"
+        "${APPDATA:-}/Claude/claude_desktop_config.json"
+        "${LOCALAPPDATA:-}/Claude/claude_desktop_config.json"
+        "$HOME/.cursor/mcp.json"
+        "${APPDATA:-}/Cursor/User/mcp.json"
+        ".cursor/mcp.json"
+        "$HOME/.codeium/windsurf/mcp_config.json"
+        "$HOME/.gemini/antigravity/mcp_config.json"
+        ".vscode/mcp.json"
+        "$HOME/.config/Code/User/mcp.json"
+        ".mcp.json"
+        "mcp.json"
+    )
+
+    for path in "${MCP_CANDIDATES[@]}"; do
+        if [ -f "$path" ]; then
+            echo -e "  ✅ MCP config: $path"
             MCP_FOUND=true
-            break
+            # Check if context7 is registered inside this config
+            if PYTHONIOENCODING=utf-8 python - "$path" <<'PY' 2>/dev/null
+import json, sys
+try:
+    cfg = json.load(open(sys.argv[1], encoding="utf-8"))
+    servers = cfg.get("mcpServers", cfg.get("mcp", {}).get("servers", {}))
+    found = any("context7" in k.lower() for k in servers)
+    sys.exit(0 if found else 1)
+except: sys.exit(1)
+PY
+            then
+                echo -e "  ✅ Context7 registered in MCP config"
+                CONTEXT7_FOUND=true
+            fi
         fi
     done
+
     if [ "$MCP_FOUND" = "false" ]; then
-        echo -e "⚠️  No Claude MCP config found. Context7 may not be available."
-        echo -e "   Expected locations: ~/.claude/claude_desktop_config.json"
+        echo -e "  ⚠️  No MCP config detected. Kit is LLM/IDE agnostic — configure for your tool:"
+        echo -e "       Claude Code : ~/.claude/claude_desktop_config.json"
+        echo -e "       Cursor      : ~/.cursor/mcp.json"
+        echo -e "       Windsurf    : ~/.codeium/windsurf/mcp_config.json"
+        echo -e "       Antigravity : ~/.gemini/antigravity/mcp_config.json"
+        echo -e "       Generic     : .mcp.json"
     fi
 
-    echo -e "\n${GREEN}Doctor check complete.${NC}"
+    if [ "$CONTEXT7_FOUND" = "false" ]; then
+        echo -e "  ⚠️  Context7 not found in any MCP config."
+        echo -e "       Without Context7, the agent cannot fetch live library docs (hallucination risk)."
+        echo -e "       Add it to your MCP config: { \"mcpServers\": { \"context7\": { ... } } }"
+    fi
+
+    echo -e "\n${GREEN}Doctor complete. Fix any warnings before starting a SDD cycle.${NC}"
 }
 
 case "$COMMAND" in

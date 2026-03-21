@@ -198,9 +198,7 @@ EOF
 
 # 6. Finalize Registry
 finalize_registry() {
-    if [ -f "scripts/generate-registry.sh" ]; then
-        bash "scripts/generate-registry.sh"
-    fi
+    bash "${KIT_ROOT}/scripts/generate-registry.sh"
 }
 
 # 7. Generate Gateway (AGENTS.md)
