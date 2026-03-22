@@ -1,6 +1,6 @@
 # Pedrito — Agent Modes
 
-Pedrito is a multi-agent system. Each mode activates a specialized set of skills tuned for a specific developer workflow problem. You activate what you need — the rest stays dormant to keep context clean and reasoning sharp.
+Pedrito is an orchestrator that coordinates a multi-agent system. Each mode activates a specialized set of skills tuned for a specific developer workflow problem. You activate what you need — the rest stays dormant to keep context clean and reasoning sharp.
 
 ---
 

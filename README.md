@@ -1,10 +1,10 @@
 <div align="center">
-  <img src="kit/assets/hero.svg" alt="Pedrito - AI Agent System for Developer Workflow Automation" width="800" />
+  <img src="kit/assets/hero.svg" alt="Pedrito - AI Orchestrator for Developer Workflow Automation" width="800" />
 </div>
 
 **English** | [Español](kit/README.es.md)
 
-**Pedrito** is an **AI Agent System for Developer Workflow Automation**. Analyze code, debug systematically, generate docs, optimize prompts, and orchestrate complex workflows — all inside your project, with full developer control and zero hallucinations.
+**Pedrito** is an **AI Orchestrator for Developer Workflow Automation**. It coordinates specialized agents to analyze code, debug systematically, generate docs, optimize prompts, and orchestrate complex workflows — all inside your project, with full developer control and zero hallucinations.
 
 Pedrito V4 runs as compiled Bun binaries and provisions a governed runtime inside your project: SDD workflows, Engram memory, GGA pre-commit review, MCP wiring, and reproducible team profiles.
 

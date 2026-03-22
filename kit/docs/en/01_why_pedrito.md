@@ -44,7 +44,7 @@ Pedrito is built around a different model.
 
 | | Cursor | Pedrito |
 |---|---|---|
-| **Primary function** | AI-native IDE with chat and edit | Agent system provisioned into any project |
+| **Primary function** | AI-native IDE with chat and edit | AI orchestrator provisioned into any project |
 | **Memory** | Limited — project rules file | Engram: typed memory (decisions, patterns, incidents, domains) |
 | **Specialization** | Generalist | 7 specialized modes + JIT skill discovery |
 | **Governance** | Manual — you review diffs | SDD lifecycle with explicit approval gates |
@@ -63,7 +63,7 @@ Pedrito is built around a different model.
 
 | | Devin | Pedrito |
 |---|---|---|
-| **Primary function** | Fully autonomous software agent | Governed agent system — developer stays in control |
+| **Primary function** | Fully autonomous software agent | Governed orchestrator — developer stays in control |
 | **Autonomy model** | High autonomy, low developer control | Dev-piloted autonomy with mandatory approval gates |
 | **Transparency** | Black box — you see results | Full visibility — spec artifacts, decision log, Engram |
 | **Architecture decisions** | Made autonomously | Require explicit developer approval |
@@ -101,7 +101,7 @@ This is not bureaucracy. It is the difference between a tool that assists you an
 
 ## What Pedrito is not
 
-- **Not an IDE.** Pedrito is an agent system that runs inside your project. Use whatever editor you prefer.
+- **Not an IDE.** Pedrito is an orchestrator that runs inside your project. Use whatever editor you prefer.
 - **Not a model.** Pedrito is LLM-agnostic. It runs on Claude, Gemini, or any compatible model via the respective CLI.
 - **Not a SaaS.** Pedrito lives in your repo. There is no cloud service, no data leaving your environment without your knowledge.
 - **Not a replacement for a senior engineer.** Pedrito amplifies senior engineering judgment. It does not substitute for it.
@@ -115,7 +115,7 @@ This is not bureaucracy. It is the difference between a tool that assists you an
 | Fast autocomplete while typing | GitHub Copilot |
 | Smooth single-turn edits in a polished IDE | Cursor |
 | Fully autonomous task delegation | Devin |
-| Governed, auditable, multi-agent workflow automation | **Pedrito** |
+| Governed, auditable, orchestrated multi-agent workflow automation | **Pedrito** |
 | Memory across sessions and projects | **Pedrito** |
-| LLM/IDE agnostic agent system in your repo | **Pedrito** |
+| LLM/IDE agnostic orchestrator in your repo | **Pedrito** |
 | Spec-driven work with approval gates | **Pedrito** |

@@ -1,10 +1,10 @@
 <div align="center">
-  <img src="assets/hero.svg" alt="Pedrito - AI Agent System for Developer Workflow Automation" width="800" />
+  <img src="assets/hero.svg" alt="Pedrito - AI Orchestrator for Developer Workflow Automation" width="800" />
 </div>
 
 [English](../README.md) | **Español**
 
-**Pedrito** es un **Sistema de Agentes IA para Automatización de Workflows de Desarrollo**. Analiza código, depura sistemáticamente, genera documentación, optimiza prompts y orquesta workflows complejos — todo dentro de tu proyecto, con control total del developer y cero alucinaciones.
+**Pedrito** es un **Orquestador de IA para Automatización de Workflows de Desarrollo**. Coordina agentes especializados para analizar código, depurar sistemáticamente, generar documentación, optimizar prompts y orquestar workflows complejos — todo dentro de tu proyecto, con control total del developer y cero alucinaciones.
 
 Pedrito V4 se distribuye como binarios compilados y provisiona un runtime gobernado dentro de tu proyecto: SDD, memoria Engram, GGA pre-commit, MCP y perfiles de equipo reproducibles.
 

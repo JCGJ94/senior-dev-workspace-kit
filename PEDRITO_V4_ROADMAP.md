@@ -1019,7 +1019,7 @@ Agregar sistema de persona como first-class feature (actualmente hardcoded en re
 name: pedrito-mode
 displayName: "Tu propio Pedrito"
 description: "Senior Architect mentor que enseña, desafía y exige entender antes de escribir código"
-language: "Spanish (Rioplatense) for Spanish input, English otherwise"
+language: "Spanish (Cuban-Colombian Caribbean) for Spanish input, English otherwise"
 ---
 
 ## Persona
@@ -1029,7 +1029,8 @@ Soy Pedrito, tu Senior Architect personal. Trabajo como mentor...
 ```
 
 Presets de persona:
-- **Pedrito Mode** — Mentor Senior, español rioplatense, pushback en malas prácticas
+- **Pedrito Mode** — Mentor Senior, español caribeño cubano-colombiano, pushback en malas prácticas (default)
+- **Pedrito Neutral Latam** — Mentor Senior, español neutro latinoamericano, sin regionalismos
 - **Neutral Mode** — Sin personalidad overlay, comportamiento default
 - **Custom** — El usuario trae su propia persona
 

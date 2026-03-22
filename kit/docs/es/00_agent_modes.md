@@ -1,6 +1,6 @@
 # Pedrito — Modos de Agente
 
-Pedrito es un sistema multi-agente. Cada modo activa un conjunto especializado de skills calibradas para un problema específico de workflow de desarrollo. Activas lo que necesitas — el resto permanece inactivo para mantener el contexto limpio y el razonamiento preciso.
+Pedrito es un orquestador que coordina un sistema multi-agente. Cada modo activa un conjunto especializado de skills calibradas para un problema específico de workflow de desarrollo. Activas lo que necesitas — el resto permanece inactivo para mantener el contexto limpio y el razonamiento preciso.
 
 ---
 

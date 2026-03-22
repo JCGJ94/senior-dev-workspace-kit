@@ -18,6 +18,8 @@ This checklist is the final pre-release pass for Pedrito V4:
 - [x] Team profiles (export/import/save/show/delete)
 - [x] Self-update modules (release lookup, download, replace, skills sync, sync layer)
 - [x] Core polish: modern skills synced and personas as first-class runtime feature (`.agent/personas/`)
+- [x] Persona system: pedrito-mode (Cuban-Colombian), pedrito-neutral-latam, neutral-mode
+- [x] Identity language: "AI Orchestrator" across all docs (README, AGENTS.md, core rules, hero.svg, why_pedrito)
 
 ## Documentation Readiness
 
