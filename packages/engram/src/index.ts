@@ -1,5 +1,5 @@
 // @pedrito/engram — SQLite + Hono memory server
-export const VERSION = '4.0.0';
+export const VERSION = '5.0.0';
 
 export { openDb, runMigrations } from './db/migrations.js';
 export {

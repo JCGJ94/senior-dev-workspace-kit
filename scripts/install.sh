@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# scripts/install.sh — Install Pedrito V4 binaries on macOS or Linux.
+# scripts/install.sh — Install Pedrito binaries on macOS or Linux.
 #
 # Usage:
 #   curl -fsSL https://raw.githubusercontent.com/OWNER/REPO/main/scripts/install.sh | sh

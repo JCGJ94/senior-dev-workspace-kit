@@ -22,7 +22,7 @@ afterEach(() => {
 
 describe('@pedrito/gga', () => {
   test('exports VERSION', () => {
-    expect(VERSION).toBe('4.0.0');
+    expect(VERSION).toBe('5.0.0');
   });
 
   test('parseResponse handles passed result', () => {

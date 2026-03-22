@@ -3,4 +3,4 @@
 declare const PEDRITO_VERSION: string;
 
 export const VERSION =
-  typeof PEDRITO_VERSION !== 'undefined' ? PEDRITO_VERSION : '4.0.0-dev';
+  typeof PEDRITO_VERSION !== 'undefined' ? PEDRITO_VERSION : '5.0.0-dev';

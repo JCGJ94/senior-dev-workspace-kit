@@ -1,4 +1,4 @@
-export const VERSION = '4.0.0';
+export const VERSION = '5.0.0';
 
 export { getDefaultConfig, loadConfig } from './config.js';
 export type { GGAConfig } from './config.js';

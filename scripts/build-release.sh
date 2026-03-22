@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# scripts/build-release.sh — Compile Pedrito V4 binaries for a target platform.
+# scripts/build-release.sh — Compile Pedrito binaries for a target platform.
 #
 # Usage: ./scripts/build-release.sh <target>
 #   target: macos-arm64 | macos-x64 | linux-x64 | windows-x64
@@ -33,7 +33,7 @@ esac
 # Read version from root package.json
 VERSION=$(node -p "require('./package.json').version" 2>/dev/null \
   || bun -e "console.log(require('./package.json').version)" 2>/dev/null \
-  || echo "4.0.0")
+  || echo "5.0.0")
 
 echo "▶ Building Pedrito v${VERSION} for ${TARGET}..."
 

@@ -79,7 +79,7 @@ interface McpResponse {
 const SERVER_INFO = {
   protocolVersion: '2024-11-05',
   capabilities: { tools: { listChanged: false } },
-  serverInfo: { name: 'engram', version: '4.0.0' },
+  serverInfo: { name: 'engram', version: '5.0.0' },
 };
 
 export function handleMcpRequest(db: Database, req: McpRequest): McpResponse {
@@ -162,7 +162,7 @@ export function mcpRoutes(db: Database, sessionStore = new SessionStore()): Hono
 
   // Discovery endpoint
   app.get('/mcp', (c) =>
-    c.json({ name: 'engram', version: '4.0.0', tools: TOOLS }),
+    c.json({ name: 'engram', version: '5.0.0', tools: TOOLS }),
   );
 
   app.get('/mcp/sse', (c) => {

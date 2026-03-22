@@ -6,7 +6,7 @@
 
 **Pedrito** es un **Orquestador de IA para Automatización de Workflows de Desarrollo**. Coordina agentes especializados para analizar código, depurar sistemáticamente, generar documentación, optimizar prompts y orquestar workflows complejos — todo dentro de tu proyecto, con control total del developer y cero alucinaciones.
 
-Pedrito V4 se distribuye como binarios compilados y provisiona un runtime gobernado dentro de tu proyecto: SDD, memoria Engram, GGA pre-commit, MCP y perfiles de equipo reproducibles.
+Pedrito se distribuye como binarios compilados y provisiona un runtime gobernado dentro de tu proyecto: dispatch orquestado, SDD, memoria Engram, GGA pre-commit, MCP y perfiles de equipo reproducibles.
 
 ## Instalación
 

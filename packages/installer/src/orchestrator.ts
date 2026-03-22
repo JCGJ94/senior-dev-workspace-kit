@@ -61,7 +61,7 @@ export async function runInstall(state: InstallState): Promise<InstallReport> {
   }
 
   configStore.write({
-    version: '4.0.0',
+    version: '5.0.0',
     installedAt: new Date().toISOString(),
     agents: configuredAgents,
     preset: preset.name,

@@ -1,6 +1,6 @@
 {
   "name": "@pedrito/gga",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "private": true,
   "type": "module",
   "bin": {

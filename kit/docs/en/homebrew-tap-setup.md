@@ -15,7 +15,7 @@ Create a new public GitHub repository named exactly **`homebrew-pedrito`** (Home
 
 ```bash
 # via GitHub CLI
-gh repo create josec/homebrew-pedrito --public --description "Homebrew tap for Pedrito V4"
+gh repo create josec/homebrew-pedrito --public --description "Homebrew tap for Pedrito"
 ```
 
 Clone it locally:
@@ -43,8 +43,8 @@ After a GitHub Release is published, update the two `sha256` placeholders in `Fo
 
 ```bash
 # Download the tar.gz checksum files from the release
-curl -fsSL https://github.com/josec/pedrito/releases/download/v4.0.0/pedrito-macos-arm64.tar.gz.sha256
-curl -fsSL https://github.com/josec/pedrito/releases/download/v4.0.0/pedrito-macos-x64.tar.gz.sha256
+curl -fsSL https://github.com/josec/pedrito/releases/download/v5.0.0/pedrito-macos-arm64.tar.gz.sha256
+curl -fsSL https://github.com/josec/pedrito/releases/download/v5.0.0/pedrito-macos-x64.tar.gz.sha256
 ```
 
 Edit `Formula/pedrito.rb` and replace `PLACEHOLDER_MACOS_ARM64_SHA256` and `PLACEHOLDER_MACOS_X64_SHA256` with the actual hashes.
@@ -56,7 +56,7 @@ Edit `Formula/pedrito.rb` and replace `PLACEHOLDER_MACOS_ARM64_SHA256` and `PLAC
 ```bash
 cd homebrew-pedrito
 git add Formula/pedrito.rb
-git commit -m "feat: add pedrito v4.0.0"
+git commit -m "feat: add pedrito v5.0.0"
 git push
 
 # Verify Ruby syntax
@@ -71,7 +71,7 @@ ruby -c Formula/pedrito.rb
 brew tap josec/pedrito
 brew install pedrito
 
-pedrito version   # should print 4.0.0
+pedrito version   # should print 5.0.0
 brew test pedrito # runs the formula's test block
 ```
 

@@ -1,7 +1,7 @@
 class Pedrito < Formula
   desc "AI Engineering Workspace Kit — governance, memory, and code review for AI agents"
   homepage "https://github.com/JCGJ94/senior-dev-workspace-kit"
-  version "4.0.0"
+  version "5.0.0"
   license "MIT"
 
   on_macos do

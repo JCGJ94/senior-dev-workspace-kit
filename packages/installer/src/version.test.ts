@@ -3,6 +3,6 @@ import { VERSION } from './version.js';
 
 describe('@pedrito/installer', () => {
   test('exports VERSION', () => {
-    expect(VERSION.startsWith('4.0.0')).toBe(true);
+    expect(VERSION.startsWith('5.0.0')).toBe(true);
   });
 });

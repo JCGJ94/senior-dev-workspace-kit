@@ -6,7 +6,7 @@ import { loadConfig } from './config.js';
 import { runHook } from './hook.js';
 
 declare const PEDRITO_VERSION: string;
-const VERSION = typeof PEDRITO_VERSION !== 'undefined' ? PEDRITO_VERSION : '4.0.0-dev';
+const VERSION = typeof PEDRITO_VERSION !== 'undefined' ? PEDRITO_VERSION : '5.0.0-dev';
 
 const [, , cmd, ...args] = process.argv;
 

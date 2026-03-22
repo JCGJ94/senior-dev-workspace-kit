@@ -8,7 +8,7 @@ import { searchObservations } from './db/queries.js';
 import { migrateFromMarkdown } from './migrate-from-markdown.js';
 
 declare const PEDRITO_VERSION: string;
-const VERSION = typeof PEDRITO_VERSION !== 'undefined' ? PEDRITO_VERSION : '4.0.0-dev';
+const VERSION = typeof PEDRITO_VERSION !== 'undefined' ? PEDRITO_VERSION : '5.0.0-dev';
 
 const DB_DIR = join(homedir(), '.pedrito', 'engram');
 const DB_PATH = join(DB_DIR, 'engram.db');

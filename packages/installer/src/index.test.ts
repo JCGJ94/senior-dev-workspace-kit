@@ -288,7 +288,7 @@ describe('@pedrito/installer', () => {
 
     const store = new ConfigStore(join(home, '.pedrito', 'config.json'));
     store.write({
-      version: '4.0.0',
+      version: '5.0.0',
       installedAt: new Date().toISOString(),
       agents: ['claude-code'],
       preset: 'minimal',
@@ -316,7 +316,7 @@ describe('@pedrito/installer', () => {
 
     const store = new ConfigStore(join(home, '.pedrito', 'config.json'));
     store.write({
-      version: '4.0.0',
+      version: '5.0.0',
       installedAt: new Date().toISOString(),
       agents: ['claude-code'],
       preset: 'minimal',

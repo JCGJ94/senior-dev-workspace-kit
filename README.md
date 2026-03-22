@@ -6,7 +6,7 @@
 
 **Pedrito** is an **AI Orchestrator for Developer Workflow Automation**. It coordinates specialized agents to analyze code, debug systematically, generate docs, optimize prompts, and orchestrate complex workflows — all inside your project, with full developer control and zero hallucinations.
 
-Pedrito V4 runs as compiled Bun binaries and provisions a governed runtime inside your project: SDD workflows, Engram memory, GGA pre-commit review, MCP wiring, and reproducible team profiles.
+Pedrito runs as compiled Bun binaries and provisions a governed runtime inside your project: orchestrated dispatch, SDD workflows, Engram memory, GGA pre-commit review, MCP wiring, and reproducible team profiles.
 
 ## Install
 
