@@ -1,18 +1,18 @@
 class Pedrito < Formula
   desc "AI Engineering Workspace Kit — governance, memory, and code review for AI agents"
-  homepage "https://github.com/josec/pedrito"
+  homepage "https://github.com/JCGJ94/senior-dev-workspace-kit"
   version "4.0.0"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://github.com/josec/pedrito/releases/download/v#{version}/pedrito-macos-arm64.tar.gz"
-      sha256 "PLACEHOLDER_MACOS_ARM64_SHA256"
+      url "https://github.com/JCGJ94/senior-dev-workspace-kit/releases/download/v#{version}/pedrito-macos-arm64.tar.gz"
+      sha256 "9052ccf0985c6b765654f3fecadac39894ecd09a687b0509e4f747f872b7e8f4"
     end
 
     on_intel do
-      url "https://github.com/josec/pedrito/releases/download/v#{version}/pedrito-macos-x64.tar.gz"
-      sha256 "PLACEHOLDER_MACOS_X64_SHA256"
+      url "https://github.com/JCGJ94/senior-dev-workspace-kit/releases/download/v#{version}/pedrito-macos-x64.tar.gz"
+      sha256 "57056a69bc3aa42624a6b9225fc05b5a0743fccf0dabbc610422d0ab5312f2db"
     end
   end
 
