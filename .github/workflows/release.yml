@@ -110,4 +110,4 @@ jobs:
           name: Pedrito v${{ steps.version.outputs.VERSION }}
           prerelease: ${{ contains(github.ref_name, '-') }}
           files: release-files/*
-          body_path: RELEASE_NOTES_V4.md
+          body_path: RELEASE_NOTES.md
