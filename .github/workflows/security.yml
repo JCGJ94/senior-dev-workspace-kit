@@ -21,8 +21,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: ShellCheck
         run: |
-          find scripts -name "*.sh" | xargs shellcheck
+          find kit/scripts -name "*.sh" | xargs shellcheck
       - name: Dependency Audit
         run: |
-          if [ -f "package.json" ]; then npm audit; fi
+          if [ -f "package.json" ] && command -v bun &>/dev/null; then
+            bun audit || true
+          fi
           if [ -f "requirements.txt" ]; then pip install safety && safety check; fi

@@ -17,11 +17,11 @@ jobs:
           mkdir mock-project
           cd mock-project
           touch package.json
-          bash ../scripts/provision.sh --non-interactive
+          bash $GITHUB_WORKSPACE/kit/scripts/provision.sh --non-interactive
       - name: Mock Project Sync
         run: |
           cd mock-project
-          bash ../scripts/sync-workspace.sh
+          bash $GITHUB_WORKSPACE/kit/scripts/sync-workspace.sh
       - name: Verify Runtime Artifacts
         run: |
           cd mock-project

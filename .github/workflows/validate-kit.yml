@@ -16,3 +16,4 @@ jobs:
           python-version: '3.11'
       - name: Validate kit structure
         run: bash scripts/validate-kit.sh
+        working-directory: kit

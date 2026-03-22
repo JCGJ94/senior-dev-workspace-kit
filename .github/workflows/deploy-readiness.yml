@@ -14,10 +14,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check Deploy Domains Manifest
         run: |
-          [ -f "registry/deploy_domains.json" ] || exit 1
+          [ -f "kit/registry/deploy_domains.json" ] || exit 1
           python - <<'PY'
           import json
-          with open("registry/deploy_domains.json") as f:
+          with open("kit/registry/deploy_domains.json") as f:
               data = json.load(f)
               domains = data.get("domains", {})
               for name, conf in domains.items():
@@ -27,13 +27,13 @@ jobs:
           PY
       - name: Check Deploy Workflow Exists
         run: |
-          [ -f "workflows/deploy_workflow.md" ] || exit 1
-          grep -q "deploy-orchestrator" workflows/deploy_workflow.md
+          [ -f "kit/workflows/deploy_workflow.md" ] || exit 1
+          grep -q "deploy-orchestrator" kit/workflows/deploy_workflow.md
       - name: Validate Official Sync Script
         run: |
-          [ -f "scripts/sync-workspace.sh" ] || exit 1
+          [ -f "kit/scripts/sync-workspace.sh" ] || exit 1
       - name: Verify V3 Core Rules for Deploy
         run: |
-          [ -f "core/10_deploy_rules.md" ] || exit 1
-          grep -q "Preflight" core/10_deploy_rules.md
-          grep -q "rollback" core/10_deploy_rules.md
+          [ -f "kit/core/10_deploy_rules.md" ] || exit 1
+          grep -q "Preflight" kit/core/10_deploy_rules.md
+          grep -q "rollback" kit/core/10_deploy_rules.md
