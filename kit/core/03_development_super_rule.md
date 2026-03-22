@@ -27,7 +27,8 @@ Task execution from inception to completion. (Tier 1 Priority).
 - Rely on explicit metrics, logs, and compiler checks over visual code review.
 - Verification evidence belongs in `specs/<change-id>/08-verification.md` for non-trivial work.
 
-## 5. Escalation & Modularity
+## 5. Orchestrated Dispatch (MANDATORY)
 - Limit file lengths limit complexity. If a file crosses **500 lines**, pause. You must extract components, hooks, or utilities to restore modularity.
+- All code execution, deep code reading, and implementation work MUST be delegated through the orchestration model defined in `10_orchestrator_protocol.md`.
 - If a task breaks standard execution rules, proactively delegate to specialized workflows (e.g., checking `workflows/feature_workflow.md`).
 - When the task spans memory, verification, security, and deploy concerns together, prefer `architect-orchestrator-v3` as the top-level coordinator.

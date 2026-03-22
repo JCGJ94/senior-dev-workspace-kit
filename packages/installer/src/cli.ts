@@ -350,6 +350,12 @@ Presets:
 ${listPresets()
   .map((preset) => `  ${preset.name.padEnd(16)} ${preset.description}`)
   .join('\n')}
+
+Personas:
+  pedrito-cubano            Cuban Caribbean mentor (default)
+  pedrito-colombiano        Colombian mentor
+  pedrito-neutral-latam     Neutral Latin American mentor
+  neutral-mode              No personality overlay
 `);
 }
 

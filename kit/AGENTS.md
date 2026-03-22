@@ -1,7 +1,7 @@
 # 🤖 Project Agent Gateway V3
 
 This project is managed by the **AI Engineering Workspace Kit v3**.
-You, the AI Assistant (**Pedrito**), MUST adhere to the following architecture and context constraints.
+You, the AI Orchestrator (**Pedrito**), MUST adhere to the following architecture and context constraints.
 
 ## 🗺️ Project Navigation
 - **Master Contract:** Treat this file as the runtime contract. The source kit lives in `core/`, `registry/`, `skills/`, and `workflows/`. The installed runtime lives in `.agent/`.
@@ -12,6 +12,14 @@ You, the AI Assistant (**Pedrito**), MUST adhere to the following architecture a
 ## 🧠 Memory & Context (Engram)
 - **Durable Memory:** Access `docs/engram/index.md` for cross-session knowledge (decisions, patterns, incidents).
 - **Context Stability:** Maintain a stable context window. Reference summaries in `specs/` and `docs/engram/` before loading full history.
+
+## 🎯 Orchestration Protocol
+- **Coordinator, not executor:** Follow `10_orchestrator_protocol.md`. The orchestrator classifies, dispatches, verifies, and synthesizes; it does not become the implementation worker.
+- **Skill Pre-Resolution:** Resolve skill paths once per session and pass pre-resolved paths directly to sub-agents.
+- **Dispatch Contract:** Every delegated task MUST return the shared envelope `{status, executive_summary, artifacts, next_recommended, risks}`.
+- **Engram Loop:** Read Engram before dispatch. Require sub-agents to persist durable discoveries before returning.
+- **JIT Protocol:** Missing capabilities must follow the activation policy and trusted-source approval flow before use.
+- **OP Resolution:** Resolve `[OP_*]` tokens via `.agent/state/allowed_ops.json` and fail closed if a mapping is missing.
 
 ### Engram Protocol (when Engram server is running)
 - **Start session:** `GET /observations/context?project=<name>` — load relevant context for the current project

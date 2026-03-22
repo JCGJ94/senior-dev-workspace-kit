@@ -20,3 +20,10 @@ Historical context retrieval, documentation persistence. (Tier 3 Priority).
 ## Bootstrapping 
 - The agent should scan `docs/engram/index.md`, relevant Engram entries, active specs, or the project `README.md` before making deep infrastructural changes.
 - Do not assume `.agent/` contains the full architectural memory of the project.
+
+## Engram Server Integration
+- **Session start:** Load the current project's relevant context before dispatching specialized work.
+- **Before dispatch:** Search for prior decisions, incidents, patterns, and active SDD artifacts related to the current task.
+- **Sub-agent writes:** Require the delegated specialist to persist durable discoveries before returning.
+- **State recovery:** Persist compact orchestration checkpoints so the work can recover after compaction, interruption, or session handoff.
+- Use the shared Engram protocol in `kit/skills/_shared/engram-protocol.md` or `.agent/skills/_shared/engram-protocol.md` when orchestrating sub-agents.

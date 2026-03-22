@@ -45,45 +45,54 @@ Use these sub-agents as the default V3 execution graph:
 Activate only the subset that matches the current workflow phase.
 
 ## Orchestration Workflow
-1. **Intake the Request**
-   - classify scope, risk, and expected deliverable
-   - decide whether SDD is mandatory
+1. **Intake & Classification**
+   - classify the task as `direct`, `small`, `orchestrated`, or `parallel`
+   - determine scope, risk, expected deliverable, and whether SDD is mandatory
+   - output a structured orchestration decision before dispatch starts
 
-2. **Load Stable Ground Truth**
-   - read `AGENTS.md`
-   - read the relevant core rules
-   - read the active spec if one exists
-   - read only the minimum runtime state required
+2. **Skill Resolution**
+   - resolve the minimum viable skill set from session cache or the runtime registry
+   - pass pre-resolved skill paths directly to each delegate
+   - do not let sub-agents search the registry again
 
-3. **Create the Execution Graph**
-   - select the smallest safe set of specialized sub-agents
-   - define exact scope and output contract for each one
-   - decide whether execution is sequential or parallel
+3. **Engram Context Pack**
+   - read only the relevant Engram summaries, active spec artifacts, and runtime state
+   - build a concise context pack for each delegate
+   - keep context bounded and phase-specific
 
-4. **Enforce SDD**
-   - route planning and lifecycle control through `sdd-manager`
-   - block direct implementation when a required phase artifact is missing
+4. **Dispatch Template**
+   - dispatch every sub-agent using the template defined in `10_orchestrator_protocol.md`
+   - include `ROLE`, `SKILL`, `CONTEXT`, `GOAL`, `SCOPE`, `NON-GOALS`, `OUTPUT`, `VERIFICATION`, and `PERSISTENCE`
+   - require the shared return envelope contract on every delegate
 
-5. **Control Context**
-   - route context selection and compression through `context-keeper`
-   - never allow unbounded context growth across iterations
+5. **Result Verification**
+   - inspect the return envelope first
+   - reject results with missing status, missing artifacts, or unverifiable claims
+   - route verification through `test-verifier` when the task requires deeper evidence
 
-6. **Route Domain Governance**
-   - route skill selection and external capability ingestion through `skill-governor`
-   - route security-critical decisions through `security-reviewer`
-   - route verification through `test-verifier`
-   - route release and environment execution through `deploy-orchestrator`
+6. **Integration**
+   - integrate only verified outputs
+   - use `[OP_TEST]` and `[OP_TYPECHECK]` as the default integration gate when applicable
+   - reject conflicting or partial delegate results
 
-7. **Integrate Conservatively**
-   - merge only verified outputs
-   - reject conflicting or unverifiable agent results
+7. **State Persistence**
+   - persist orchestration checkpoints and durable discoveries into Engram before closing the phase
+   - keep recovery state compact and safe for later continuation
 
-8. **Promote Knowledge**
-   - send reusable patterns, decisions, and incidents to `engram-manager`
+8. **Knowledge Promotion**
+   - promote reusable patterns, decisions, incidents, and conventions
    - keep session-only details out of long-term memory
+
+## Automatic Skill Resolution Protocol
+1. Match the request against installed triggers in the runtime registry.
+2. Prefer the smallest safe set of skills with the highest relevance.
+3. Reuse session-cached resolved paths when available.
+4. If no installed skill matches, route the gap through `skill-governor` and the activation policy.
+5. After JIT installation, re-run trigger matching before dispatching work.
 
 ## Rules
 - The master skill is the architecture owner, not the largest context bucket.
+- The master skill dispatches work; it does not become the worker.
 - Use specialized sub-agents to shrink active context, not to add ceremony.
 - Never skip verification, security review, or context control on complex work.
 - Never allow external skill adoption outside `skill-governor` policy.
@@ -94,7 +103,8 @@ Activate only the subset that matches the current workflow phase.
 Return:
 - orchestration decision
 - selected sub-agents
-- phase status
+- dispatch plan
+- return envelope status
 - missing artifacts
 - validation status
 - integration risks

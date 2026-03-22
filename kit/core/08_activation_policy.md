@@ -18,7 +18,9 @@ When a specific task demands capabilities beyond the Generalist scope, the agent
 
 ## 3. Workflow Execution and `[OP_*]` Actions
 - When reading pipelines in `/workflows/`, recognize specific generic operational triggers (e.g., `[OP_LINT]`, `[OP_BUILD]`).
-- Resolve these tokens by mapping them dynamically to the current ecosystem detected by `00_environment_rules.md` (e.g., `[OP_LINT]` in a Node project maps to `npm run lint` or `bun lint`).
+- Resolve these tokens via `.agent/state/allowed_ops.json` as the runtime source of truth.
+- If a token is missing from `allowed_ops.json`, fail closed and surface the missing mapping explicitly instead of inventing a command.
+- Use `00_environment_rules.md` to interpret ecosystem context, but do not bypass `allowed_ops.json` when a mapped operation is expected.
 
 ## 4. Anti-Obsolescence & Deep Research Fallback
 
@@ -46,7 +48,8 @@ If a task requires specialized knowledge or a workflow that is NOT currently ins
 3. **Request Approval:** Before adopting an external skill, summarize the source, why it is needed, and how it will affect the runtime. Wait for developer approval.
 4. **Standardize (Skill Creator):** If approval is granted, use `skill-creator` to adapt the external capability into the native `SKILL.md` format before inserting it into `.agent/skills/<skill-name>/` or the source kit.
 5. **Re-generate Registry:** After installing or adapting any skill, execute `bash scripts/generate-registry.sh` to update `skills.json` and make the new capability available.
-6. **Track Trust State:** Mark the skill internally as local, trusted-upstream-adapted, or pending-review. Never treat arbitrary external content as first-class without adaptation.
+6. **Post-Install Verification:** Re-run trigger matching against the updated registry and verify the newly installed skill is now selectable for the active task.
+7. **Track Trust State:** Mark the skill internally as local, trusted-upstream-adapted, or pending-review. Never treat arbitrary external content as first-class without adaptation.
 
 ## 6. Communication Layer
 - Use `humanized-communication` for developer-facing explanations, summaries, and guidance when a softer human tone improves clarity.
