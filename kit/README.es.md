@@ -4,7 +4,7 @@
 
 [English](../README.md) | **Español**
 
-**Pedrito** es un **Orquestador de IA para Automatización de Workflows de Desarrollo**. Coordina agentes especializados para analizar código, depurar sistemáticamente, generar documentación, optimizar prompts y orquestar workflows complejos — todo dentro de tu proyecto, con control total del developer y cero alucinaciones.
+**Pedrito** es un **Orquestador de IA para Automatización de Workflows de Desarrollo**. Coordina agentes especializados para analizar código, depurar sistemáticamente, generar documentación, optimizar prompts y orquestar workflows complejos — todo dentro de tu proyecto, con control total del developer y diseño resistente a alucinaciones.
 
 Pedrito se distribuye como binarios compilados y provisiona un runtime gobernado dentro de tu proyecto: dispatch orquestado, SDD, memoria Engram, GGA pre-commit, MCP y perfiles de equipo reproducibles.
 
@@ -57,7 +57,7 @@ Cada modo activa el conjunto mínimo de skills necesarias — sin bloat, sin rui
 - **Memoria que sobrevive sesiones.** Engram recuerda decisiones, patrones e incidentes durante semanas. El contexto de tu proyecto nunca se pierde.
 - **Autonomía gobernada.** No es una caja negra. Tú apruebas cambios arquitectónicos, skills externas y operaciones destructivas.
 - **Trabajo dirigido por specs.** Todo cambio no trivial produce artefactos auditables que puedes revisar, rechazar o archivar.
-- **Sin alucinaciones por diseño.** Context7 alimenta documentación de librerías en tiempo real. La disciplina low-context corta el ruido en la fuente.
+- **Resistente a alucinaciones por diseño.** Context7 alimenta documentación en tiempo real, verification gates detectan drift, y la disciplina low-context corta el ruido en la fuente.
 - **Capacidades JIT.** ¿Falta una skill? Pedrito la descubre e instala desde registros confiables — con tu aprobación.
 - **Agnóstico de LLM/IDE.** Funciona con cualquier modelo y cualquier editor. El sistema de agentes vive en tu proyecto, no en la nube de un vendor.
 

@@ -4,7 +4,7 @@
 
 **English** | [Español](kit/README.es.md)
 
-**Pedrito** is an **AI Orchestrator for Developer Workflow Automation**. It coordinates specialized agents to analyze code, debug systematically, generate docs, optimize prompts, and orchestrate complex workflows — all inside your project, with full developer control and zero hallucinations.
+**Pedrito** is an **AI Orchestrator for Developer Workflow Automation**. It coordinates specialized agents to analyze code, debug systematically, generate docs, optimize prompts, and orchestrate complex workflows — all inside your project, with full developer control and hallucination-resistant design.
 
 Pedrito runs as compiled Bun binaries and provisions a governed runtime inside your project: orchestrated dispatch, SDD workflows, Engram memory, GGA pre-commit review, MCP wiring, and reproducible team profiles.
 
@@ -57,7 +57,7 @@ Each mode activates the minimum set of skills needed — no bloat, no noise.
 - **Memory that survives sessions.** Engram remembers decisions, patterns, and incidents across weeks. Your project context is never lost.
 - **Governed autonomy.** Not a black box. You approve architecture changes, external skills, and destructive operations.
 - **Spec-driven work.** Every non-trivial change produces auditable artifacts you can review, reject, or archive.
-- **No hallucinations by design.** Context7 feeds real-time library docs. Low-context discipline cuts noise at the source.
+- **Hallucination-resistant by design.** Context7 feeds real-time library docs, verification gates catch drift, and low-context discipline cuts noise at the source.
 - **JIT capabilities.** Missing a skill? Pedrito discovers and installs it from trusted registries — with your approval.
 - **LLM/IDE agnostic.** Works with any model and any editor. The agent system lives in your project, not in a vendor's cloud.
 
