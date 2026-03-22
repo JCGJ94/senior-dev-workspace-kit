@@ -7,6 +7,9 @@ import { mcpRoutes } from './mcp/server.js';
 import { searchObservations } from './db/queries.js';
 import { migrateFromMarkdown } from './migrate-from-markdown.js';
 
+declare const PEDRITO_VERSION: string;
+const VERSION = typeof PEDRITO_VERSION !== 'undefined' ? PEDRITO_VERSION : '4.0.0-dev';
+
 const DB_DIR = join(homedir(), '.pedrito', 'engram');
 const DB_PATH = join(DB_DIR, 'engram.db');
 const PORT = 7437;
@@ -15,6 +18,10 @@ const HOST = '127.0.0.1';
 const [, , cmd, ...args] = process.argv;
 
 switch (cmd) {
+  case 'version':
+    console.log(VERSION);
+    process.exit(0);
+    break;
   case 'serve':
     await cmdServe();
     break;
@@ -28,7 +35,7 @@ switch (cmd) {
     await cmdStatus();
     break;
   default:
-    console.log(`engram v4.0.0
+    console.log(`engram v${VERSION}
 
 Usage: engram <command>
 
@@ -37,7 +44,8 @@ Commands:
   search <query>     Search memory observations
                      Options: --project <name>, --type <type>
   migrate [kit-path] Import kit/docs/engram/ markdown files into the DB
-  status             Check if the server is running`);
+  status             Check if the server is running
+  version            Show version`);
     process.exit(0);
 }
 

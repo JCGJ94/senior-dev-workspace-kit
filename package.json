@@ -9,7 +9,12 @@
   "scripts": {
     "build": "bun run --filter '*' build",
     "test": "bun run --filter '*' test",
-    "typecheck": "bun run --filter '*' typecheck"
+    "typecheck": "bun run --filter '*' typecheck",
+    "build:release:macos-arm64": "bash scripts/build-release.sh macos-arm64",
+    "build:release:macos-x64": "bash scripts/build-release.sh macos-x64",
+    "build:release:linux-x64": "bash scripts/build-release.sh linux-x64",
+    "build:release:windows-x64": "bash scripts/build-release.sh windows-x64",
+    "build:release:all": "bash scripts/build-release.sh macos-arm64 && bash scripts/build-release.sh macos-x64 && bash scripts/build-release.sh linux-x64 && bash scripts/build-release.sh windows-x64"
   },
   "devDependencies": {
     "typescript": "^5.4.0"
