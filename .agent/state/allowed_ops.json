@@ -1,0 +1,11 @@
+{
+  "OP_INSTALL": "bun install",
+  "OP_TEST": "bun test",
+  "OP_TYPECHECK": "bun run typecheck",
+  "OP_LINT": "bun run lint",
+  "OP_BUILD": "bun run build",
+  "OP_DEPLOY": "echo 'Deploy not configured — see workflows/deploy_workflow.md'",
+  "OP_VALIDATE_KIT": "bash kit/scripts/validate-kit.sh",
+  "OP_VALIDATE_SKILLS": "python kit/scripts/validate-skills.py",
+  "OP_GENERATE_REGISTRY": "bash kit/scripts/generate-registry.sh"
+}
