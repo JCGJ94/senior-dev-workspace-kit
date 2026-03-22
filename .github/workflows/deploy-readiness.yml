@@ -5,6 +5,9 @@ on:
     branches: [ main, master ]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   deploy-readiness:
     runs-on: ubuntu-latest
@@ -12,6 +15,9 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
       - name: Check Deploy Domains Manifest
         run: |
           [ -f "kit/registry/deploy_domains.json" ] || exit 1

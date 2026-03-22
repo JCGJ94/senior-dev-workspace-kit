@@ -77,6 +77,13 @@ if [[ "$TARGET" != "windows-x64" ]]; then
   chmod +x "${OUTDIR}/pedrito-${TARGET}"
   chmod +x "${OUTDIR}/pedrito-engram-${TARGET}"
   chmod +x "${OUTDIR}/gga-${TARGET}"
+
+  if [[ "$TARGET" == macos-* ]] && command -v codesign >/dev/null 2>&1; then
+    echo "  → ad-hoc codesigning macOS binaries"
+    codesign --force --sign - "${OUTDIR}/pedrito-${TARGET}" >/dev/null 2>&1 || true
+    codesign --force --sign - "${OUTDIR}/pedrito-engram-${TARGET}" >/dev/null 2>&1 || true
+    codesign --force --sign - "${OUTDIR}/gga-${TARGET}" >/dev/null 2>&1 || true
+  fi
 fi
 
 # ── SHA-256 checksums ────────────────────────────────────────────────────────

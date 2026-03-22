@@ -4,8 +4,10 @@ import {
   searchObservations,
   getProjectContext,
   upsertObservation,
+  deleteObservation,
 } from '../db/queries.js';
 import type { ObservationType } from '../db/queries.js';
+import { SessionStore } from './sessions.js';
 
 const TOOLS = [
   {
@@ -47,6 +49,17 @@ const TOOLS = [
       required: ['project', 'type', 'topic_key', 'content'],
     },
   },
+  {
+    name: 'delete_observation',
+    description: 'Delete a saved observation by id',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'Observation id' },
+      },
+      required: ['id'],
+    },
+  },
 ];
 
 interface McpRequest {
@@ -56,77 +69,144 @@ interface McpRequest {
   params?: Record<string, unknown>;
 }
 
-export function mcpRoutes(db: Database): Hono {
+interface McpResponse {
+  jsonrpc: '2.0';
+  id: string | number | null;
+  result?: unknown;
+  error?: { code: number; message: string };
+}
+
+const SERVER_INFO = {
+  protocolVersion: '2024-11-05',
+  capabilities: { tools: { listChanged: false } },
+  serverInfo: { name: 'engram', version: '4.0.0' },
+};
+
+export function handleMcpRequest(db: Database, req: McpRequest): McpResponse {
+  const { method, params, id } = req;
+
+  if (method === 'initialize') {
+    return { jsonrpc: '2.0', id, result: SERVER_INFO };
+  }
+
+  if (method === 'notifications/initialized') {
+    return { jsonrpc: '2.0', id: id ?? null, result: { ok: true } };
+  }
+
+  if (method === 'tools/list') {
+    return { jsonrpc: '2.0', id, result: { tools: TOOLS } };
+  }
+
+  if (method === 'tools/call') {
+    const { name, arguments: args = {} } = (params ?? {}) as {
+      name: string;
+      arguments?: Record<string, unknown>;
+    };
+
+    let result: unknown;
+    try {
+      if (name === 'search_memory') {
+        result = searchObservations(
+          db,
+          args['q'] as string,
+          args['project'] as string | undefined,
+          args['type'] as string | undefined,
+        );
+      } else if (name === 'get_context') {
+        result = getProjectContext(db, args['project'] as string);
+      } else if (name === 'save_observation') {
+        result = upsertObservation(db, {
+          project: args['project'] as string,
+          type: args['type'] as ObservationType,
+          topic_key: args['topic_key'] as string,
+          content: args['content'] as string,
+          tags: JSON.stringify(args['tags'] ?? []),
+        });
+      } else if (name === 'delete_observation') {
+        deleteObservation(db, args['id'] as string);
+        result = { ok: true, id: args['id'] };
+      } else {
+        return {
+          jsonrpc: '2.0',
+          id,
+          error: { code: -32601, message: `Unknown tool: ${name}` },
+        };
+      }
+    } catch (err) {
+      return {
+        jsonrpc: '2.0',
+        id,
+        error: { code: -32603, message: String(err) },
+      };
+    }
+
+    return {
+      jsonrpc: '2.0',
+      id,
+      result: {
+        content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
+      },
+    };
+  }
+
+  return {
+    jsonrpc: '2.0',
+    id,
+    error: { code: -32601, message: `Method not found: ${method}` },
+  };
+}
+
+export function mcpRoutes(db: Database, sessionStore = new SessionStore()): Hono {
   const app = new Hono();
+  const pruneIntervalMs = 5 * 60 * 1000;
 
   // Discovery endpoint
   app.get('/mcp', (c) =>
     c.json({ name: 'engram', version: '4.0.0', tools: TOOLS }),
   );
 
+  app.get('/mcp/sse', (c) => {
+    const session = sessionStore.createSession();
+    session.send({
+      event: 'endpoint',
+      data: JSON.stringify({
+        sessionId: session.id,
+        endpoint: `/mcp/message?sessionId=${session.id}`,
+      }),
+    });
+
+    sessionStore.prune(pruneIntervalMs);
+
+    return new Response(session.stream, {
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        Connection: 'keep-alive',
+      },
+    });
+  });
+
   // JSON-RPC 2.0 handler
   app.post('/mcp', async (c) => {
     const req = await c.req.json<McpRequest>();
-    const { method, params, id } = req;
+    return c.json(handleMcpRequest(db, req));
+  });
 
-    if (method === 'tools/list') {
-      return c.json({ jsonrpc: '2.0', id, result: { tools: TOOLS } });
+  app.post('/mcp/message', async (c) => {
+    const sessionId = c.req.query('sessionId');
+    if (!sessionId) {
+      return c.json({ error: 'sessionId is required' }, 400);
     }
 
-    if (method === 'tools/call') {
-      const { name, arguments: args = {} } = params as {
-        name: string;
-        arguments?: Record<string, unknown>;
-      };
-
-      let result: unknown;
-      try {
-        if (name === 'search_memory') {
-          result = searchObservations(
-            db,
-            args['q'] as string,
-            args['project'] as string | undefined,
-            args['type'] as string | undefined,
-          );
-        } else if (name === 'get_context') {
-          result = getProjectContext(db, args['project'] as string);
-        } else if (name === 'save_observation') {
-          result = upsertObservation(db, {
-            project: args['project'] as string,
-            type: args['type'] as ObservationType,
-            topic_key: args['topic_key'] as string,
-            content: args['content'] as string,
-            tags: JSON.stringify(args['tags'] ?? []),
-          });
-        } else {
-          return c.json({
-            jsonrpc: '2.0',
-            id,
-            error: { code: -32601, message: `Unknown tool: ${name}` },
-          });
-        }
-      } catch (err) {
-        return c.json({
-          jsonrpc: '2.0',
-          id,
-          error: { code: -32603, message: String(err) },
-        });
-      }
-
-      return c.json({
-        jsonrpc: '2.0',
-        id,
-        result: {
-          content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
-        },
-      });
+    const session = sessionStore.get(sessionId);
+    if (!session) {
+      return c.json({ error: 'unknown sessionId' }, 404);
     }
 
-    return c.json({
-      jsonrpc: '2.0',
-      id,
-      error: { code: -32601, message: `Method not found: ${method}` },
-    });
+    const req = await c.req.json<McpRequest>();
+    const response = handleMcpRequest(db, req);
+    session.send({ event: 'message', data: JSON.stringify(response) });
+    return c.body(null, 202);
   });
 
   return app;

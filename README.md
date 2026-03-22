@@ -1,34 +1,38 @@
 <div align="center">
-  <img src="assets/hero.svg" alt="Pedrito - AI Agent System for Developer Workflow Automation" width="800" />
+  <img src="kit/assets/hero.svg" alt="Pedrito - AI Agent System for Developer Workflow Automation" width="800" />
 </div>
 
-**English** | [Español](README.es.md)
+**English** | [Español](kit/README.es.md)
 
 **Pedrito** is an **AI Agent System for Developer Workflow Automation**. Analyze code, debug systematically, generate docs, optimize prompts, and orchestrate complex workflows — all inside your project, with full developer control and zero hallucinations.
 
-One command installs everything. Then Pedrito runs inside your project with a full V3 architecture: SDD, Engram memory, Context7, MCP, and governed autonomy.
+Pedrito V4 runs as compiled Bun binaries and provisions a governed runtime inside your project: SDD workflows, Engram memory, GGA pre-commit review, MCP wiring, and reproducible team profiles.
 
 ## Install
 
-Clone the kit once and run setup in your project:
+Install the binaries (or build locally), then provision your project:
 
 ```bash
-git clone https://github.com/YOUR_USER/ai-engineering-workspace-kit.git
-cd /path/to/your-project
-bash /path/to/ai-engineering-workspace-kit/setup.sh
+curl -fsSL https://raw.githubusercontent.com/josec/pedrito/main/scripts/install.sh | sh
+# or: brew install pedrito (after tap setup)
 ```
 
-That's it. Setup installs the kit globally, registers the `pedrito` command in your shell, and provisions your project.
-
-After reloading your shell (`source ~/.bashrc` or restart terminal), use `pedrito` from any directory:
+Then, from your target project directory:
 
 ```bash
-pedrito init      # provision any project
-pedrito sync      # sync runtime after kit updates
-pedrito status    # runtime state at a glance
-pedrito doctor    # health check: SDD · Engram · Context7 · MCP
-pedrito validate  # audit skills and kit
-pedrito update    # update the kit itself
+pedrito install --agents claude-code --preset full-pedrito
+pedrito doctor
+pedrito version
+```
+
+Useful follow-up commands:
+
+```bash
+pedrito backup list
+pedrito mcp status
+pedrito profile export --output ./team-profile.json
+pedrito sync --to ./pedrito-sync.json
+pedrito update --all --dry-run
 ```
 
 ## Agent Modes
@@ -59,7 +63,7 @@ Each mode activates the minimum set of skills needed — no bloat, no noise.
 
 ## Runtime layout
 
-After `pedrito init`, your project contains:
+After `pedrito install`, your project contains:
 
 ```
 .agent/
@@ -67,6 +71,7 @@ After `pedrito init`, your project contains:
   registry/    skills.json — JIT activation index
   skills/      installed runtime skills
   workflows/   SDD workflow definitions
+  personas/    persona presets (pedrito-mode, neutral-mode)
   state/       env_state.json, allowed_ops.json (OP_* tokens)
 docs/engram/   durable memory (decisions, patterns, lessons)
 specs/         auditable SDD artifacts for non-trivial work
@@ -86,12 +91,12 @@ External skills require explicit developer approval and V3 adaptation before act
 
 ## Documentation
 
-- [docs/en/00_agent_modes.md](docs/en/00_agent_modes.md)
-- [docs/en/01_why_pedrito.md](docs/en/01_why_pedrito.md)
-- [docs/en/02_architecture.md](docs/en/02_architecture.md)
-- [docs/en/03_skills_management.md](docs/en/03_skills_management.md)
-- [docs/en/04_subagent_architecture_v3.md](docs/en/04_subagent_architecture_v3.md)
-- [docs/en/release-process.md](docs/en/release-process.md)
-- [docs/engram/index.md](docs/engram/index.md)
+- [kit/docs/en/00_agent_modes.md](kit/docs/en/00_agent_modes.md)
+- [kit/docs/en/01_why_pedrito.md](kit/docs/en/01_why_pedrito.md)
+- [kit/docs/en/02_architecture.md](kit/docs/en/02_architecture.md)
+- [kit/docs/en/03_skills_management.md](kit/docs/en/03_skills_management.md)
+- [kit/docs/en/04_subagent_architecture_v3.md](kit/docs/en/04_subagent_architecture_v3.md)
+- [kit/docs/en/release-process.md](kit/docs/en/release-process.md)
+- [kit/docs/engram/index.md](kit/docs/engram/index.md)
 
 Built for precise, low-noise, developer-governed AI engineering.

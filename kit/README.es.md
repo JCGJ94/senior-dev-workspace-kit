@@ -2,33 +2,37 @@
   <img src="assets/hero.svg" alt="Pedrito - AI Agent System for Developer Workflow Automation" width="800" />
 </div>
 
-[English](README.md) | **Español**
+[English](../README.md) | **Español**
 
 **Pedrito** es un **Sistema de Agentes IA para Automatización de Workflows de Desarrollo**. Analiza código, depura sistemáticamente, genera documentación, optimiza prompts y orquesta workflows complejos — todo dentro de tu proyecto, con control total del developer y cero alucinaciones.
 
-Un solo comando instala todo. Pedrito corre dentro de tu proyecto con arquitectura V3 completa: SDD, memoria Engram, Context7, MCP y autonomía gobernada.
+Pedrito V4 se distribuye como binarios compilados y provisiona un runtime gobernado dentro de tu proyecto: SDD, memoria Engram, GGA pre-commit, MCP y perfiles de equipo reproducibles.
 
 ## Instalación
 
-Clona el kit una vez y corre el setup en tu proyecto:
+Instala los binarios y luego provisiona tu proyecto:
 
 ```bash
-git clone https://github.com/YOUR_USER/ai-engineering-workspace-kit.git
-cd /ruta/a/tu-proyecto
-bash /ruta/a/ai-engineering-workspace-kit/setup.sh
+curl -fsSL https://raw.githubusercontent.com/josec/pedrito/main/scripts/install.sh | sh
+# o: brew install pedrito (tras configurar el tap)
 ```
 
-Eso es todo. El setup instala el kit globalmente, registra el comando `pedrito` en tu shell y provisiona tu proyecto.
-
-Después de recargar tu shell (`source ~/.bashrc` o reiniciar la terminal), usa `pedrito` desde cualquier directorio:
+Después, desde tu proyecto objetivo:
 
 ```bash
-pedrito init      # provisiona cualquier proyecto
-pedrito sync      # sincroniza el runtime tras actualizar el kit
-pedrito status    # estado del runtime de un vistazo
-pedrito doctor    # health check: SDD · Engram · Context7 · MCP
-pedrito validate  # audita skills y estructura del kit
-pedrito update    # actualiza el kit
+pedrito install --agents claude-code --preset full-pedrito
+pedrito doctor
+pedrito version
+```
+
+Comandos útiles de operación:
+
+```bash
+pedrito backup list
+pedrito mcp status
+pedrito profile export --output ./team-profile.json
+pedrito sync --to ./pedrito-sync.json
+pedrito update --all --dry-run
 ```
 
 ## Modos de Agente
@@ -59,7 +63,7 @@ Cada modo activa el conjunto mínimo de skills necesarias — sin bloat, sin rui
 
 ## Estructura del runtime
 
-Tras `pedrito init`, tu proyecto contiene:
+Tras `pedrito install`, tu proyecto contiene:
 
 ```
 .agent/
@@ -67,6 +71,7 @@ Tras `pedrito init`, tu proyecto contiene:
   registry/    skills.json — índice de activación JIT
   skills/      skills del runtime instaladas
   workflows/   definiciones de workflows SDD
+  personas/    presets de persona (pedrito-mode, neutral-mode)
   state/       env_state.json, allowed_ops.json (tokens OP_*)
 docs/engram/   memoria durable (decisiones, patrones, lecciones)
 specs/         artefactos SDD auditables para trabajo no trivial

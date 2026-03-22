@@ -1,8 +1,8 @@
 # Summary — V4 Phase 9: Polish de Pedrito Core
 
-**Status:** In Progress
+**Status:** Complete
 **Started:** 2026-03-22
-**Completed:** —
+**Completed:** 2026-03-22
 
 ## What This Is
 
@@ -62,3 +62,9 @@ Polish y extensión del núcleo de Pedrito. Tres áreas:
 - `kit/config/personas/neutral-mode.md` (new)
 - `kit/AGENTS.md` (updated — Engram Protocol, GGA Integration sections)
 - `kit/registry/skill_manifest.json` (updated — 16 new skills registered)
+- `packages/installer/src/components/project.ts` (updated — instala `.agent/personas/`)
+- `packages/installer/src/components/claude.ts` (updated — selección de persona explícita)
+- `packages/installer/src/orchestrator.ts` (updated — persona configurable y persistida)
+- `packages/installer/src/config/config-store.ts` (updated — campo `persona`)
+- `packages/installer/src/cli.ts` (updated — `pedrito install --persona`)
+- `packages/installer/src/index.test.ts` (updated — tests de runtime/persona)

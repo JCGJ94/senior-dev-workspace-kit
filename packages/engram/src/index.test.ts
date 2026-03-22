@@ -12,6 +12,8 @@ import {
   getObservationByKey,
 } from './db/queries.js';
 import { createApp } from './api/routes.js';
+import { handleMcpRequest } from './mcp/server.js';
+import { SessionStore } from './mcp/sessions.js';
 
 let db: Database;
 
@@ -178,5 +180,90 @@ describe('HTTP API', () => {
     expect(res.status).toBe(200);
     const body = (await res.json()) as unknown[];
     expect(body.length).toBe(1);
+  });
+});
+
+describe('MCP', () => {
+  test('initialize handshake returns capabilities and server info', () => {
+    const response = handleMcpRequest(db, {
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'initialize',
+    });
+    expect(response.result).toBeTruthy();
+    expect((response.result as { serverInfo: { name: string } }).serverInfo.name).toBe('engram');
+  });
+
+  test('tools/list returns the 4 MCP tools', () => {
+    const response = handleMcpRequest(db, {
+      jsonrpc: '2.0',
+      id: 2,
+      method: 'tools/list',
+    });
+    expect(((response.result as { tools: unknown[] }).tools)).toHaveLength(4);
+  });
+
+  test('tools/call save, search, context and delete work end-to-end', () => {
+    const saveResponse = handleMcpRequest(db, {
+      jsonrpc: '2.0',
+      id: 3,
+      method: 'tools/call',
+      params: {
+        name: 'save_observation',
+        arguments: {
+          project: 'mcp-proj',
+          type: 'decision',
+          topic_key: 'cache-strategy',
+          content: 'Use a write-through cache.',
+          tags: ['cache'],
+        },
+      },
+    });
+
+    const savedText = ((saveResponse.result as { content: Array<{ text: string }> }).content[0]?.text) ?? '{}';
+    const saved = JSON.parse(savedText) as { id: string };
+
+    const searchResponse = handleMcpRequest(db, {
+      jsonrpc: '2.0',
+      id: 4,
+      method: 'tools/call',
+      params: {
+        name: 'search_memory',
+        arguments: { q: 'write', project: 'mcp-proj' },
+      },
+    });
+    expect(searchResponse.error).toBeUndefined();
+    expect(((searchResponse.result as { content: Array<{ text: string }> }).content[0]?.text ?? '')).toContain('cache-strategy');
+
+    const contextResponse = handleMcpRequest(db, {
+      jsonrpc: '2.0',
+      id: 5,
+      method: 'tools/call',
+      params: {
+        name: 'get_context',
+        arguments: { project: 'mcp-proj' },
+      },
+    });
+    expect(((contextResponse.result as { content: Array<{ text: string }> }).content[0]?.text ?? '')).toContain('write-through');
+
+    const deleteResponse = handleMcpRequest(db, {
+      jsonrpc: '2.0',
+      id: 6,
+      method: 'tools/call',
+      params: {
+        name: 'delete_observation',
+        arguments: { id: saved.id },
+      },
+    });
+    expect(((deleteResponse.result as { content: Array<{ text: string }> }).content[0]?.text ?? '')).toContain('"ok": true');
+  });
+
+  test('session store creates sessions and prunes stale ones', () => {
+    const store = new SessionStore();
+    const session = store.createSession();
+    expect(store.get(session.id)).toBeTruthy();
+    session.lastSeenAt = Date.now() - 10_000;
+    expect(store.prune(1_000)).toBe(1);
+    expect(store.get(session.id)).toBeUndefined();
   });
 });

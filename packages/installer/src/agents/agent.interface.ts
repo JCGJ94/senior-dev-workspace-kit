@@ -78,4 +78,5 @@ export interface Agent {
   // Metadata
   configPaths(): string[];
   capabilities(): Capability[];
+  skillsDir?(): string | null;
 }
