@@ -3,6 +3,8 @@ import json
 import sys
 from pathlib import Path
 
+SHARED_SKILL_DIR_PREFIXES = ("_",)
+
 def main():
     print("Starting Skill Architecture Validation...")
     
@@ -72,6 +74,8 @@ def main():
     if skills_dir.exists():
         for entry in os.scandir(skills_dir):
             if entry.is_dir():
+                if entry.name.startswith(SHARED_SKILL_DIR_PREFIXES):
+                    continue
                 # Every folder must contain SKILL.md
                 skill_md_path = Path(entry.path) / 'SKILL.md'
                 if not skill_md_path.exists():
@@ -127,6 +131,8 @@ def main():
     if skills_dir.exists():
         for entry in os.scandir(skills_dir):
             if entry.is_dir():
+                if entry.name.startswith(SHARED_SKILL_DIR_PREFIXES):
+                    continue
                 skill_md_path = Path(entry.path) / 'SKILL.md'
                 if skill_md_path.exists():
                     check_skill_md(entry.name, skill_md_path)

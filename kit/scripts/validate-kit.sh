@@ -4,6 +4,18 @@ set -euo pipefail
 
 echo "🔎 Validating V3 kit structure..."
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+
+if [ -f "${REPO_ROOT}/kit/AGENTS.md" ] && [ -d "${REPO_ROOT}/kit/core" ]; then
+  KIT_ROOT="${REPO_ROOT}/kit"
+elif [ -f "${REPO_ROOT}/AGENTS.md" ] && [ -d "${REPO_ROOT}/core" ]; then
+  KIT_ROOT="${REPO_ROOT}"
+else
+  echo "❌ Could not locate kit root from ${REPO_ROOT}"
+  exit 1
+fi
+
 PYTHON_BIN="${PYTHON_BIN:-python3}"
 if ! command -v "$PYTHON_BIN" >/dev/null 2>&1; then
   if command -v python >/dev/null 2>&1; then
@@ -15,15 +27,15 @@ if ! command -v "$PYTHON_BIN" >/dev/null 2>&1; then
 fi
 
 required_paths=(
-  "AGENTS.md"
-  "core"
-  "scripts/sync-workspace.sh"
-  "registry/skill_manifest.json"
-  "registry/skill_activation_rules.md"
-  "docs/engram/index.md"
-  "specs/README.md"
-  "skills/architect-orchestrator-v3/SKILL.md"
-  "skills/humanized-communication/SKILL.md"
+  "${KIT_ROOT}/AGENTS.md"
+  "${KIT_ROOT}/core"
+  "${KIT_ROOT}/scripts/sync-workspace.sh"
+  "${KIT_ROOT}/registry/skill_manifest.json"
+  "${KIT_ROOT}/registry/skill_activation_rules.md"
+  "${KIT_ROOT}/docs/engram/index.md"
+  "${KIT_ROOT}/specs/README.md"
+  "${KIT_ROOT}/skills/architect-orchestrator-v3/SKILL.md"
+  "${KIT_ROOT}/skills/humanized-communication/SKILL.md"
 )
 
 for path in "${required_paths[@]}"; do
@@ -33,13 +45,17 @@ for path in "${required_paths[@]}"; do
   fi
 done
 
-bash "$(dirname "$0")/validate-skills.sh"
-"$PYTHON_BIN" - <<'PY'
+bash "${SCRIPT_DIR}/validate-skills.sh"
+REPO_ROOT="$REPO_ROOT" KIT_ROOT="$KIT_ROOT" "$PYTHON_BIN" - <<'PY'
 import json
+import os
+
+kit_root = os.environ['KIT_ROOT']
+
 for path in [
-    'registry/skill_manifest.json',
-    'registry/activation_policy.json',
-    'registry/profiles/profiles_manifest.json',
+    os.path.join(kit_root, 'registry/skill_manifest.json'),
+    os.path.join(kit_root, 'registry/activation_policy.json'),
+    os.path.join(kit_root, 'registry/profiles/profiles_manifest.json'),
 ]:
     with open(path, encoding='utf-8') as f:
         json.load(f)
@@ -50,15 +66,23 @@ PY
 # Supports both layouts:
 # 1) Standalone kit repo: .agent/skills
 # 2) Monorepo (kit/ subdir): ../.agent/skills
-"$PYTHON_BIN" - <<'PY'
+REPO_ROOT="$REPO_ROOT" KIT_ROOT="$KIT_ROOT" "$PYTHON_BIN" - <<'PY'
 import json, sys, os
 
-manifest = json.load(open('registry/skill_manifest.json'))
+repo_root = os.environ['REPO_ROOT']
+kit_root = os.environ['KIT_ROOT']
+
+manifest = json.load(open(os.path.join(kit_root, 'registry/skill_manifest.json')))
 registered = set(manifest['skills'].keys())
 
-source = set(os.listdir('skills'))
+source = set(os.listdir(os.path.join(kit_root, 'skills')))
 runtime_path = None
-for candidate in ('.agent/skills', '../.agent/skills'):
+for candidate in (
+    os.path.join(repo_root, '.agent', 'skills'),
+    os.path.join(os.path.dirname(kit_root), '.agent', 'skills'),
+    '.agent/skills',
+    '../.agent/skills',
+):
     if os.path.isdir(candidate):
         runtime_path = candidate
         break
