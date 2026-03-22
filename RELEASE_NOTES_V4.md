@@ -1,57 +1,35 @@
-# Pedrito V4 Release Notes
+# Pedrito Release Notes
 
-## Highlights
+## V5 — Orchestrator Protocol
 
-- Introduced a production-grade monorepo with three binaries:
-  - `pedrito` (installer and operations CLI)
-  - `pedrito-engram` (memory server)
-  - `gga` (Guardian Angel pre-commit reviewer)
-- Delivered Engram with SQLite persistence, REST API, MCP tooling, and OpenCode integration hooks.
-- Delivered GGA with staged-file inspection, rules extraction, provider abstraction, response parsing, and SHA-based cache.
-- Delivered installer capabilities for runtime provisioning, backups, MCP status/catalog, team profiles, self-update modules, and config sync.
+- Orchestrator operates as coordinator only — Hard Stop Rule enforced across core rules
+- Shared contracts: `return-envelope.md` and `engram-protocol.md` for sub-agent dispatch
+- `allowed_ops.json` runtime state with `[OP_*]` token resolution (fail-closed)
+- Task classification gate: direct, small, orchestrated, parallel
+- Engram context loop integrated into dispatch lifecycle
+- Skill pre-resolution cached per session
+- 4 persona modes: pedrito-cubano (default), pedrito-colombiano, pedrito-neutral-latam, neutral-mode
+- Validation scripts aligned with monorepo layout
 
-## Core Features Added
+## V4 — Production Monorepo
 
-- **Engram memory platform**
-  - Sessions and observations API
-  - FTS search/context retrieval
-  - MCP handlers for list/call tools (save/search/context/delete)
-- **GGA review engine**
-  - `gga run`, `install`, `uninstall`, `config`, `cache`, `status`
-  - Provider adapters (`claude`, `gemini`, `opencode`, `ollama`, `lmstudio`, `github`)
-- **Installer operations**
-  - `pedrito install`, `doctor`, `backup`, `mcp`, `profile`, `update`, `sync`
-  - Team profile export/import/save/show/delete
-  - Self-update modules and skills sync framework
-- **Polish core (Phase 9)**
-  - Runtime personas as first-class assets (`.agent/personas`)
-  - Persona selection at install time (`--persona`)
-  - Modern skill set and discrete SDD skill coverage synced to runtime
+- Monorepo with three binaries: `pedrito` (installer CLI), `pedrito-engram` (memory server), `gga` (pre-commit reviewer)
+- Engram: SQLite + FTS5 + REST API + MCP tooling
+- GGA: staged-file inspection, provider abstraction (claude, gemini, opencode, ollama, lmstudio, github), SHA-based cache
+- Installer: install, doctor, backup, mcp, profile, update, sync
+- Team profiles: export/import/save/show/delete
+- Self-update modules and skills sync framework
+- Runtime personas as first-class assets with install-time selection (`--persona`)
+- 60 skills, 48 registered in manifest, tiered activation (0-4 + Meta)
+- Cross-platform release builds with codesigning and smoke validation
 
 ## Distribution
 
-- Release build scripts generate cross-platform binaries and checksums.
-- macOS release artifacts are ad-hoc codesigned in build pipeline.
-- Local release smoke validation script is included (`scripts/smoke-release.sh`).
+- Release build scripts generate cross-platform binaries and checksums
+- macOS artifacts are ad-hoc codesigned in build pipeline
+- Homebrew tap formula with automated SHA updates
 
-## Documentation
+## Verification
 
-- English and Spanish README files are aligned with current CLI behavior.
-- Release readiness checklist is available in `RELEASE_READINESS_V4.md`.
-
-## Verification Snapshot
-
-Validated locally before release:
-
-- `bun run typecheck`
-- `bun test`
-- `bun run packages/installer/src/cli.ts --help`
-- `bash scripts/build-release.sh macos-arm64`
-- `bash scripts/smoke-release.sh macos-arm64`
-- `ruby -c Formula/pedrito.rb`
-
-## Known External Post-release Checks
-
-- `pedrito update --all --dry-run` against live GitHub Releases API
-- `scripts/install.sh` against published release assets
-- Homebrew tap SHA256 updates from published artifacts
+- `bun run typecheck` / `bun test` / `bash kit/scripts/validate-kit.sh`
+- `bash scripts/build-release.sh <platform>` / `bash scripts/smoke-release.sh <platform>`
