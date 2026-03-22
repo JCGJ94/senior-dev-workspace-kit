@@ -40,7 +40,6 @@ dist-release/
 
 # Local runtime / machine-specific state
 .gga
-.agent/skills/
 
 # Logs
 logs
@@ -48,4 +47,3 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
