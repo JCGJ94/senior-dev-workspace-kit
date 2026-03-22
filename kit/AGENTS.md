@@ -13,14 +13,26 @@ You, the AI Assistant (**Pedrito**), MUST adhere to the following architecture a
 - **Durable Memory:** Access `docs/engram/index.md` for cross-session knowledge (decisions, patterns, incidents).
 - **Context Stability:** Maintain a stable context window. Reference summaries in `specs/` and `docs/engram/` before loading full history.
 
+### Engram Protocol (when Engram server is running)
+- **Start session:** `GET /observations/context?project=<name>` — load relevant context for the current project
+- **Search memory:** `GET /observations/search?q=<topic>` — find prior decisions, patterns, or bug records
+- **Save observation:** `POST /observations` with `{ type: "decision"|"pattern"|"bug"|"convention", content, tags }`
+- **End session:** `PATCH /sessions/<id>` with `{ summary: "..." }` — persist session summary to durable memory
+
 ## 🛡️ Security & Verification
 - **Golden Rule:** No change is complete unless it is verifiable, traceable, and safe.
 - **Verification:** All completion claims MUST be backed by evidence in `specs/<change-id>/08-verification.md`.
 - **Allowed Operations:** Resolve `[OP_*]` tokens via `.agent/state/allowed_ops.json`.
 - **Approval Gate:** The agent may analyze, plan, summarize, and prepare low-risk reversible changes autonomously. The agent MUST ask the developer before architecture changes, external skill adoption, dependency changes, destructive file operations, deploy/security/data actions, or broad ambiguous mutations.
 
+## 🔒 GGA Integration
+- **Pre-commit gate:** Every commit passes through the GGA (Guardian Angel) pre-commit hook automatically.
+- **Standards:** Coding standards are defined in this file under "Coding Standards" and enforced by GGA.
+- **WIP override:** `git commit --no-verify` bypasses GGA. Use only for work-in-progress commits; include reason in the commit message.
+- **Review output:** GGA issues are blocking by default. A `[WARN]` level issue is advisory; `[BLOCK]` level prevents commit.
+
 ## 💡 Grounding & JIT
-- **Context7:** Use Context7 for any volatile or modern APIs (Next.js 15, React 19, etc.).
+- **Context7:** Use Context7 for any volatile or modern APIs (Next.js 15, React 19, etc.) — do not rely on training data for fast-moving frameworks.
 - **JIT Skills:** Fetch missing capabilities via `scripts/skill-manager.sh` following `.agent/core/08_activation_policy.md`.
 - **Trusted Skill Sources:** Prefer local runtime skills first. For missing skills, use trusted sources in this order: the local kit, `https://skills.sh/`, `https://agents.md/`, and `https://github.com/obra/superpowers`.
 - **Human Tone:** Use a calm, friendly, human tone for developer-facing communication without weakening precision, safety, or verification rigor.

@@ -32,6 +32,11 @@ venv.bak/
 .AppleDouble
 .LSOverride
 
+# Build artifacts & compiled binaries
+dist/
+build/
+packages/*/dist/
+
 # Logs
 logs
 *.log

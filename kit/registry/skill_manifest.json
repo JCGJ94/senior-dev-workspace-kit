@@ -127,6 +127,70 @@
         "writing-plans": {
             "path": "skills/writing-plans/SKILL.md",
             "description": "Establish a structured, step-by-step Execution Plan before writing any complex code."
+        },
+        "react-19": {
+            "path": "skills/react-19/SKILL.md",
+            "description": "Apply React 19 patterns: use() hook, Server Actions, useOptimistic, ref-as-prop, and form actions."
+        },
+        "nextjs-16": {
+            "path": "skills/nextjs-16/SKILL.md",
+            "description": "Apply Next.js 16.x App Router patterns: Server Components, Server Actions, caching opt-in, PPR, AI agent tooling, and browser log forwarding."
+        },
+        "tailwind-4": {
+            "path": "skills/tailwind-4/SKILL.md",
+            "description": "Apply Tailwind CSS v4 CSS-first configuration: @theme directive, CSS custom properties, and new utility API."
+        },
+        "zod-4": {
+            "path": "skills/zod-4/SKILL.md",
+            "description": "Apply Zod v4 API: z.email/url/uuid string methods, z.pipe(), ZodMini, and performance-oriented patterns."
+        },
+        "ai-sdk-5": {
+            "path": "skills/ai-sdk-5/SKILL.md",
+            "description": "Apply Vercel AI SDK v5 patterns: streamText, generateObject, useChat, tool(), and provider configuration."
+        },
+        "playwright": {
+            "path": "skills/playwright/SKILL.md",
+            "description": "Write and maintain E2E tests with Playwright: page objects, fixtures, assertions, network mocking, and CI configuration."
+        },
+        "pr-review": {
+            "path": "skills/pr-review/SKILL.md",
+            "description": "Conduct systematic, actionable PR reviews: correctness, security, tests, design, and constructive feedback."
+        },
+        "sdd-init": {
+            "path": "skills/sdd-init/SKILL.md",
+            "description": "SDD Phase 1: bootstrap a new spec — create intake artifact and register the change."
+        },
+        "sdd-explore": {
+            "path": "skills/sdd-explore/SKILL.md",
+            "description": "SDD Phase 2: technical exploration — map the codebase, identify constraints, and surface unknowns."
+        },
+        "sdd-propose": {
+            "path": "skills/sdd-propose/SKILL.md",
+            "description": "SDD Phase 3: propose solution options with trade-offs and get developer buy-in."
+        },
+        "sdd-spec": {
+            "path": "skills/sdd-spec/SKILL.md",
+            "description": "SDD Phase 4: write the formal specification — contracts, interfaces, data models, and acceptance criteria."
+        },
+        "sdd-design": {
+            "path": "skills/sdd-design/SKILL.md",
+            "description": "SDD Phase 5: technical design — architecture decisions, module breakdown, and implementation approach."
+        },
+        "sdd-tasks": {
+            "path": "skills/sdd-tasks/SKILL.md",
+            "description": "SDD Phase 6: break the design into atomic, ordered implementation tasks with acceptance conditions."
+        },
+        "sdd-apply": {
+            "path": "skills/sdd-apply/SKILL.md",
+            "description": "SDD Phase 7: execute implementation tasks in order, logging deviations and verifying each task on completion."
+        },
+        "sdd-verify": {
+            "path": "skills/sdd-verify/SKILL.md",
+            "description": "SDD Phase 8: verify all acceptance criteria from the spec are met with explicit evidence."
+        },
+        "sdd-archive": {
+            "path": "skills/sdd-archive/SKILL.md",
+            "description": "SDD Phase 9: close the spec, capture lessons learned, and promote reusable knowledge to Engram."
         }
     }
 }

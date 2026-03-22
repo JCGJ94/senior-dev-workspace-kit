@@ -1,0 +1,25 @@
+{
+  "name": "@pedrito/engram",
+  "version": "4.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "engram": "dist/engram"
+  },
+  "scripts": {
+    "build": "bun build src/main.ts --compile --outfile dist/engram",
+    "build:dev": "bun build src/main.ts --outdir dist",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "dev": "bun run src/main.ts serve",
+    "start": "dist/engram serve"
+  },
+  "dependencies": {
+    "hono": "^4.0.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.4.0"
+  }
+}
