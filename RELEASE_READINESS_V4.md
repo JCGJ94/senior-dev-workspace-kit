@@ -24,6 +24,7 @@ This checklist is the final pre-release pass for Pedrito V4:
 - [x] Root README command examples aligned with current CLI
 - [x] Spanish README command examples aligned with current CLI
 - [x] Phase 9 summary marked as complete and mapped to real files
+- [x] GitHub Release notes sourced from `RELEASE_NOTES_V4.md` via workflow (`body_path`)
 
 ## Verification Commands
 
@@ -37,6 +38,7 @@ bash -n scripts/build-release.sh
 bash -n scripts/install.sh
 bash -n scripts/smoke-release.sh
 ruby -c Formula/pedrito.rb
+(cd kit && bash scripts/validate-kit.sh)
 ```
 
 Platform-specific release smoke (example macOS ARM64):

@@ -110,34 +110,4 @@ jobs:
           name: Pedrito v${{ steps.version.outputs.VERSION }}
           prerelease: ${{ contains(github.ref_name, '-') }}
           files: release-files/*
-          body: |
-            ## Pedrito v${{ steps.version.outputs.VERSION }}
-
-            ### Install
-
-            **macOS / Linux (recommended):**
-            ```bash
-            curl -fsSL https://raw.githubusercontent.com/${{ github.repository }}/main/scripts/install.sh | sh
-            ```
-
-            **Homebrew (macOS):**
-            ```bash
-            brew tap ${{ github.repository_owner }}/pedrito
-            brew install pedrito
-            ```
-
-            **Direct download:**
-            | Platform | Binary |
-            |---|---|
-            | macOS ARM64 | `pedrito-macos-arm64` |
-            | macOS x64   | `pedrito-macos-x64` |
-            | Linux x64   | `pedrito-linux-x64` |
-            | Windows x64 | `pedrito-windows-x64.exe` |
-
-            Verify checksums: each binary has a corresponding `.sha256` file.
-
-            ### After install
-            ```bash
-            pedrito version   # verify installation
-            pedrito install   # set up Pedrito in a project
-            ```
+          body_path: RELEASE_NOTES_V4.md
